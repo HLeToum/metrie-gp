@@ -45,6 +45,9 @@
         <a href="portfolio.html">Portfolio</a>
       </nav>
       <a href="contact.html" class="nav-cta">Nous écrire</a>
+      <button class="nav-burger" id="nav-burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="topnav">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </header>
 
@@ -333,6 +336,25 @@
     window.addEventListener('scroll', () => {
       topnav.classList.toggle('scrolled', window.scrollY > 40);
     }, { passive: true });
+
+    // Mobile hamburger menu toggle
+    const burger = document.getElementById('nav-burger');
+    if (burger) {
+      const close = () => {
+        topnav.classList.remove('open');
+        burger.setAttribute('aria-expanded', 'false');
+        document.body.classList.remove('nav-open');
+      };
+      burger.addEventListener('click', () => {
+        const isOpen = topnav.classList.toggle('open');
+        burger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        document.body.classList.toggle('nav-open', isOpen);
+      });
+      // Close when clicking any drawer link
+      topnav.querySelectorAll('nav a, .nav-cta').forEach(a => a.addEventListener('click', close));
+      // Close on Escape
+      document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+    }
   </script>
 </body>
 </html>
