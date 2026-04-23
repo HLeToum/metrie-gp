@@ -1187,13 +1187,32 @@ body.page-content .instrument-photo .caption {
   justify-content: center;
   z-index: 6;
   pointer-events: none;
-  animation: touchHintFadeIn 0.8s ease-out 0.4s both;
+  animation: touchHintFadeIn 0.8s ease-out 0.4s both, touchHintAutoHide 0.6s ease-in 5.5s forwards;
   transition: opacity 0.5s ease-out, transform 0.5s ease-out;
 }
 .touch-hint.dismissed {
-  opacity: 0;
+  opacity: 0 !important;
   transform: translateY(-8px);
   pointer-events: none;
+}
+@keyframes touchHintAutoHide {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(-8px); visibility: hidden; }
+}
+/* Hero scene: anchor the hint to the right half so it doesn't hide behind the hero text */
+#scene-container .touch-hint {
+  justify-content: flex-end;
+  padding-right: clamp(32px, 6vw, 96px);
+  padding-left: 38%; /* reserves the left 38% for hero-content on wide screens */
+}
+@media (max-width: 960px) {
+  #scene-container .touch-hint {
+    justify-content: center;
+    padding-left: 24px;
+    padding-right: 24px;
+    align-items: flex-end;
+    padding-bottom: 140px;
+  }
 }
 .touch-hint-card {
   display: inline-flex;

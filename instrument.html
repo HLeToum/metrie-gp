@@ -153,15 +153,21 @@
       topnav.classList.toggle('scrolled', window.scrollY > 40);
     }, { passive: true });
 
-    // Viewer touch hint — fade out on first interaction or after 6 s
+    // Viewer touch hint — fade out after 5.5 s or on first genuine interaction
+    // (events fired during the first 1.8 s of the hint lifetime are ignored so
+    // the user always sees the hint).
     const viewerHint = document.getElementById('viewer-touch-hint');
     const viewerEl = document.getElementById('scanner-viewer');
     if (viewerHint && viewerEl) {
-      const dismiss = () => viewerHint.classList.add('dismissed');
+      const spawned = performance.now();
+      const dismiss = () => {
+        if (performance.now() - spawned < 1800) return;
+        viewerHint.classList.add('dismissed');
+      };
       ['pointerdown', 'wheel', 'touchstart'].forEach(ev =>
-        viewerEl.addEventListener(ev, dismiss, { once: true, passive: true })
+        viewerEl.addEventListener(ev, dismiss, { passive: true })
       );
-      setTimeout(dismiss, 6000);
+      setTimeout(() => viewerHint.classList.add('dismissed'), 5500);
     }
   </script>
 

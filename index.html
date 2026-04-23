@@ -98,15 +98,23 @@
       topnav.classList.toggle('scrolled', window.scrollY > 40);
     }, { passive: true });
 
-    // Touch hint — fade out on first interaction or after 6 s
+    // Touch hint — appears 0.4 s after load (CSS), fades out after 5.5 s total,
+    // or earlier if the user genuinely interacts with the scene. We ignore any
+    // input events fired during the first 1.8 s (browser auto-focus events,
+    // OrbitControls boot, pointer capture from passing canvas, etc.) so the
+    // hint isn't dismissed before the user sees it.
     const touchHint = document.getElementById('hero-touch-hint');
     if (touchHint) {
-      const dismiss = () => touchHint.classList.add('dismissed');
+      const spawned = performance.now();
+      const dismiss = () => {
+        if (performance.now() - spawned < 1800) return;
+        touchHint.classList.add('dismissed');
+      };
       const scene = document.getElementById('scene-container');
       ['pointerdown', 'wheel', 'touchstart'].forEach(ev =>
-        scene.addEventListener(ev, dismiss, { once: true, passive: true })
+        scene.addEventListener(ev, dismiss, { passive: true })
       );
-      setTimeout(dismiss, 6000);
+      setTimeout(() => touchHint.classList.add('dismissed'), 5500);
     }
   </script>
 
