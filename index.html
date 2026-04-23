@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Metrie GP — Scan 3D LiDAR de précision</title>
+  <meta name="description" content="Metrie GP : relevés 3D haute précision par technologie LiDAR FJD Trion P2. Relevés, BIM, patrimoine." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="page-immersive">
+
+  <header class="nav nav-dark" id="topnav">
+    <div class="nav-inner">
+      <a href="index.html" class="logo">
+        <span class="logo-text">Metrie GP</span>
+      </a>
+      <nav>
+        <a href="instrument.html">L'instrument</a>
+        <a href="services.html">Services</a>
+        <a href="performances.html">Performances</a>
+        <a href="process.html">Process</a>
+      </nav>
+      <a href="contact.html" class="nav-cta">Nous écrire</a>
+    </div>
+  </header>
+
+  <main>
+    <section id="hero" class="hero-immersive">
+
+      <!-- FULL-VIEWPORT ANIMATED SCANNER SCENE (background) -->
+      <div id="scene-container">
+        <canvas id="three-canvas"></canvas>
+
+        <!-- Sonar HUD overlays (decorative corners only — data readouts moved to bottom-right) -->
+        <div class="sc-bracket tl"></div>
+        <div class="sc-bracket tr"></div>
+        <div class="sc-bracket bl"></div>
+        <div class="sc-bracket br"></div>
+
+        <div class="sc-hud sc-hud-br">
+          <div class="sc-row"><span class="sc-dot"></span><span class="sc-label">Signal</span><span class="sc-value">active</span></div>
+          <div class="sc-row"><span class="sc-label">Angle</span><span class="sc-value" id="v-angle">000.0°</span></div>
+          <div class="sc-row"><span class="sc-label">Points</span><span class="sc-value" id="v-points">0</span></div>
+          <div class="sc-row"><span class="sc-label">Rate</span><span class="sc-value" id="v-rate">0 pts/s</span></div>
+          <div class="sc-row"><span class="sc-label">Unit</span><span class="sc-value">FJD Trion P2</span></div>
+          <span class="sc-value" id="v-rev" hidden>0</span>
+        </div>
+
+        <!-- Tactile hint — appears on load, fades after interaction -->
+        <div class="touch-hint" id="hero-touch-hint">
+          <div class="touch-hint-card">
+            <svg class="touch-hint-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M24 6 V20 M24 20 C24 17 26 15 29 15 C32 15 34 17 34 20 V32 C34 38 30 42 24 42 C18 42 14 38 14 32 V24 C14 21 16 19 19 19 C22 19 24 21 24 24"/>
+              <path d="M12 10 L15 13 M36 10 L33 13 M10 20 L14 20 M38 20 L34 20" opacity="0.5"/>
+            </svg>
+            <div class="touch-hint-text">
+              <strong>Scène interactive</strong>
+              <span>Glissez pour orbiter · molette pour zoomer</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- OVERLAID HERO CONTENT (title + CTAs) -->
+      <div class="hero-overlay">
+        <div class="hero-content">
+          <div class="hero-eyebrow">Metrie GP · Scan 3D / LiDAR</div>
+          <h1 class="display">
+            Capter le réel,<br/>
+            <em>à la mesure</em><br/>
+            <span class="thin">du millimètre.</span>
+          </h1>
+          <p class="hero-lede">
+            Studio de <strong>relevé 3D haute précision</strong>.
+            Nous transformons bâtiments, ouvrages et sites complexes en nuages
+            de points, maquettes BIM et jumeaux numériques exploitables.
+          </p>
+          <div class="hero-cta">
+            <a href="contact.html" class="btn-primary">Démarrer un projet</a>
+            <a href="instrument.html" class="btn-text">Voir l'instrument</a>
+          </div>
+          <div class="hero-meta-grid">
+            <div><span class="k">Portée</span><span class="v">120 m</span></div>
+            <div><span class="k">Précision</span><span class="v">±2 cm</span></div>
+            <div><span class="k">Cadence</span><span class="v">320k pts/s</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const topnav = document.getElementById('topnav');
+    window.addEventListener('scroll', () => {
+      topnav.classList.toggle('scrolled', window.scrollY > 40);
+    }, { passive: true });
+
+    // Touch hint — fade out on first interaction or after 6 s
+    const touchHint = document.getElementById('hero-touch-hint');
+    if (touchHint) {
+      const dismiss = () => touchHint.classList.add('dismissed');
+      const scene = document.getElementById('scene-container');
+      ['pointerdown', 'wheel', 'touchstart'].forEach(ev =>
+        scene.addEventListener(ev, dismiss, { once: true, passive: true })
+      );
+      setTimeout(dismiss, 6000);
+    }
+  </script>
+
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+        "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+      }
+    }
+  </script>
+  <script type="module" src="main.js"></script>
+</body>
+</html>

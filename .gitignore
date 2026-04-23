@@ -1,0 +1,6 @@
+node_modules/
+.tmp_design/
+.tmp_design2/
+*.log
+.DS_Store
+Thumbs.db
