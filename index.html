@@ -3,129 +3,336 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Metrie GP — Scan 3D LiDAR de précision</title>
-  <meta name="description" content="Metrie GP : relevés 3D haute précision par technologie LiDAR FJD Trion P2. Relevés, BIM, patrimoine." />
+  <title>Metrie GP — Scan 3D LiDAR & Scan-to-BIM en Guadeloupe</title>
+  <meta name="description" content="Metrie GP : studio de relevé 3D LiDAR haute précision en Guadeloupe. Scan-to-BIM Revit / ArchiCAD / IFC, relevé topographique et architectural, jumeaux numériques pour l'industrie, le bâtiment et le patrimoine antillais." />
+  <meta name="keywords" content="scan 3D LiDAR Guadeloupe, Scan-to-BIM Antilles, relevé topographique Guadeloupe, nuage de points, maquette BIM Revit, modélisation ArchiCAD, jumeau numérique, FJD Trion P2, patrimoine créole, DOM-TOM, relevé architectural" />
+  <meta property="og:title" content="Metrie GP — Scan 3D LiDAR & Scan-to-BIM en Guadeloupe" />
+  <meta property="og:description" content="Relevés 3D haute précision par LiDAR mobile. Plans, maquettes BIM, jumeaux numériques. Basés en Guadeloupe, au service des Antilles françaises." />
+  <meta property="og:type" content="website" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://metrie-gp.fr/" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "Metrie GP",
+    "description": "Studio de scan 3D LiDAR et Scan-to-BIM basé en Guadeloupe. Relevés haute précision pour le bâtiment, l'industrie, l'ingénierie et le patrimoine.",
+    "areaServed": ["Guadeloupe", "Martinique", "Saint-Martin", "Saint-Barthélemy", "Guyane"],
+    "serviceType": ["Scan 3D LiDAR", "Scan-to-BIM", "Relevé topographique", "Jumeau numérique", "Numérisation patrimoine"],
+    "address": {
+      "@type": "PostalAddress",
+      "addressRegion": "Guadeloupe",
+      "addressCountry": "FR"
+    }
+  }
+  </script>
 </head>
-<body class="page-immersive">
+<body class="page-content">
 
-  <header class="nav nav-dark" id="topnav">
+  <header class="nav" id="topnav">
     <div class="nav-inner">
       <a href="index.html" class="logo">
         <span class="logo-text">Metrie GP</span>
       </a>
       <nav>
-        <a href="instrument.html">L'instrument</a>
-        <a href="services.html">Services</a>
-        <a href="performances.html">Performances</a>
-        <a href="process.html">Process</a>
+        <a href="index.html" class="active">Accueil</a>
+        <a href="demo.html">Démo 3D</a>
+        <a href="outils.html">Nos outils</a>
+        <a href="portfolio.html">Portfolio</a>
       </nav>
       <a href="contact.html" class="nav-cta">Nous écrire</a>
     </div>
   </header>
 
-  <main>
-    <section id="hero" class="hero-immersive">
+  <main class="page-main">
 
-      <!-- FULL-VIEWPORT ANIMATED SCANNER SCENE (background) -->
-      <div id="scene-container">
-        <canvas id="three-canvas"></canvas>
+    <div class="page-banner">
+      <img src="https://picsum.photos/seed/metrie-home/1600/600" alt="Scan 3D LiDAR Guadeloupe — relevé haute précision d'un site industriel" loading="lazy" />
+      <div class="banner-brackets"></div>
+    </div>
 
-        <!-- Sonar HUD overlays (decorative corners only — data readouts moved to bottom-right) -->
-        <div class="sc-bracket tl"></div>
-        <div class="sc-bracket tr"></div>
-        <div class="sc-bracket bl"></div>
-        <div class="sc-bracket br"></div>
-
-        <div class="sc-hud sc-hud-br">
-          <div class="sc-row"><span class="sc-dot"></span><span class="sc-label">Signal</span><span class="sc-value">active</span></div>
-          <div class="sc-row"><span class="sc-label">Angle</span><span class="sc-value" id="v-angle">000.0°</span></div>
-          <div class="sc-row"><span class="sc-label">Points</span><span class="sc-value" id="v-points">0</span></div>
-          <div class="sc-row"><span class="sc-label">Rate</span><span class="sc-value" id="v-rate">0 pts/s</span></div>
-          <div class="sc-row"><span class="sc-label">Unit</span><span class="sc-value">FJD Trion P2</span></div>
-          <span class="sc-value" id="v-rev" hidden>0</span>
-        </div>
-
-        <!-- Tactile hint — appears on load, fades after interaction -->
-        <div class="touch-hint" id="hero-touch-hint">
-          <div class="touch-hint-card">
-            <svg class="touch-hint-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M24 6 V20 M24 20 C24 17 26 15 29 15 C32 15 34 17 34 20 V32 C34 38 30 42 24 42 C18 42 14 38 14 32 V24 C14 21 16 19 19 19 C22 19 24 21 24 24"/>
-              <path d="M12 10 L15 13 M36 10 L33 13 M10 20 L14 20 M38 20 L34 20" opacity="0.5"/>
-            </svg>
-            <div class="touch-hint-text">
-              <strong>Scène interactive</strong>
-              <span>Glissez pour orbiter · molette pour zoomer</span>
-            </div>
-          </div>
+    <!-- ===============================================================
+         HERO — accroche SEO + value prop
+         =============================================================== -->
+    <section class="page-hero">
+      <div class="block">
+        <div class="tag">I — Metrie GP · Guadeloupe</div>
+        <h1 class="page-title">Scan 3D LiDAR<br/><em>&amp; Scan-to-BIM</em><br/><span class="thin">en Guadeloupe.</span></h1>
+        <p class="page-lede">
+          Metrie GP est un studio de <strong>relevé 3D haute précision</strong> basé en
+          <strong>Guadeloupe</strong>. Nous transformons bâtiments, ouvrages d'art
+          et sites industriels en <strong>nuages de points</strong>,
+          <strong>maquettes BIM</strong> et <strong>jumeaux numériques</strong>
+          exploitables — au millimètre, en quelques jours.
+        </p>
+        <div class="hero-cta" style="margin-top: 28px;">
+          <a href="contact.html" class="btn-primary">Demander un devis</a>
+          <a href="demo.html" class="btn-text">Voir la démo 3D →</a>
         </div>
       </div>
+    </section>
 
-      <!-- OVERLAID HERO CONTENT (title + CTAs) -->
-      <div class="hero-overlay">
-        <div class="hero-content">
-          <div class="hero-eyebrow">Metrie GP · Scan 3D / LiDAR</div>
-          <h1 class="display">
-            Capter le réel,<br/>
-            <em>à la mesure</em><br/>
-            <span class="thin">du millimètre.</span>
-          </h1>
-          <p class="hero-lede">
-            Studio de <strong>relevé 3D haute précision</strong>.
-            Nous transformons bâtiments, ouvrages et sites complexes en nuages
-            de points, maquettes BIM et jumeaux numériques exploitables.
+    <!-- ===============================================================
+         QUI SOMMES-NOUS — narratif entreprise
+         =============================================================== -->
+    <section class="block home-about">
+      <div class="home-about-grid">
+        <div class="home-about-text">
+          <div class="tag">II — L'entreprise</div>
+          <h2>Mesurer le réel,<br/><em>sans approximation.</em></h2>
+          <p>
+            Metrie GP accompagne <strong>architectes</strong>,
+            <strong>bureaux d'études</strong>, <strong>maîtres d'œuvre</strong>
+            et <strong>collectivités</strong> dans la captation et la
+            restitution numérique de l'existant. Nous intervenons partout dans
+            les <strong>Antilles françaises</strong> — Guadeloupe,
+            Martinique, Saint-Martin, Saint-Barthélemy — avec un savoir-faire
+            ancré dans les <strong>contraintes tropicales</strong> : humidité,
+            bâti colonial vieillissant, exposition cyclonique, normes
+            parasismiques DOM-TOM.
           </p>
-          <div class="hero-cta">
-            <a href="contact.html" class="btn-primary">Démarrer un projet</a>
-            <a href="instrument.html" class="btn-text">Voir l'instrument</a>
+          <p>
+            Notre outil principal, le <strong>LiDAR mobile FJD Trion P2</strong>,
+            permet de capter un site entier <strong>en marchant</strong>, sans
+            trépied ni interruption d'activité. C'est ce qui nous permet de
+            livrer en quelques jours ce qui demandait auparavant plusieurs
+            semaines de relevé traditionnel — <strong>sans compromis sur la
+            précision</strong>.
+          </p>
+        </div>
+        <div class="home-about-stats">
+          <div class="stat-card">
+            <div class="stat-k">Portée</div>
+            <div class="stat-v">120<sub>m</sub></div>
+            <div class="stat-d">Jusqu'à 200 m en conditions optimales</div>
           </div>
-          <div class="hero-meta-grid">
-            <div><span class="k">Portée</span><span class="v">120 m</span></div>
-            <div><span class="k">Précision</span><span class="v">±2 cm</span></div>
-            <div><span class="k">Cadence</span><span class="v">320k pts/s</span></div>
+          <div class="stat-card">
+            <div class="stat-k">Précision</div>
+            <div class="stat-v">±2<sub>cm</sub></div>
+            <div class="stat-d">Absolue, géoréférencée</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-k">Cadence</div>
+            <div class="stat-v">320k<sub>pts/s</sub></div>
+            <div class="stat-d">16 canaux, colorisation HDR 12 MP</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-k">Délai</div>
+            <div class="stat-v">5<sub>j</sub></div>
+            <div class="stat-d">De la captation au nuage livré</div>
           </div>
         </div>
       </div>
     </section>
+
+    <!-- ===============================================================
+         NOS SERVICES — 3 piliers SEO
+         =============================================================== -->
+    <section id="services" class="block home-services">
+      <div class="home-services-head">
+        <div class="tag">III — Nos services</div>
+        <h2>Trois métiers,<br/><em>une seule passe de scan.</em></h2>
+        <p class="page-lede">
+          Une même acquisition LiDAR produit trois familles de livrables
+          distinctes — plans techniques, maquettes BIM, expériences immersives —
+          adaptées au métier et à l'échéance de chaque client.
+        </p>
+      </div>
+
+      <div class="service-cards">
+
+        <article class="service-card">
+          <div class="service-card-num">01</div>
+          <div class="service-card-illus">
+            <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1">
+              <rect x="12" y="12" width="76" height="76"/>
+              <path d="M12 30 H88 M12 50 H88 M12 70 H88 M30 12 V88 M50 12 V88 M70 12 V88" stroke-opacity="0.3"/>
+              <circle cx="30" cy="30" r="2.5" fill="currentColor"/>
+              <circle cx="50" cy="50" r="2.5" fill="currentColor"/>
+              <circle cx="70" cy="70" r="2.5" fill="currentColor"/>
+              <circle cx="70" cy="30" r="1.5" fill="currentColor" fill-opacity="0.5"/>
+              <circle cx="30" cy="70" r="1.5" fill="currentColor" fill-opacity="0.5"/>
+            </svg>
+          </div>
+          <h3>Relevé topographique<br/><em>&amp; architectural</em></h3>
+          <p>
+            Plans 2D, coupes, façades, MNT et états des lieux à partir d'un
+            <strong>nuage de points géoréférencé</strong>. Livrables
+            compatibles AutoCAD, Revit, ArchiCAD — pour études de
+            réhabilitation, extensions, dossiers de permis de construire.
+          </p>
+          <ul class="service-card-list">
+            <li>Plans CAO 2D · DWG / PDF</li>
+            <li>Coupes &amp; élévations</li>
+            <li>Modèle Numérique de Terrain</li>
+            <li>Relevés de façades pour rénovation</li>
+          </ul>
+        </article>
+
+        <article class="service-card">
+          <div class="service-card-num">02</div>
+          <div class="service-card-illus">
+            <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1">
+              <path d="M50 8 L88 28 L88 72 L50 92 L12 72 L12 28 Z"/>
+              <path d="M50 8 L50 50 M50 50 L88 28 M50 50 L12 28 M50 50 L50 92" stroke-opacity="0.5"/>
+              <path d="M12 72 L50 92 L88 72" stroke-opacity="0.25"/>
+              <circle cx="50" cy="50" r="2" fill="currentColor"/>
+              <circle cx="50" cy="8" r="1.5" fill="currentColor"/>
+              <circle cx="88" cy="28" r="1.5" fill="currentColor"/>
+              <circle cx="12" cy="28" r="1.5" fill="currentColor"/>
+            </svg>
+          </div>
+          <h3>Scan-to-BIM<br/><em>Revit · ArchiCAD · IFC</em></h3>
+          <p>
+            <strong>Maquette numérique fidèle à l'existant</strong>, du
+            <strong>LOD 200 au LOD 400</strong>, livrée au format natif Revit,
+            ArchiCAD ou IFC. Contrôle qualité systématique par superposition
+            au nuage source — aucune invention de géométrie.
+          </p>
+          <ul class="service-card-list">
+            <li>Modélisation Revit / ArchiCAD / IFC</li>
+            <li>LOD 200 → 400 selon besoin</li>
+            <li>Rapport de conformité au nuage</li>
+            <li>Conformes chartes BIM projet</li>
+          </ul>
+        </article>
+
+        <article class="service-card">
+          <div class="service-card-num">03</div>
+          <div class="service-card-illus">
+            <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1">
+              <path d="M18 80 V40 L50 20 L82 40 V80 Z"/>
+              <path d="M18 80 H82" stroke-opacity="0.5"/>
+              <path d="M34 80 V55 H46 V80 M54 80 V55 H66 V80" stroke-opacity="0.6"/>
+              <path d="M50 20 V10 M42 10 H58" stroke-opacity="0.4"/>
+              <circle cx="50" cy="42" r="1.5" fill="currentColor" opacity="0.5"/>
+              <circle cx="30" cy="48" r="1.5" fill="currentColor" opacity="0.5"/>
+              <circle cx="70" cy="48" r="1.5" fill="currentColor" opacity="0.5"/>
+            </svg>
+          </div>
+          <h3>Patrimoine<br/><em>&amp; jumeau numérique</em></h3>
+          <p>
+            <strong>Numérisation du patrimoine créole</strong> — habitations
+            coloniales, forts, églises, usines sucrières — et
+            <strong>jumeaux numériques</strong> d'usines en exploitation pour
+            la maintenance, la planification de travaux et la formation.
+          </p>
+          <ul class="service-card-list">
+            <li>Visite virtuelle web (WebGL)</li>
+            <li>Mesh photoréaliste temps réel</li>
+            <li>Archivage haute densité</li>
+            <li>Digital twin industriel</li>
+          </ul>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ===============================================================
+         POURQUOI NOUS — différenciateurs
+         =============================================================== -->
+    <section class="block home-why">
+      <div class="home-why-head">
+        <div class="tag">IV — Pourquoi Metrie GP</div>
+        <h2>Quatre raisons de<br/><em>nous confier votre projet.</em></h2>
+      </div>
+
+      <div class="home-why-grid">
+        <div class="why-item">
+          <div class="why-num">01</div>
+          <h4>Implantation locale</h4>
+          <p>
+            Équipe <strong>basée en Guadeloupe</strong>. Nous connaissons le
+            tissu local — architectes, BE, MOA — et les contraintes
+            logistiques des DOM. Intervention sous 48 h aux Antilles
+            françaises.
+          </p>
+        </div>
+        <div class="why-item">
+          <div class="why-num">02</div>
+          <h4>Rapidité LiDAR mobile</h4>
+          <p>
+            Le <strong>FJD Trion P2</strong> capte un bâtiment entier en
+            <strong>marchant</strong>, sans trépied ni cible. Nuage de points
+            livré en 5 jours, maquette BIM en 2 à 4 semaines selon le LOD.
+          </p>
+        </div>
+        <div class="why-item">
+          <div class="why-num">03</div>
+          <h4>Précision certifiée</h4>
+          <p>
+            <strong>Précision absolue ±2 cm</strong>, géoréférencement GNSS,
+            contrôle qualité par points cibles RTK. Chaque livrable inclut un
+            rapport de conformité signé.
+          </p>
+        </div>
+        <div class="why-item">
+          <div class="why-num">04</div>
+          <h4>Sans interruption</h4>
+          <p>
+            Scan d'<strong>hôtels en exploitation</strong>, d'<strong>usines
+            en activité</strong>, d'<strong>édifices religieux</strong> —
+            sans évacuer le site. Intervention nocturne possible sur les
+            zones sensibles.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===============================================================
+         CTA FINAL
+         =============================================================== -->
+    <section class="block page-cta-block">
+      <div class="page-cta">
+        <h2>Un projet de scan 3D en Guadeloupe ?</h2>
+        <p>Parlons-en. Devis gratuit sous 24 h ouvrées, avec créneau de visite.</p>
+        <a href="contact.html" class="btn-primary">Démarrer un projet</a>
+      </div>
+    </section>
+
   </main>
+
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h3>Metrie <em>GP</em></h3>
+        <p>Studio de scan 3D LiDAR haute précision pour le bâtiment, l'industrie, l'ingénierie et le patrimoine — basé en Guadeloupe.</p>
+      </div>
+      <div>
+        <h4>Navigation</h4>
+        <a href="index.html">Accueil</a>
+        <a href="demo.html">Démo 3D</a>
+        <a href="outils.html">Nos outils</a>
+        <a href="portfolio.html">Portfolio</a>
+      </div>
+      <div>
+        <h4>Services</h4>
+        <a href="index.html#services">Relevé topo</a>
+        <a href="index.html#services">Scan-to-BIM</a>
+        <a href="index.html#services">Patrimoine</a>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <a href="contact.html">Formulaire de devis</a>
+        <a href="mailto:contact@metrie-gp.fr">contact@metrie-gp.fr</a>
+        <a href="tel:+33600000000">+33 (0)6 00 00 00 00</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Metrie GP · Guadeloupe</span>
+      <span>Conçu pour ceux qui mesurent le réel</span>
+    </div>
+  </footer>
 
   <script>
     const topnav = document.getElementById('topnav');
     window.addEventListener('scroll', () => {
       topnav.classList.toggle('scrolled', window.scrollY > 40);
     }, { passive: true });
-
-    // Touch hint — appears 0.4 s after load (CSS), fades out after 5.5 s total,
-    // or earlier if the user genuinely interacts with the scene. We ignore any
-    // input events fired during the first 1.8 s (browser auto-focus events,
-    // OrbitControls boot, pointer capture from passing canvas, etc.) so the
-    // hint isn't dismissed before the user sees it.
-    const touchHint = document.getElementById('hero-touch-hint');
-    if (touchHint) {
-      const spawned = performance.now();
-      const dismiss = () => {
-        if (performance.now() - spawned < 1800) return;
-        touchHint.classList.add('dismissed');
-      };
-      const scene = document.getElementById('scene-container');
-      ['pointerdown', 'wheel', 'touchstart'].forEach(ev =>
-        scene.addEventListener(ev, dismiss, { passive: true })
-      );
-      setTimeout(() => touchHint.classList.add('dismissed'), 5500);
-    }
   </script>
-
-  <script type="importmap">
-    {
-      "imports": {
-        "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
-        "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
-      }
-    }
-  </script>
-  <script type="module" src="main.js"></script>
 </body>
 </html>

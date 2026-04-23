@@ -79,7 +79,7 @@ const fillLight = new THREE.DirectionalLight(0xc8d8ff, 0.7);
 fillLight.position.set(-4, 2, 3);
 scene.add(fillLight);
 
-const rimLight = new THREE.DirectionalLight(0x60a080, 0.4);
+const rimLight = new THREE.DirectionalLight(0xa06070, 0.4);
 rimLight.position.set(0, 3, -6);
 scene.add(rimLight);
 
@@ -99,7 +99,7 @@ const glowGeo = new THREE.CircleGeometry(3, 64);
 const glowMat = new THREE.ShaderMaterial({
   transparent: true,
   depthWrite: false,
-  uniforms: { uColor: { value: new THREE.Color(0x0a3020) } },
+  uniforms: { uColor: { value: new THREE.Color(0x300a10) } },
   vertexShader: `
     varying vec2 vUv;
     void main() { vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`,
@@ -175,7 +175,7 @@ fetch('assets/trion-p2.glb')
     const lens = new THREE.Mesh(
       new THREE.SphereGeometry(radius * 0.40, 40, 28),
       new THREE.MeshPhysicalMaterial({
-        color: 0x081410,
+        color: 0x140608,
         metalness: 1.0,
         roughness: 0.04,
         clearcoat: 1.0,
@@ -183,8 +183,8 @@ fetch('assets/trion-p2.glb')
         iridescence: 1.0,
         iridescenceIOR: 2.4,
         iridescenceThicknessRange: [280, 1000],
-        emissive: 0x0e3020,
-        emissiveIntensity: 0.45,
+        emissive: 0x300810,
+        emissiveIntensity: 0.5,
       })
     );
     lens.position.set(cx, scaledBbox.min.y + scaledH * 0.52, cz + radius * 0.35);
@@ -303,8 +303,8 @@ const pointMat = new THREE.ShaderMaterial({
     uTime: { value: 0 },
     uLifetime: { value: tweaks.pointLifetime },
     uPixelRatio: { value: Math.min(window.devicePixelRatio, 2) },
-    uColorHot: { value: new THREE.Color(0xc0ffc0) },
-    uColorCool: { value: new THREE.Color(0x20ff60) },
+    uColorHot: { value: new THREE.Color(0xffd8d0) },
+    uColorCool: { value: new THREE.Color(0xff2030) },
   },
   vertexShader: `
     attribute float aBirth;
@@ -359,9 +359,9 @@ function makeGlowTexture() {
   const ctx = c.getContext('2d');
   const g = ctx.createRadialGradient(s / 2, s / 2, 0, s / 2, s / 2, s / 2);
   g.addColorStop(0, 'rgba(255,255,255,1)');
-  g.addColorStop(0.2, 'rgba(180,255,200,0.9)');
-  g.addColorStop(0.5, 'rgba(60,255,120,0.4)');
-  g.addColorStop(1, 'rgba(0,255,60,0)');
+  g.addColorStop(0.2, 'rgba(255,180,180,0.9)');
+  g.addColorStop(0.5, 'rgba(255,60,80,0.4)');
+  g.addColorStop(1, 'rgba(255,0,40,0)');
   ctx.fillStyle = g;
   ctx.fillRect(0, 0, s, s);
   const tex = new THREE.CanvasTexture(c);
@@ -371,7 +371,7 @@ function makeGlowTexture() {
 
 const impactSpriteMat = new THREE.SpriteMaterial({
   map: makeGlowTexture(),
-  color: 0x40ff70,
+  color: 0xff3050,
   transparent: true,
   depthWrite: false,
   blending: THREE.AdditiveBlending,
@@ -528,5 +528,49 @@ if (typeof ResizeObserver !== 'undefined') {
 // Apply initial view offset synchronously before first frame renders.
 applyViewOffset(W0, H0);
 camera.updateProjectionMatrix();
+
+// ---------- Optional demo-page controls (bound only if panel exists) ----------
+(function bindDemoControls() {
+  const ctlSpeed   = document.getElementById('ctl-speed');
+  const ctlDensity = document.getElementById('ctl-density');
+  const ctlLife    = document.getElementById('ctl-life');
+  const ctlLaser   = document.getElementById('ctl-laser');
+  const reset      = document.getElementById('demo-reset');
+  if (!ctlSpeed) return;  // not on the demo page
+
+  const valSpeed   = document.getElementById('val-speed');
+  const valDensity = document.getElementById('val-density');
+  const valLife    = document.getElementById('val-life');
+  const valLaser   = document.getElementById('val-laser');
+
+  const defaults = {
+    rotationSpeed: tweaks.rotationSpeed,
+    pointDensity: tweaks.pointDensity,
+    pointLifetime: tweaks.pointLifetime,
+    laserIntensity: tweaks.laserIntensity,
+  };
+
+  const bind = (input, key, label, fmt) => {
+    input.addEventListener('input', () => {
+      const v = parseFloat(input.value);
+      tweaks[key] = v;
+      if (label) label.textContent = fmt(v);
+    });
+  };
+  bind(ctlSpeed,   'rotationSpeed',  valSpeed,   v => v.toFixed(1) + '×');
+  bind(ctlDensity, 'pointDensity',   valDensity, v => v.toFixed(1) + '×');
+  bind(ctlLife,    'pointLifetime',  valLife,    v => v.toFixed(1) + ' s');
+  bind(ctlLaser,   'laserIntensity', valLaser,   v => v.toFixed(2));
+
+  if (reset) {
+    reset.addEventListener('click', () => {
+      Object.assign(tweaks, defaults);
+      ctlSpeed.value   = defaults.rotationSpeed;   valSpeed.textContent   = defaults.rotationSpeed.toFixed(1) + '×';
+      ctlDensity.value = defaults.pointDensity;    valDensity.textContent = defaults.pointDensity.toFixed(1) + '×';
+      ctlLife.value    = defaults.pointLifetime;   valLife.textContent    = defaults.pointLifetime.toFixed(1) + ' s';
+      ctlLaser.value   = defaults.laserIntensity;  valLaser.textContent   = defaults.laserIntensity.toFixed(2);
+    });
+  }
+})();
 
 animate();
