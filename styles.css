@@ -2591,83 +2591,93 @@ body { -webkit-tap-highlight-color: transparent; }
 /* Prevent body scroll when drawer open */
 body.nav-open { overflow: hidden; }
 
+/* Drawer-only Contact link is hidden on desktop (the .nav-cta button handles it there) */
+.nav nav a.nav-drawer-cta { display: none; }
+
 /* ----------------------------------------------------------------------------
-   Mobile nav drawer
+   Mobile nav drawer — dropdown pattern (robust on iOS Safari)
    ---------------------------------------------------------------------------- */
 @media (max-width: 1080px) {
   .nav-burger { display: flex; }
 
-  /* The existing rule @1080 hides .nav nav with display:none — override to drawer */
+  /* Nav bar must be the positioning parent for the dropdown */
+  .nav {
+    padding: 14px 18px;
+    padding-top: max(14px, env(safe-area-inset-top));
+    padding-left: max(18px, env(safe-area-inset-left));
+    padding-right: max(18px, env(safe-area-inset-right));
+  }
+  .nav-inner { position: relative; }
+
+  /* Hide the inline CTA on mobile — the drawer contains the Contact link */
+  .nav-inner > .nav-cta { display: none !important; }
+
+  /* Drawer = opaque dropdown below the nav bar. No fixed position,
+     no backdrop-filter, no transforms — bulletproof on every browser. */
   .nav nav {
-    display: flex !important;
-    position: fixed;
-    top: 0;
-    left: 0; right: 0;
-    bottom: 0;
+    display: none;
+    position: absolute;
+    top: calc(100% + 14px);
+    left: 0;
+    right: 0;
     flex-direction: column;
     align-items: stretch;
     gap: 0;
-    padding: calc(env(safe-area-inset-top, 0px) + 88px) 28px calc(env(safe-area-inset-bottom, 0px) + 140px);
-    background: rgba(246, 242, 232, 0.98);
-    backdrop-filter: blur(24px) saturate(150%);
-    -webkit-backdrop-filter: blur(24px) saturate(150%);
-    transform: translateX(100%);
-    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 8px 18px 18px;
+    background: var(--bg);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    box-shadow: 0 18px 40px rgba(20, 19, 17, 0.08);
     z-index: 48;
+    max-height: calc(100vh - 80px);
     overflow-y: auto;
-    overscroll-behavior: contain;
   }
   .nav-dark nav {
-    background: rgba(2, 10, 14, 0.97);
+    background: rgba(2, 10, 14, 0.98);
+    border-color: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.4);
   }
-  .nav.open nav { transform: translateX(0); }
+  .nav.open nav { display: flex; }
 
   /* Drawer links — big, full-width, separated */
   .nav nav a {
-    font-size: 22px;
+    font-size: 18px;
     font-weight: 400;
     letter-spacing: -0.01em;
-    padding: 22px 4px;
+    padding: 18px 4px;
     width: 100%;
     border-bottom: 1px solid var(--line-soft);
     color: var(--ink);
+    display: block;
   }
   .nav-dark nav a {
     color: rgba(241, 238, 230, 0.92);
     border-color: rgba(255, 255, 255, 0.08);
   }
-  .nav nav a::after { display: none; }   /* kill underline animation */
+  .nav nav a:last-child { border-bottom: none; }
+  .nav nav a::after { display: none; }
   .nav nav a.active {
     color: var(--accent);
     font-weight: 500;
   }
   .nav-dark nav a.active { color: #ff6080; }
 
-  /* CTA becomes a fixed bottom bar within the drawer */
-  .nav .nav-cta {
-    position: fixed;
-    left: 24px; right: 24px;
-    bottom: calc(env(safe-area-inset-bottom, 0px) + 24px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    padding: 16px 20px;
+  /* Contact link inside drawer — styled as primary action */
+  .nav nav a.nav-drawer-cta {
+    display: block;
+    margin-top: 12px;
+    padding: 16px;
+    text-align: center;
     background: var(--ink);
     color: var(--bg);
     border: none;
-    font-size: 15px;
     font-weight: 500;
-    transform: translateX(100%);
-    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1) 0.05s;
-    z-index: 49;
-    text-align: center;
+    letter-spacing: 0;
   }
-  .nav-dark .nav-cta {
+  .nav-dark nav a.nav-drawer-cta {
     background: #f1eee6;
     color: #020a0e;
   }
-  .nav.open .nav-cta { transform: translateX(0); }
 }
 
 /* ----------------------------------------------------------------------------
