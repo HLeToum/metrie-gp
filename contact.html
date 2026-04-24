@@ -33,83 +33,51 @@
 
   <main class="page-main">
 
-    <div class="page-banner">
-      <img src="https://picsum.photos/seed/metrie-contact/1600/600" alt="Contacter Metrie GP pour un devis de scan 3D LiDAR" loading="lazy" />
-      <div class="banner-brackets"></div>
-    </div>
-
-    <section id="contact">
+    <section id="contact" class="devis-section">
       <div class="block">
-        <div class="contact-intro">
+
+        <header class="devis-hero">
           <div class="tag">IV — Demander un devis</div>
           <h1 class="page-title">Parlons de<br/><em>votre projet.</em></h1>
           <p class="page-lede">
-            Quelques minutes pour renseigner votre besoin, quelques heures
-            pour en discuter. <strong>Réponse humaine sous 24 h ouvrées</strong>,
-            avec une première estimation chiffrée et un créneau de visite
-            technique.
+            Quelques minutes pour nous écrire, une réponse humaine sous
+            <strong>24 h ouvrées</strong> avec une première estimation et un
+            créneau de visite technique. Pas de robot, pas de relance marketing.
           </p>
-        </div>
+        </header>
 
-        <div class="contact-card contact-card-wide">
-          <form class="contact-form devis-form" onsubmit="event.preventDefault(); const b=this.querySelector('button[type=submit]'); b.innerHTML='Demande envoyée ✓'; b.disabled=true; this.classList.add('submitted');">
+        <div class="devis-layout">
 
-            <!-- ========== SECTION 1 — Identité ========== -->
-            <fieldset class="form-section">
-              <legend><span class="section-num">01</span> Vos coordonnées</legend>
+          <!-- ============ FORM ============ -->
+          <form class="devis-form contact-form" onsubmit="event.preventDefault(); const b=this.querySelector('button[type=submit]'); b.innerHTML='Demande envoyée ✓'; b.disabled=true; this.classList.add('submitted');">
 
-              <div class="field-row">
-                <label class="field">
-                  <span>Nom complet <em>*</em></span>
-                  <input type="text" name="name" placeholder="Jean Dupont" required />
-                </label>
-                <label class="field">
-                  <span>Entreprise / organisme</span>
-                  <input type="text" name="company" placeholder="Cabinet d'architecture, BE, collectivité…" />
-                </label>
-              </div>
-
-              <div class="field-row">
-                <label class="field">
-                  <span>Email professionnel <em>*</em></span>
-                  <input type="email" name="email" placeholder="jean@entreprise.fr" required />
-                </label>
-                <label class="field">
-                  <span>Téléphone</span>
-                  <input type="tel" name="phone" placeholder="06 00 00 00 00" />
-                </label>
-              </div>
-
+            <!-- Essentiel -->
+            <div class="field-row">
               <label class="field">
-                <span>Votre fonction</span>
-                <select name="role">
-                  <option value="">— Sélectionner —</option>
-                  <option>Architecte</option>
-                  <option>Bureau d'études</option>
-                  <option>Maître d'œuvre</option>
-                  <option>Maître d'ouvrage</option>
-                  <option>Collectivité</option>
-                  <option>Promoteur</option>
-                  <option>Industriel</option>
-                  <option>Particulier</option>
-                  <option>Autre</option>
-                </select>
+                <span>Nom complet <em>*</em></span>
+                <input type="text" name="name" placeholder="Jean Dupont" required />
               </label>
-            </fieldset>
+              <label class="field">
+                <span>Téléphone</span>
+                <input type="tel" name="phone" placeholder="06 00 00 00 00" />
+              </label>
+            </div>
 
-            <!-- ========== SECTION 2 — Projet ========== -->
-            <fieldset class="form-section">
-              <legend><span class="section-num">02</span> Votre projet</legend>
+            <label class="field">
+              <span>Email professionnel <em>*</em></span>
+              <input type="email" name="email" placeholder="jean@entreprise.fr" required />
+            </label>
 
-              <div class="field-check-group">
-                <span class="field-label">Type de prestation <em>*</em></span>
+            <div class="field-check-group">
+              <span class="field-label">Type de projet <em>*</em></span>
+              <div class="pills-wrap">
                 <label class="check-pill">
                   <input type="checkbox" name="service" value="releve-topo" />
                   <span>Relevé topo &amp; architectural</span>
                 </label>
                 <label class="check-pill">
                   <input type="checkbox" name="service" value="scan-to-bim" />
-                  <span>Scan-to-BIM (Revit / ArchiCAD / IFC)</span>
+                  <span>Scan-to-BIM</span>
                 </label>
                 <label class="check-pill">
                   <input type="checkbox" name="service" value="patrimoine" />
@@ -121,109 +89,140 @@
                 </label>
                 <label class="check-pill">
                   <input type="checkbox" name="service" value="autre" />
-                  <span>Autre · à préciser</span>
+                  <span>Autre</span>
                 </label>
               </div>
+            </div>
 
-              <div class="field-row">
-                <label class="field">
-                  <span>Type de site</span>
-                  <select name="site-type">
-                    <option value="">— Sélectionner —</option>
-                    <option>Bâtiment résidentiel</option>
-                    <option>Bâtiment tertiaire / bureau</option>
-                    <option>Hôtellerie / restauration</option>
-                    <option>Site industriel / usine</option>
-                    <option>Ouvrage d'art (pont, quai…)</option>
-                    <option>Édifice religieux / patrimoine</option>
-                    <option>Équipement public</option>
-                    <option>Terrain / topographie</option>
-                    <option>Autre</option>
-                  </select>
-                </label>
-                <label class="field">
-                  <span>Surface approximative</span>
-                  <select name="surface">
-                    <option value="">— Sélectionner —</option>
-                    <option>Moins de 200 m²</option>
-                    <option>200 – 1 000 m²</option>
-                    <option>1 000 – 5 000 m²</option>
-                    <option>5 000 – 20 000 m²</option>
-                    <option>Plus de 20 000 m²</option>
-                    <option>Je ne sais pas</option>
-                  </select>
-                </label>
+            <label class="field">
+              <span>Décrivez votre projet <em>*</em></span>
+              <textarea name="message" rows="5" placeholder="Quel site ? quel livrable attendu ? contraintes particulières (site en exploitation, accès, délai) ?" required></textarea>
+            </label>
+
+            <!-- Extras (collapsible) -->
+            <details class="form-extras">
+              <summary>
+                <span class="extras-icon" aria-hidden="true">+</span>
+                <span class="extras-label">Ajouter des détails</span>
+                <span class="extras-hint">entreprise, surface, budget… <em>(optionnel)</em></span>
+              </summary>
+              <div class="extras-body">
+                <div class="field-row">
+                  <label class="field">
+                    <span>Entreprise / organisme</span>
+                    <input type="text" name="company" placeholder="Cabinet, BE, collectivité…" />
+                  </label>
+                  <label class="field">
+                    <span>Votre fonction</span>
+                    <select name="role">
+                      <option value="">— Sélectionner —</option>
+                      <option>Architecte</option>
+                      <option>Bureau d'études</option>
+                      <option>Maître d'œuvre</option>
+                      <option>Maître d'ouvrage</option>
+                      <option>Collectivité</option>
+                      <option>Promoteur</option>
+                      <option>Industriel</option>
+                      <option>Particulier</option>
+                      <option>Autre</option>
+                    </select>
+                  </label>
+                </div>
+
+                <div class="field-row">
+                  <label class="field">
+                    <span>Localisation du site</span>
+                    <input type="text" name="location" placeholder="Commune, Guadeloupe…" />
+                  </label>
+                  <label class="field">
+                    <span>Surface approximative</span>
+                    <select name="surface">
+                      <option value="">— À estimer —</option>
+                      <option>Moins de 200 m²</option>
+                      <option>200 – 1 000 m²</option>
+                      <option>1 000 – 5 000 m²</option>
+                      <option>5 000 – 20 000 m²</option>
+                      <option>Plus de 20 000 m²</option>
+                    </select>
+                  </label>
+                </div>
+
+                <div class="field-row">
+                  <label class="field">
+                    <span>Échéance souhaitée</span>
+                    <select name="deadline">
+                      <option value="">— À définir —</option>
+                      <option>Urgent · sous 2 semaines</option>
+                      <option>Sous 1 mois</option>
+                      <option>Sous 3 mois</option>
+                      <option>Plus de 3 mois</option>
+                      <option>Calendrier flexible</option>
+                    </select>
+                  </label>
+                  <label class="field">
+                    <span>Budget envisagé</span>
+                    <select name="budget">
+                      <option value="">— À évaluer ensemble —</option>
+                      <option>&lt; 2 000 €</option>
+                      <option>2 000 – 5 000 €</option>
+                      <option>5 000 – 15 000 €</option>
+                      <option>15 000 – 50 000 €</option>
+                      <option>&gt; 50 000 €</option>
+                    </select>
+                  </label>
+                </div>
               </div>
+            </details>
 
-              <div class="field-row">
-                <label class="field">
-                  <span>Localisation du site</span>
-                  <input type="text" name="location" placeholder="Commune, Guadeloupe / Martinique / autre" />
-                </label>
-                <label class="field">
-                  <span>Échéance souhaitée</span>
-                  <select name="deadline">
-                    <option value="">— Sélectionner —</option>
-                    <option>Urgent · sous 2 semaines</option>
-                    <option>Sous 1 mois</option>
-                    <option>Sous 3 mois</option>
-                    <option>Plus de 3 mois</option>
-                    <option>Calendrier flexible</option>
-                  </select>
-                </label>
+            <label class="field check-consent">
+              <input type="checkbox" name="consent" required />
+              <span>J'accepte que mes données soient utilisées pour traiter cette demande. Elles ne seront ni cédées ni utilisées à des fins marketing. <em>*</em></span>
+            </label>
+
+            <div class="form-actions">
+              <button type="submit" class="btn-primary">Envoyer ma demande</button>
+              <div class="form-trust">
+                <span>Réponse <strong>24 h</strong></span>
+                <span class="trust-sep">·</span>
+                <span>Devis <strong>gratuit</strong></span>
+                <span class="trust-sep">·</span>
+                <span>Sans <strong>engagement</strong></span>
               </div>
-
-              <label class="field">
-                <span>Budget envisagé <em>(optionnel)</em></span>
-                <select name="budget">
-                  <option value="">— Sélectionner —</option>
-                  <option>&lt; 2 000 €</option>
-                  <option>2 000 – 5 000 €</option>
-                  <option>5 000 – 15 000 €</option>
-                  <option>15 000 – 50 000 €</option>
-                  <option>&gt; 50 000 €</option>
-                  <option>À évaluer ensemble</option>
-                </select>
-              </label>
-            </fieldset>
-
-            <!-- ========== SECTION 3 — Message libre ========== -->
-            <fieldset class="form-section">
-              <legend><span class="section-num">03</span> Décrivez votre besoin</legend>
-              <label class="field">
-                <span>Description du projet <em>*</em></span>
-                <textarea name="message" rows="5" placeholder="Quel site ? quel livrable attendu ? contraintes particulières (site en exploitation, accès, délai) ?" required></textarea>
-              </label>
-
-              <label class="field check-consent">
-                <input type="checkbox" name="consent" required />
-                <span>J'accepte que mes données soient utilisées pour traiter cette demande. Elles ne seront pas transmises à des tiers. <em>*</em></span>
-              </label>
-            </fieldset>
-
-            <button type="submit" class="btn-primary">Envoyer ma demande de devis</button>
-            <div class="form-trust">
-              <span><strong>24 h</strong> pour répondre</span>
-              <span><strong>Devis</strong> gratuit</span>
-              <span><strong>Sans</strong> engagement</span>
             </div>
           </form>
 
-          <div class="contact-direct">
-            <span class="direct-label">Ou directement —</span>
-            <a href="mailto:contact@metrie-gp.fr" class="direct-link">
-              <span class="direct-k">Email</span>
-              <span class="direct-v">contact@metrie-gp.fr</span>
-            </a>
-            <a href="tel:+33600000000" class="direct-link">
-              <span class="direct-k">Téléphone</span>
-              <span class="direct-v">+33 (0)6 00 00 00 00</span>
-            </a>
-            <div class="direct-loc">
-              <span class="direct-k">Localisation</span>
-              <span class="direct-v">Guadeloupe · Antilles françaises</span>
+          <!-- ============ ASIDE ============ -->
+          <aside class="devis-aside">
+            <div class="aside-block">
+              <span class="aside-label">Ou directement</span>
+              <a href="mailto:contact@metrie-gp.fr" class="aside-link">
+                <span class="aside-k">Email</span>
+                <span class="aside-v">contact@metrie-gp.fr</span>
+              </a>
+              <a href="tel:+33600000000" class="aside-link">
+                <span class="aside-k">Téléphone</span>
+                <span class="aside-v">+33 (0)6 00 00 00 00</span>
+              </a>
             </div>
-          </div>
+
+            <div class="aside-block">
+              <span class="aside-label">Nous trouver</span>
+              <span class="aside-loc">
+                <strong>Guadeloupe</strong>
+                <em>Antilles françaises · interventions toute la Caraïbe</em>
+              </span>
+            </div>
+
+            <div class="aside-block aside-promise">
+              <span class="aside-label">Notre engagement</span>
+              <ol class="aside-steps">
+                <li><span class="step-num">1</span><span>Réponse humaine sous 24 h ouvrées</span></li>
+                <li><span class="step-num">2</span><span>Créneau de visite technique proposé</span></li>
+                <li><span class="step-num">3</span><span>Devis chiffré sous 5 jours après site</span></li>
+              </ol>
+            </div>
+          </aside>
+
         </div>
       </div>
     </section>
