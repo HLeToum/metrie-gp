@@ -499,9 +499,15 @@ function animate() {
 // Shift the rendered scene to the right on wide viewports so the hero text
 // (anchored left) does not overlap the scanner + its point cloud.
 function applyViewOffset(w, h) {
-  // On wide screens, ask the camera to render a left-portion of a wider virtual
-  // canvas — this pushes the scene's optical center to ~68% across the screen,
-  // giving the left third back to the hero text.
+  // On the demo page the scene has its own dedicated column (a sidebar holds
+  // the text), so we want the scanner centered in that column. Skip the offset.
+  if (container.closest('.demo-layout')) {
+    camera.clearViewOffset();
+    return;
+  }
+  // On wide screens (legacy home hero), ask the camera to render a left-portion
+  // of a wider virtual canvas — pushes the scene's optical center to ~68%
+  // across, giving the left third back to the hero text.
   if (w >= 960) {
     const scale = 1.45;
     const virtualW = Math.round(w * scale);

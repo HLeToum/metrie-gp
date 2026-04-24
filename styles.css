@@ -1905,49 +1905,138 @@ footer {
 .why-item strong { font-weight: 600; color: var(--ink); }
 
 /* ================================================================
-   DEMO PAGE — intro overlay + controls panel
+   DEMO PAGE — two-column layout: sidebar (text + CTAs) + stage (3D)
    ================================================================ */
-.demo-immersive { min-height: 100vh; }
-.demo-intro {
-  position: absolute;
-  top: 96px;
-  left: 48px;
-  z-index: 10;
-  max-width: 440px;
+.demo-layout {
+  position: relative;
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  height: 100vh;
+  width: 100%;
+  margin: 0;
+  background: #020807;
+  overflow: hidden;
+}
+
+/* ----- Sidebar ----- */
+.demo-sidebar {
+  position: relative;
+  z-index: 5;
+  background: linear-gradient(180deg, rgba(2, 10, 14, 0.96) 0%, rgba(4, 18, 14, 0.92) 100%);
+  border-right: 1px solid rgba(184, 255, 216, 0.1);
+  padding: 108px 40px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+  overflow-y: auto;
   color: #f1eee6;
-  pointer-events: none;
+}
+.demo-sidebar::-webkit-scrollbar { width: 0; }
+
+.demo-intro {
+  position: static;
+  max-width: 100%;
+  pointer-events: auto;
 }
 .demo-intro .tag {
   font-family: 'JetBrains Mono', monospace;
   font-size: 10px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: rgba(241, 238, 230, 0.6);
-  margin-bottom: 14px;
+  color: rgba(184, 255, 216, 0.7);
+  margin-bottom: 20px;
+  display: block;
 }
 .demo-intro h1 {
-  font-size: clamp(32px, 4vw, 48px);
-  font-weight: 400;
-  line-height: 1.05;
-  letter-spacing: -0.02em;
-  margin-bottom: 18px;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(32px, 2.6vw, 44px);
+  font-weight: 300;
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  margin: 0 0 20px;
+  color: #f0fff4;
 }
-.demo-intro h1 em { font-style: italic; color: rgba(241, 238, 230, 0.7); }
+.demo-intro h1 em {
+  font-style: italic;
+  font-weight: 400;
+  color: rgba(184, 255, 216, 0.75);
+}
 .demo-intro p {
   font-size: 14.5px;
-  color: rgba(241, 238, 230, 0.78);
+  color: rgba(232, 248, 238, 0.78);
   line-height: 1.6;
-  max-width: 420px;
+  max-width: 100%;
+  margin: 0;
 }
-.demo-intro strong { color: #fff; font-weight: 500; }
+.demo-intro strong { color: #f0fff4; font-weight: 500; }
 
-/* Demo controls panel (bottom-left, pointer-events on) */
+.demo-sidebar-foot {
+  margin-top: auto;
+  padding-top: 28px;
+  border-top: 1px solid rgba(184, 255, 216, 0.12);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.demo-sidebar-foot .btn-primary {
+  background: #40ff88;
+  color: #02140a;
+  padding: 14px 22px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0;
+  text-align: center;
+  text-decoration: none;
+  border: none;
+  transition: background 0.2s, transform 0.2s;
+}
+.demo-sidebar-foot .btn-primary:hover {
+  background: #80ffaa;
+  transform: translateY(-1px);
+}
+.demo-sidebar-foot .btn-text {
+  color: rgba(232, 248, 238, 0.75);
+  text-decoration: none;
+  font-size: 12.5px;
+  letter-spacing: 0.02em;
+  transition: color 0.2s;
+  padding: 2px 0;
+}
+.demo-sidebar-foot .btn-text:hover { color: #40ff88; }
+
+/* ----- Stage (3D scene area) ----- */
+.demo-stage {
+  position: relative;
+  overflow: hidden;
+  height: 100vh;
+}
+.demo-layout #scene-container {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+/* HUD repositioned to top-right of stage (out of scanner sight-line) */
+.demo-stage .sc-hud-tr {
+  top: 28px;
+  right: 28px;
+  min-width: 180px;
+  text-align: right;
+}
+.demo-stage .sc-hud-tr .sc-row { justify-content: flex-end; }
+
+/* Controls — bottom-right of stage (away from scanner body) */
 .demo-controls {
   position: absolute;
-  left: 48px;
-  bottom: 48px;
+  right: 28px;
+  bottom: 28px;
+  left: auto;
   z-index: 10;
-  width: 300px;
+  width: 280px;
   background: rgba(10, 12, 16, 0.62);
   backdrop-filter: blur(16px) saturate(140%);
   -webkit-backdrop-filter: blur(16px) saturate(140%);
@@ -2956,8 +3045,42 @@ body.page-content .aside-steps .step-num {
   .tools-pipeline { padding: 16px 18px; gap: 8px; }
   .pipe-step { gap: 8px; }
   .pipe-label { font-size: 11px; }
-  .demo-intro { top: 80px; left: 24px; max-width: 85%; }
-  .demo-controls { left: 24px; right: 24px; width: auto; bottom: 24px; }
+  /* Demo page layout collapses to vertical stack below 1080px */
+  .demo-layout {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+    height: 100vh;
+  }
+  .demo-sidebar {
+    padding: 84px 24px 20px;
+    border-right: none;
+    border-bottom: 1px solid rgba(184, 255, 216, 0.12);
+    gap: 16px;
+    overflow: visible;
+  }
+  .demo-sidebar-foot { display: none; }
+  .demo-intro .tag { font-size: 9.5px; margin-bottom: 10px; }
+  .demo-intro h1 { font-size: 24px; margin-bottom: 10px; }
+  .demo-intro h1 br { display: none; }
+  .demo-intro p {
+    font-size: 13px;
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .demo-stage { height: auto; min-height: 0; }
+  .demo-stage .sc-hud-tr { top: 16px; right: 16px; font-size: 9px; min-width: 0; }
+  .demo-controls {
+    right: 16px;
+    bottom: 16px;
+    left: 16px;
+    width: auto;
+    max-width: 360px;
+    margin-left: auto;
+  }
   .portfolio-list { gap: 60px; }
   .form-section { padding: 22px 20px 20px; }
   .check-pill { font-size: 12.5px; padding: 9px 14px; }
@@ -3311,21 +3434,15 @@ body.nav-open { overflow: hidden; }
 }
 
 /* ----------------------------------------------------------------------------
-   Demo page — mobile-specific layout (compact intro, bottom-sheet controls)
+   Demo page — phone layout (bottom-sheet controls, compact HUD)
    ---------------------------------------------------------------------------- */
-@media (max-width: 1080px) {
-  .demo-intro {
-    top: calc(env(safe-area-inset-top, 0px) + 68px);
-    left: 20px;
-    right: 20px;
-    max-width: none;
-  }
-  .demo-intro h1 { font-size: 28px; margin-bottom: 12px; }
-  .demo-intro p { font-size: 13.5px; max-width: 90%; }
-
+@media (max-width: 820px) {
+  /* Controls become a bottom sheet attached to the stage */
   .demo-controls {
     left: 0; right: 0; bottom: 0;
     width: auto;
+    max-width: none;
+    margin-left: 0;
     border-left: none;
     border-right: none;
     border-bottom: none;
@@ -3338,25 +3455,26 @@ body.nav-open { overflow: hidden; }
   .demo-controls-body { padding: 16px 20px 20px; }
   .demo-ctl { margin-bottom: 16px; }
 
-  /* HUD top-right — smaller on mobile */
-  .sc-hud-br {
-    bottom: auto;
-    top: calc(env(safe-area-inset-top, 0px) + 70px);
+  /* HUD top-right of stage, compact */
+  .demo-stage .sc-hud-tr {
+    top: 14px;
     right: 14px;
-    left: auto;
     min-width: 130px;
     font-size: 9px;
     padding: 10px 12px;
   }
-  /* Hide HUD when demo-controls drawer is open? Keep it but smaller. */
 }
 
 @media (max-width: 480px) {
-  .demo-intro { top: calc(env(safe-area-inset-top, 0px) + 62px); }
+  .demo-sidebar { padding: 78px 18px 16px; gap: 10px; }
   .demo-intro .tag { font-size: 9px; margin-bottom: 8px; }
-  .demo-intro h1 { font-size: 24px; }
-  .demo-intro p { font-size: 13px; -webkit-line-clamp: 3; }
-  .sc-hud-br { display: none; }   /* free up space on tiny phones */
+  .demo-intro h1 { font-size: 22px; margin-bottom: 8px; }
+  .demo-intro p {
+    font-size: 12.5px;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+  }
+  .demo-stage .sc-hud-tr { display: none; }   /* free up space on tiny phones */
 }
 
 /* ----------------------------------------------------------------------------
