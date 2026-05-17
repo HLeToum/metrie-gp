@@ -1,0 +1,57 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "redirects": [
+    { "source": "/index.html", "destination": "/", "permanent": true },
+    { "source": "/demo.html", "destination": "/demo", "permanent": true },
+    { "source": "/outils.html", "destination": "/outils", "permanent": true },
+    { "source": "/portfolio.html", "destination": "/portfolio", "permanent": true },
+    { "source": "/contact.html", "destination": "/contact", "permanent": true },
+    { "source": "/mentions-legales.html", "destination": "/mentions-legales", "permanent": true },
+    { "source": "/confidentialite.html", "destination": "/confidentialite", "permanent": true },
+    { "source": "/instrument.html", "destination": "/outils#instrument", "permanent": true },
+    { "source": "/instrument", "destination": "/outils#instrument", "permanent": true },
+    { "source": "/performances.html", "destination": "/outils", "permanent": true },
+    { "source": "/performances", "destination": "/outils", "permanent": true },
+    { "source": "/process.html", "destination": "/", "permanent": true },
+    { "source": "/process", "destination": "/", "permanent": true },
+    { "source": "/services.html", "destination": "/#services", "permanent": true },
+    { "source": "/services", "destination": "/#services", "permanent": true }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)\\.glb",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" },
+        { "key": "Content-Type", "value": "model/gltf-binary" }
+      ]
+    },
+    {
+      "source": "/assets/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
+    },
+    {
+      "source": "/img/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
+    },
+    {
+      "source": "/styles.css",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=604800, must-revalidate" }
+      ]
+    },
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
+        { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=()" },
+        { "key": "Strict-Transport-Security", "value": "max-age=63072000; includeSubDomains; preload" }
+      ]
+    }
+  ]
+}

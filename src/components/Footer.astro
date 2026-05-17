@@ -1,0 +1,44 @@
+---
+import { site } from '../siteConfig';
+const year = new Date().getFullYear();
+---
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <h3>Metrie <em>GP</em></h3>
+      <p>
+        Studio de scan 3D LiDAR haute précision pour le bâtiment, l'industrie,
+        l'ingénierie et le patrimoine — basé en Guadeloupe, intervention dans
+        toutes les Antilles françaises.
+      </p>
+    </div>
+    <div>
+      <h4>Navigation</h4>
+      <a href="/">Accueil</a>
+      <a href="/demo">Démo 3D</a>
+      <a href="/outils">Nos outils</a>
+      <a href="/portfolio">Portfolio</a>
+    </div>
+    <div>
+      <h4>Services</h4>
+      <a href="/#services">Nos livrables</a>
+      <a href="/outils">Nos outils</a>
+      <a href="/portfolio">Portfolio</a>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <a href="/contact">Formulaire de devis</a>
+      <a href={`mailto:${site.email}`}>{site.email}</a>
+      <a href={`tel:${site.phone}`}>{site.phoneDisplay}</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© {year} {site.legalName} · Guadeloupe</span>
+    <span class="footer-legal">
+      <a href="/mentions-legales">Mentions légales</a> ·
+      <a href="/confidentialite">Confidentialité &amp; cookies</a> ·
+      <a href="#" onclick="event.preventDefault(); if(window.MetrieCookies) window.MetrieCookies.open();">Gérer mes cookies</a>
+    </span>
+  </div>
+</footer>

@@ -1,0 +1,99 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { site } from '../siteConfig';
+
+const title = 'Mentions légales';
+const description = "Mentions légales de Metrie GP — éditeur, hébergeur, propriété intellectuelle, droit applicable.";
+
+const breadcrumbs = [
+  { name: 'Accueil', path: '/' },
+  { name: 'Mentions légales', path: '/mentions-legales' },
+];
+---
+
+<Layout
+  title={title}
+  description={description}
+  path="/mentions-legales"
+  active=""
+  breadcrumbs={breadcrumbs}
+>
+  <main class="page-main legal-page">
+    <section class="block">
+      <header class="legal-hero">
+        <div class="tag">Informations légales</div>
+        <h1 class="page-title">Mentions <em>légales.</em></h1>
+        <p class="legal-meta">Dernière mise à jour : avril 2026</p>
+      </header>
+
+      <article class="legal-body">
+        <h2>1. Éditeur du site</h2>
+        <p>Le site <strong>metrie-gp.fr</strong> (ainsi que tous ses sous-domaines) est édité par :</p>
+        <p class="legal-block">
+          <strong>{site.legalName}</strong><br />
+          Forme juridique : {site.legalForm}<br />
+          Capital social : {site.capital}<br />
+          Siège social : {site.address.street}, {site.address.postalCode} {site.address.locality}, {site.address.region}, {site.address.countryName}<br />
+          SIREN : {site.siren}<br />
+          RCS : {site.rcsNumber} R.C.S. {site.rcs}<br />
+          N° TVA intracommunautaire : {site.vat}<br />
+          Code APE/NAF : {site.ape} — {site.apeLabel}<br />
+          Président : {site.founder}<br />
+          Directeur de la publication : {site.founder}<br />
+          Contact : <a href={`mailto:${site.email}`}>{site.email}</a> · <a href={`tel:${site.phone}`}>{site.phoneDisplay}</a>
+        </p>
+
+        <h2>2. Hébergeur</h2>
+        <p>Le site est hébergé par :</p>
+        <p class="legal-block">
+          <strong>Vercel Inc.</strong><br />
+          340 S Lemon Ave #4133<br />
+          Walnut, CA 91789 — États-Unis<br />
+          Site web : <a href="https://vercel.com" target="_blank" rel="noopener">vercel.com</a>
+        </p>
+
+        <h2>3. Propriété intellectuelle</h2>
+        <p>
+          L'ensemble des éléments composant le site (textes, photographies, illustrations, animations 3D, code source, charte graphique, identité visuelle, logo) est la propriété exclusive de Metrie GP ou fait l'objet d'une autorisation d'utilisation. Tous ces éléments sont protégés par les lois relatives à la propriété intellectuelle, notamment le Code de la propriété intellectuelle (France).
+        </p>
+        <p>
+          Toute reproduction, représentation, modification, publication, transmission, dénaturation, totale ou partielle, du site ou de son contenu, par quelque procédé que ce soit, est interdite sans l'autorisation écrite préalable de Metrie GP. Toute exploitation non autorisée du site ou de l'un quelconque des éléments qu'il contient sera considérée comme constitutive d'une contrefaçon et poursuivie conformément aux articles L.335-2 et suivants du Code de la propriété intellectuelle.
+        </p>
+
+        <h2>4. Crédits</h2>
+        <p>
+          Conception, design et développement : Metrie GP. Modèle 3D du scanner FJD Trion P2 : utilisation à des fins de démonstration éditoriale, droits réservés à leurs propriétaires respectifs. Polices typographiques : Inter et JetBrains Mono (Google Fonts, licence SIL Open Font).
+        </p>
+
+        <h2>5. Liens hypertextes</h2>
+        <p>
+          Le site peut contenir des liens vers d'autres sites internet. Metrie GP n'exerce aucun contrôle sur le contenu de ces sites tiers et décline toute responsabilité quant à leur contenu, leur exactitude ou leurs pratiques en matière de protection des données. La création de liens vers metrie-gp.fr est libre dès lors qu'elle ne porte pas atteinte aux intérêts de Metrie GP.
+        </p>
+
+        <h2>6. Responsabilité</h2>
+        <p>
+          Les informations diffusées sur le site sont fournies à titre indicatif. Metrie GP s'efforce d'en assurer l'exactitude et la mise à jour, mais ne peut garantir l'absence d'erreurs, d'omissions ou la disponibilité ininterrompue du site. La responsabilité de Metrie GP ne saurait être engagée en cas d'inexactitude, d'erreur ou d'omission portant sur des informations disponibles sur le site, ni en cas de dommages directs ou indirects résultant de son utilisation.
+        </p>
+
+        <h2>7. Données personnelles &amp; cookies</h2>
+        <p>
+          Le traitement des données personnelles et l'usage des cookies font l'objet d'un document distinct : <a href="/confidentialite">Politique de confidentialité</a>.
+        </p>
+
+        <h2>8. Droit applicable &amp; litiges</h2>
+        <p>
+          Les présentes mentions légales sont régies par le droit français. En cas de litige, et après tentative de recherche d'une solution amiable, les tribunaux français seront seuls compétents.
+        </p>
+        <p>
+          Conformément aux dispositions du Code de la consommation concernant le règlement amiable des litiges, Metrie GP adhère au principe de médiation. La plateforme européenne de règlement en ligne des litiges est accessible à l'adresse :
+          <a href="https://ec.europa.eu/consumers/odr" target="_blank" rel="noopener">ec.europa.eu/consumers/odr</a>.
+        </p>
+
+        <h2>9. Modifications</h2>
+        <p>
+          Metrie GP se réserve le droit de modifier les présentes mentions légales à tout moment. La date de dernière mise à jour figurant en tête du document fait foi.
+        </p>
+      </article>
+    </section>
+  </main>
+</Layout>

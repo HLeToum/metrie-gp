@@ -1,0 +1,138 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const title = 'Portfolio — Études de cas scan 3D';
+const description =
+  "Trois études de cas détaillées de projets de scan 3D LiDAR et Scan-to-BIM menés par Metrie GP en Guadeloupe et aux Antilles — bâti, industriel, patrimoine.";
+const keywords = 'portfolio scan 3D, études de cas LiDAR, projets Scan-to-BIM, réalisations Metrie GP, Guadeloupe, Antilles';
+
+const breadcrumbs = [
+  { name: 'Accueil', path: '/' },
+  { name: 'Portfolio', path: '/portfolio' },
+];
+
+const cases = [
+  {
+    n: '01',
+    sector: 'À compléter',
+    location: 'Guadeloupe',
+    year: '2025',
+    surface: '— m²',
+    title: 'Titre du projet 01',
+    titleEm: 'à définir.',
+    lede: "Accroche courte décrivant la nature du projet, le commanditaire (architecte / BE / MOA) et l'objectif principal — en une ou deux phrases.",
+    context: "Description du site, du bâtiment ou de l'ouvrage. Contraintes particulières — site en exploitation, accessibilité, climat, calendrier serré.",
+    approach: 'Stratégie retenue : nombre de passes, modalité d\'intervention (diurne/nocturne), recalage, outils mobilisés (Trion P2 + Revit/ArchiCAD/...).',
+    deliverables: [
+      'À compléter — ex : nuage LAS/LAZ géoréférencé',
+      'À compléter — ex : maquette Revit LOD 300',
+      'À compléter — ex : plans 2D DWG',
+      'À compléter — ex : rapport de conformité',
+    ],
+    result: 'Chiffres clés : délai tenu, précision mesurée, économies réalisées par rapport à un relevé traditionnel. Retour client si disponible.',
+    reverse: false,
+  },
+  {
+    n: '02',
+    sector: 'À compléter',
+    location: 'Guadeloupe',
+    year: '2025',
+    surface: '— m²',
+    title: 'Titre du projet 02',
+    titleEm: 'à définir.',
+    lede: 'Accroche courte décrivant la nature du projet, le commanditaire et l\'objectif principal.',
+    context: 'Placeholder — à remplacer par le descriptif du second cas.',
+    approach: 'Placeholder — méthodologie retenue pour ce projet.',
+    deliverables: ['À compléter', 'À compléter', 'À compléter'],
+    result: 'Placeholder — chiffres clés et impact pour le client.',
+    reverse: true,
+  },
+  {
+    n: '03',
+    sector: 'À compléter',
+    location: 'Guadeloupe',
+    year: '2025',
+    surface: '— m²',
+    title: 'Titre du projet 03',
+    titleEm: 'à définir.',
+    lede: 'Accroche courte décrivant la nature du projet, le commanditaire et l\'objectif principal.',
+    context: 'Placeholder — à remplacer par le descriptif du troisième cas.',
+    approach: 'Placeholder — méthodologie retenue pour ce projet.',
+    deliverables: ['À compléter', 'À compléter', 'À compléter'],
+    result: 'Placeholder — chiffres clés et impact pour le client.',
+    reverse: false,
+  },
+];
+---
+
+<Layout
+  title={title}
+  description={description}
+  keywords={keywords}
+  path="/portfolio"
+  active="/portfolio"
+  breadcrumbs={breadcrumbs}
+>
+  <main class="page-main">
+    <div class="page-banner">
+      <img src="/img/scanner.png" alt="Portfolio Metrie GP — études de cas scan 3D Guadeloupe et Antilles" loading="lazy" />
+      <div class="banner-brackets"></div>
+    </div>
+
+    <section class="page-hero">
+      <div class="block">
+        <div class="tag">III — Portfolio</div>
+        <h1 class="page-title">Trois projets,<br /><em>trois contextes,<br /></em><span class="thin">une même rigueur.</span></h1>
+        <p class="page-lede">
+          Sélection de réalisations récentes en Guadeloupe et dans les
+          Antilles françaises. Chaque étude de cas détaille le contexte,
+          les contraintes terrain, l'approche retenue et les livrables
+          remis au client.
+        </p>
+      </div>
+    </section>
+
+    <section id="portfolio" class="block portfolio-list">
+      {cases.map((c) => (
+        <article class={`case-study${c.reverse ? ' case-study-reverse' : ''}`}>
+          <div class="case-media">
+            <img src="/img/scanner.png" alt={`Étude de cas ${c.n} — ${c.title} — Metrie GP`} loading="lazy" />
+            <div class="case-media-tag">{c.n}</div>
+          </div>
+          <div class="case-body">
+            <div class="case-meta">
+              <span class="case-meta-k">Secteur</span><span class="case-meta-v">{c.sector}</span>
+              <span class="case-meta-k">Localisation</span><span class="case-meta-v">{c.location}</span>
+              <span class="case-meta-k">Année</span><span class="case-meta-v">{c.year}</span>
+              <span class="case-meta-k">Surface</span><span class="case-meta-v">{c.surface}</span>
+            </div>
+            <h2>{c.title}<br /><em>{c.titleEm}</em></h2>
+            <p class="case-lede">{c.lede}</p>
+
+            <div class="case-blocks">
+              <div><h4>Contexte</h4><p>{c.context}</p></div>
+              <div><h4>Approche</h4><p>{c.approach}</p></div>
+              <div>
+                <h4>Livrables</h4>
+                <ul>{c.deliverables.map((d) => <li>{d}</li>)}</ul>
+              </div>
+              <div><h4>Résultat</h4><p>{c.result}</p></div>
+            </div>
+
+            <div class="pill-row case-pills">
+              <span class="pill">Tag 1</span><span class="pill">Tag 2</span><span class="pill">Tag 3</span>
+            </div>
+          </div>
+        </article>
+      ))}
+    </section>
+
+    <section class="block page-cta-block">
+      <div class="page-cta">
+        <h2>Le prochain cas sera peut-être le vôtre.</h2>
+        <p>Parlez-nous de votre site — nous vous répondons sous 24 h.</p>
+        <a href="/contact" class="btn-primary">Démarrer un projet</a>
+      </div>
+    </section>
+  </main>
+</Layout>

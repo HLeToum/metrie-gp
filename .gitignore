@@ -4,3 +4,14 @@ node_modules/
 *.log
 .DS_Store
 Thumbs.db
+
+# Astro
+dist/
+.astro/
+.vercel/
+
+# env
+.env
+.env.local
+.env.*.local
+

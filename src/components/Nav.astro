@@ -1,0 +1,61 @@
+---
+import { navLinks } from '../siteConfig';
+
+interface Props {
+  variant?: 'light' | 'dark';
+  active?: string;
+}
+const { variant = 'light', active = '' } = Astro.props;
+const navClass = variant === 'dark' ? 'nav nav-dark' : 'nav';
+---
+
+<header class={navClass} id="topnav">
+  <div class="nav-inner">
+    <a href="/" class="logo">
+      <span class="logo-text">Metrie GP</span>
+    </a>
+    <nav>
+      {navLinks.map((l) => (
+        <a href={l.href} class={active === l.href ? 'active' : ''}>{l.label}</a>
+      ))}
+      <a href="/contact" class={`nav-drawer-cta${active === '/contact' ? ' active' : ''}`}>Nous contacter</a>
+    </nav>
+    <a href="/contact" class={`nav-cta${active === '/contact' ? ' active' : ''}`}>Nous contacter</a>
+    <button class="nav-burger" id="nav-burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="topnav">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<script>
+  const topnav = document.getElementById('topnav');
+  if (topnav) {
+    window.addEventListener(
+      'scroll',
+      () => {
+        topnav.classList.toggle('scrolled', window.scrollY > 40);
+      },
+      { passive: true },
+    );
+
+    const burger = document.getElementById('nav-burger');
+    if (burger) {
+      const close = () => {
+        topnav.classList.remove('open');
+        burger.setAttribute('aria-expanded', 'false');
+        document.body.classList.remove('nav-open');
+      };
+      burger.addEventListener('click', () => {
+        const isOpen = topnav.classList.toggle('open');
+        burger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        document.body.classList.toggle('nav-open', isOpen);
+      });
+      topnav.querySelectorAll('nav a, .nav-cta').forEach((a) =>
+        a.addEventListener('click', close),
+      );
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') close();
+      });
+    }
+  }
+</script>

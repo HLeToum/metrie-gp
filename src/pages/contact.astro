@@ -1,0 +1,171 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { site } from '../siteConfig';
+
+const title = 'Demander un devis — Scan 3D LiDAR';
+const description =
+  "Formulaire de devis pour scan 3D LiDAR, Scan-to-BIM ou numérisation patrimoniale en Guadeloupe et aux Antilles. Réponse sous 24 h ouvrées, devis gratuit et sans engagement.";
+
+const breadcrumbs = [
+  { name: 'Accueil', path: '/' },
+  { name: 'Contact', path: '/contact' },
+];
+
+const contactPointSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ContactPage',
+  url: `${site.url}/contact`,
+  about: {
+    '@type': 'Service',
+    name: 'Devis scan 3D LiDAR Antilles',
+    provider: { '@id': `${site.url}/#organization` },
+  },
+};
+---
+
+<Layout
+  title={title}
+  description={description}
+  path="/contact"
+  active="/contact"
+  breadcrumbs={breadcrumbs}
+  extraSchema={contactPointSchema}
+>
+  <main class="page-main">
+    <section id="contact" class="devis-section">
+      <div class="block">
+        <header class="devis-hero">
+          <div class="tag">IV — Demander un devis</div>
+          <h1 class="page-title">Parlons de<br /><em>votre projet.</em></h1>
+          <p class="page-lede">
+            Quelques minutes pour nous écrire, une réponse humaine sous
+            <strong>24 h ouvrées</strong> avec une première estimation. Pas de robot, pas de relance marketing.
+          </p>
+        </header>
+
+        <div class="devis-layout">
+          <form
+            class="devis-form contact-form"
+            method="POST"
+            action="https://formsubmit.co/contact@metrie-gp.fr"
+            onsubmit="event.preventDefault(); const b=this.querySelector('button[type=submit]'); b.innerHTML='Demande envoyée ✓'; b.disabled=true; this.classList.add('submitted');"
+          >
+            <input type="hidden" name="_subject" value="Nouvelle demande de devis — Metrie GP" />
+            <input type="hidden" name="_template" value="table" />
+            <input type="hidden" name="_captcha" value="true" />
+
+            <div class="field-row">
+              <label class="field">
+                <span>Nom complet <em>*</em></span>
+                <input type="text" name="name" placeholder="Jean Dupont" required />
+              </label>
+              <label class="field">
+                <span>Téléphone</span>
+                <input type="tel" name="phone" placeholder="06 00 00 00 00" />
+              </label>
+            </div>
+
+            <label class="field">
+              <span>Email professionnel <em>*</em></span>
+              <input type="email" name="email" placeholder="jean@entreprise.fr" required />
+            </label>
+
+            <div class="field-check-group">
+              <span class="field-label">Type de projet <em>*</em></span>
+              <div class="pills-wrap">
+                <label class="check-pill"><input type="checkbox" name="service" value="releve-topo" />Visite virtuelle</label>
+                <label class="check-pill"><input type="checkbox" name="service" value="scan-to-bim" />Nuage de point</label>
+                <label class="check-pill"><input type="checkbox" name="service" value="patrimoine" />Modélisation archicad</label>
+                <label class="check-pill"><input type="checkbox" name="service" value="industriel" />Plan, façades, coupes en DWG</label>
+                <label class="check-pill"><input type="checkbox" name="service" value="autre" /><span>Autre</span></label>
+              </div>
+            </div>
+
+            <label class="field">
+              <span>Décrivez votre projet <em>*</em></span>
+              <textarea name="message" rows="5" placeholder="Quel site ? quel livrable attendu ? contraintes particulières (site en exploitation, accès, délai) ?" required></textarea>
+            </label>
+
+            <label class="field check-consent">
+              <input type="checkbox" name="consent" required />
+              <span>J'accepte que mes données soient utilisées pour traiter cette demande de devis, conformément à la <a href="/confidentialite" target="_blank" rel="noopener">politique de confidentialité</a>. Elles ne seront ni cédées ni utilisées à des fins marketing. <em>*</em></span>
+            </label>
+
+            <div class="form-actions">
+              <button type="submit" class="btn-primary">Envoyer ma demande</button>
+              <div class="form-trust">
+                <span>Réponse <strong>24 h</strong></span>
+                <span class="trust-sep">·</span>
+                <span>Devis <strong>gratuit</strong></span>
+                <span class="trust-sep">·</span>
+                <span>Sans <strong>engagement</strong></span>
+              </div>
+            </div>
+          </form>
+
+          <aside class="devis-aside">
+            <div class="aside-block">
+              <span class="aside-label">Ou directement</span>
+              <a href={`mailto:${site.email}`} class="aside-link">
+                <span class="aside-k">Email</span>
+                <span class="aside-v">{site.email}</span>
+              </a>
+              <a href={`tel:${site.phone}`} class="aside-link">
+                <span class="aside-k">Téléphone</span>
+                <span class="aside-v">{site.phoneDisplay}</span>
+              </a>
+            </div>
+
+            
+
+          
+          </aside>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script is:inline>
+    (function () {
+      const params = new URLSearchParams(window.location.search);
+      if (!params.has('surface') && !params.has('service') && !params.has('estimation')) return;
+
+      const surface = params.get('surface');
+      const service = params.get('service');
+      const estimation = params.get('estimation');
+      const form = document.querySelector('form.contact-form');
+      if (!form) return;
+
+      if (service === 'nuage') {
+        const cb = form.querySelector('input[name="service"][value="releve-topo"]');
+        if (cb) cb.checked = true;
+      }
+
+      const msg = form.querySelector('textarea[name="message"]');
+      if (msg && !msg.value) {
+        const parts = ['Demande pour la prestation Nuage de points 3D.'];
+        if (surface) parts.push(`Surface estimée : ${surface} m².`);
+        if (estimation) parts.push(`Estimation simulateur : ${estimation} € HT (hors frais de déplacement, options à chiffrer).`);
+        parts.push('\nMerci de me recontacter pour finaliser le devis.');
+        msg.value = parts.join('\n');
+      }
+
+      const loc = form.querySelector('input[name="location"]');
+      const details = form.querySelector('details.form-extras');
+      if (loc && details && !details.open) details.open = true;
+
+      const heroLede = document.querySelector('.devis-hero .page-lede');
+      if (heroLede && (surface || estimation)) {
+        const banner = document.createElement('p');
+        banner.className = 'page-lede';
+        banner.style.cssText = 'margin-top:16px;padding:12px 16px;border-left:2px solid var(--accent);background:var(--paper);font-size:14px;';
+        const bits = ['Votre estimation a été reprise dans le formulaire'];
+        if (surface) bits.push(`(${surface} m²`);
+        if (estimation) bits.push(`· ~${estimation} € HT)`);
+        else if (surface) bits[bits.length - 1] += ')';
+        banner.textContent = bits.join(' ') + '. Complétez les informations pour recevoir votre devis détaillé.';
+        heroLede.insertAdjacentElement('afterend', banner);
+      }
+    })();
+  </script>
+</Layout>

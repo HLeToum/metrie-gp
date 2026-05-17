@@ -1,0 +1,279 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { faqSchema } from '../lib/schema';
+import SimulateurNuage from '../components/SimulateurNuage.astro';
+
+const title = 'Votre partenaire en matière de relevé';
+const description =
+  "Metrie GP est un studio de relevé 3D LiDAR basé en Guadeloupe et dans la caraïbe. Nous transformons bâtiments, ouvrages d'arts et site industriels en nuages de points, maquette BIM exploitable en quelques jours.";
+const keywords =
+  'scan 3D LiDAR Guadeloupe, Scan-to-BIM Antilles, relevé topographique Guadeloupe, nuage de points, maquette BIM Revit, modélisation ArchiCAD, jumeau numérique, FJD Trion P2, patrimoine créole, DOM-TOM, relevé architectural';
+
+const faq = faqSchema([
+  {
+    q: 'Quels territoires Metrie GP couvre-t-il ?',
+    a: "Nous intervenons dans toute la Caraïbe française : Guadeloupe (base), Martinique, Saint-Martin, Saint-Barthélemy et Guyane. Délai de mise en place sous 48 h sur l'archipel guadeloupéen.",
+  },
+  {
+    q: "Qu'est-ce que le Scan-to-BIM ?",
+    a: "Le Scan-to-BIM transforme un relevé 3D LiDAR (nuage de points) en maquette numérique BIM exploitable dans Revit, ArchiCAD ou au format IFC. Nous livrons des modèles fidèles à l'existant, du LOD 200 au LOD 400.",
+  },
+  {
+    q: 'Quelle est la précision de vos relevés ?',
+    a: "Notre scanner LiDAR mobile FJD Trion P2 atteint une précision absolue de ±2 cm avec géoréférencement GNSS. Chaque livraison inclut un rapport de conformité signé.",
+  },
+  {
+    q: 'En combien de temps livrez-vous un nuage de points ?',
+    a: "Un nuage de points livrable est généré en 5 jours après la captation. Une maquette BIM complète demande 2 à 4 semaines supplémentaires selon le LOD demandé.",
+  },
+  {
+    q: 'Travaillez-vous sur des sites en exploitation ?',
+    a: "Oui. Le LiDAR mobile permet de scanner des hôtels, usines ou édifices religieux sans interrompre l'activité. Intervention nocturne possible sur les zones sensibles.",
+  },
+]);
+---
+
+<Layout
+  title={title}
+  description={description}
+  keywords={keywords}
+  path="/"
+  active="/"
+  extraSchema={faq}
+>
+  <main class="page-main">
+    
+    <section class="page-hero">
+      <div class="block">
+        <h1 class="page-title">
+          Votre partenaire <br />en matière de <br /><span class="thin">relevé.</span>
+        </h1>
+        <p class="page-lede">
+         Metrie GP est un studio de relevé 3D LiDAR basé en Guadeloupe et dans la caraïbe. Nous transformons bâtiments, ouvrages d'arts et site industriels en nuages de points, maquette BIM exploitable en quelques jours.
+        </p>
+        <div class="hero-cta" style="margin-top: 28px;">
+          <a href="/contact" class="btn-primary">Demander un devis</a>
+          
+        </div>
+      </div>
+    </section>
+
+    <section class="block home-about">
+      <div class="home-about-grid">
+        <div class="home-about-text">
+          <h2>Mesurer le réel,<br /><em>sans approximation.</em></h2>
+          <p>
+           Metrie GP accompagne architectes, bureaux d'études, maîtres d'œuvre et collectivités dans la captation et la restitution numérique de l'existant. Nous intervenons partout dans les Antilles françaises — Guadeloupe, Martinique, Guyane, Saint-Martin, Saint-Barthélemy — avec un savoir-faire dans le domaine du bâtiment .
+          </p>
+          <p>
+            Notre outil principal, le <strong>LiDAR mobile FJD Trion P2</strong>,
+            permet de capter un site entier <strong>en marchant</strong>, sans
+            trépied ni interruption d'activité. C'est ce qui nous permet de
+            livrer en quelques jours ce qui demandait auparavant plusieurs
+            semaines de relevé traditionnel — <strong>sans compromis sur la
+            précision</strong>.
+          </p>
+        </div>
+        <div class="home-about-stats">
+          <div class="stat-card">
+            <div class="stat-k">Portée</div>
+            <div class="stat-v">120<sub>m</sub></div>
+            <div class="stat-d">Jusqu'à 200 m en conditions optimales</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-k">Précision</div>
+            <div class="stat-v">±2<sub>cm</sub></div>
+            <div class="stat-d">Absolue, géoréférencée</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="block home-why">
+      <div class="home-why-head">
+        <h2>Quatre raisons de<br /><em>nous confier votre projet.</em></h2>
+      </div>
+
+      <div class="home-why-grid">
+        <div class="why-item">
+          <div class="why-num">01</div>
+          <h4>Une expertise métier du bâtiment</h4>
+          <p>
+            Notre approche croise architecture, ingénierie et outils numériques.
+            Nous comprenons les attentes des architectes, des bureaux d’études et des maîtres d’ouvrage, car nous parlons le langage du projet autant que celui de la donnée.
+          </p>
+        </div>
+        <div class="why-item">
+          <div class="why-num">02</div>
+          <h4>Des données pensées pour être utilisées</h4>
+          <p>
+            Un relevé n’a de valeur que s’il sert clairement le projet.
+Nous structurons les informations dès l’acquisition pour produire des supports lisibles, cohérents et directement exploitables dans vos méthodes de travail.
+          </p>
+        </div>
+        <div class="why-item">
+          <div class="why-num">03</div>
+          <h4> Une synthèse fiable de l’existant</h4>
+          <p>
+            À partir du scan, nous transformons la complexité du bâtiment en une lecture claire : volumes, niveaux, déformations, plans, coupes, façades ou maquette BIM.
+            L’objectif n’est pas d’accumuler des données, mais de produire la bonne information pour décider, concevoir et avancer.
+          </p>
+        </div>
+        <div class="why-item">
+          <div class="why-num">04</div>
+          <h4>Une acquisition rapide, même en site occupé</h4>
+          <p>
+            Notre matériel permet de relever rapidement l’existant avec un impact limité sur l’activité du site.
+            Bureaux, logements, équipements publics ou bâtiments en exploitation : nous intervenons efficacement sans immobiliser inutilement les espaces.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="services" class="block home-services">
+      <div class="home-services-head">
+        <h2>Nos livrables</h2>
+        <p class="page-lede">
+         Metrie GP transforme le scan laser 3D en maquettes et plans directement exploitables pour la conception.
+          Nous structurons les données pour livrer des supports directement intégrables dans votre flux de travail.
+          Chaque projet est pensé pour son usage final :
+        </p>
+        <ul class="page-lede">
+          <li>conception architecturale</li>
+          <li>étude technique</li>
+          <li>consultation ou appel d’offres</li>
+        </ul>
+        <p class="page-lede">Vous ne repartez pas d’un relevé brut. Vous démarrez avec une base fiable.</p>
+      </div>
+
+      <div class="service-cards">
+        <article class="service-card">
+          <div class="service-card-num">01</div>
+          <div class="service-card-illus">
+            <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1">
+              <rect x="12" y="12" width="76" height="76" />
+              <path d="M12 30 H88 M12 50 H88 M12 70 H88 M30 12 V88 M50 12 V88 M70 12 V88" stroke-opacity="0.3" />
+              <circle cx="30" cy="30" r="2.5" fill="currentColor" />
+              <circle cx="50" cy="50" r="2.5" fill="currentColor" />
+              <circle cx="70" cy="70" r="2.5" fill="currentColor" />
+              <circle cx="70" cy="30" r="1.5" fill="currentColor" fill-opacity="0.5" />
+              <circle cx="30" cy="70" r="1.5" fill="currentColor" fill-opacity="0.5" />
+            </svg>
+          </div>
+          <h3>Nuage de points</h3>
+          <p>
+            Relevé exhaustif de l’existant, issu du scan 3D, constituant la base la plus fidèle du bâtiment.
+            Le nuage peut être livré brut ou préparé selon vos besoins : segmentation par zones, coupes, plans de niveau ou éléments spécifiques, colorisation par altimétrie
+            Possibilité de générer des orthophotos précises (plans, coupes, façades) 
+            Formats disponibles : E57, LAS, XYZ.
+          </p>
+        </article>
+
+        <article class="service-card">
+          <div class="service-card-num">02</div>
+          <div class="service-card-illus">
+            <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1">
+              <path d="M50 8 L88 28 L88 72 L50 92 L12 72 L12 28 Z" />
+              <path d="M50 8 L50 50 M50 50 L88 28 M50 50 L12 28 M50 50 L50 92" stroke-opacity="0.5" />
+              <path d="M12 72 L50 92 L88 72" stroke-opacity="0.25" />
+              <circle cx="50" cy="50" r="2" fill="currentColor" />
+              <circle cx="50" cy="8" r="1.5" fill="currentColor" />
+              <circle cx="88" cy="28" r="1.5" fill="currentColor" />
+              <circle cx="12" cy="28" r="1.5" fill="currentColor" />
+            </svg>
+          </div>
+          <h3>Maquette BIm<br /><em>Revit · ArchiCAD</em></h3>
+          <p>
+           Modélisation numérique fidèle à l’existant, produite à partir du nuage de points, pour une exploitation directe en phase de conception.
+            La maquette est structurée selon vos usages : niveau de détail adapté (LOD 200 à 400), organisation des éléments, et possibilité d’intégration dans les templates de votre agence.
+            Livrable en format natif (Archicad ou Revit) ou en IFC pour une interopérabilité complète.
+          </p>
+         
+        </article>
+
+        <article class="service-card">
+          <div class="service-card-num">03</div>
+          <div class="service-card-illus">
+            <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1">
+              <path d="M18 80 V40 L50 20 L82 40 V80 Z" />
+              <path d="M18 80 H82" stroke-opacity="0.5" />
+              <path d="M34 80 V55 H46 V80 M54 80 V55 H66 V80" stroke-opacity="0.6" />
+              <path d="M50 20 V10 M42 10 H58" stroke-opacity="0.4" />
+              <circle cx="50" cy="42" r="1.5" fill="currentColor" opacity="0.5" />
+              <circle cx="30" cy="48" r="1.5" fill="currentColor" opacity="0.5" />
+              <circle cx="70" cy="48" r="1.5" fill="currentColor" opacity="0.5" />
+            </svg>
+          </div>
+          <h3>DWG</h3>
+          <p>
+            Plans, coupes et/ou façades produits à partir du relevé ou de la maquette BIM, prêts à être utilisés en phase administrative ou en étude.
+          </p>
+         
+        </article>
+        <article class="service-card">
+          <div class="service-card-num">04</div>
+          <div class="service-card-illus">
+            <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1">
+              <path d="M18 80 V40 L50 20 L82 40 V80 Z" />
+              <path d="M18 80 H82" stroke-opacity="0.5" />
+              <path d="M34 80 V55 H46 V80 M54 80 V55 H66 V80" stroke-opacity="0.6" />
+              <path d="M50 20 V10 M42 10 H58" stroke-opacity="0.4" />
+              <circle cx="50" cy="42" r="1.5" fill="currentColor" opacity="0.5" />
+              <circle cx="30" cy="48" r="1.5" fill="currentColor" opacity="0.5" />
+              <circle cx="70" cy="48" r="1.5" fill="currentColor" opacity="0.5" />
+            </svg>
+          </div>
+          <h3>Modèle 3D</h3>
+          <p>
+            Plans, coupes et/ou façades produits à partir du relevé ou de la maquette BIM, prêts à être utilisés en phase administrative ou en étude.
+          </p>
+         
+        </article>
+        <article class="service-card">
+          <div class="service-card-num">05</div>
+          <div class="service-card-illus">
+            <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1">
+              <path d="M18 80 V40 L50 20 L82 40 V80 Z" />
+              <path d="M18 80 H82" stroke-opacity="0.5" />
+              <path d="M34 80 V55 H46 V80 M54 80 V55 H66 V80" stroke-opacity="0.6" />
+              <path d="M50 20 V10 M42 10 H58" stroke-opacity="0.4" />
+              <circle cx="50" cy="42" r="1.5" fill="currentColor" opacity="0.5" />
+              <circle cx="30" cy="48" r="1.5" fill="currentColor" opacity="0.5" />
+              <circle cx="70" cy="48" r="1.5" fill="currentColor" opacity="0.5" />
+            </svg>
+          </div>
+          <h3>Visite virtuelle</h3>
+          <p>
+            Accès immersif au bâtiment relevé, directement depuis un navigateur, sans logiciel spécifique.
+La visite permet de naviguer librement dans le projet, de prendre des mesures( à vérifier), et de consulter les espaces à distance comme si vous y étiez.
+
+Particulièrement utile pour :
+<ul>
+<li>échanges avec les clients</li>
+<li>validation à distance</li>
+<li>suivi de projet sans déplacement</li>
+<li>valorisation de biens existants</li>
+
+</ul>
+          </p>
+         
+        </article>
+      </div>
+    </section>
+
+    
+
+    
+    
+
+    <SimulateurNuage />
+
+    <section class="block page-cta-block">
+      <div class="page-cta">
+        <h2>Un projet de relevé ?</h2>
+        <p>Parlons-en. Devis gratuit sous 24 h ouvrées.</p>
+        <a href="/contact" class="btn-primary">Démarrer un projet</a>
+      </div>
+    </section>
+  </main>
+</Layout>

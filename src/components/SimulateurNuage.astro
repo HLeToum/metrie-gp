@@ -1,0 +1,312 @@
+---
+const MIN_M2 = 40;
+const MAX_M2 = 2500;
+const A = 740;
+const K_DENOM = 60.5;
+const FLOOR_PER_M2 = 1.0;
+const DEFAULT_S = 100;
+---
+
+<section id="simulateur" class="block">
+  <div class="home-services-head">
+    <h2>Estimez votre relevé<br /><em>en 30 secondes.</em></h2>
+    <p class="page-lede">
+      Estimation immédiate du prix de captation et de livraison d'un
+      <strong>nuage de points</strong>, sur la base de la surface au sol.
+      Les options complémentaires — modélisation BIM, plans DWG, visite virtuelle —
+      et les frais de déplacement sont chiffrés séparément dans votre devis.
+    </p>
+  </div>
+
+  <div class="simulateur-card">
+    <!-- ============ INPUTS ============ -->
+    <div class="simulateur-input">
+      <label class="simulateur-label" for="sim-surface">
+        <span>Surface à relever</span>
+        <output id="sim-surface-out">{DEFAULT_S} m²</output>
+      </label>
+
+      <input
+        id="sim-surface"
+        type="range"
+        min={MIN_M2}
+        max={MAX_M2}
+        step="10"
+        value={DEFAULT_S}
+        aria-label="Surface en mètres carrés"
+      />
+      <div class="simulateur-range-bounds">
+        <span>{MIN_M2} m²</span>
+        <span>{MAX_M2} m²</span>
+      </div>
+
+      <div class="simulateur-presets" role="group" aria-label="Surfaces de référence">
+        {[50, 100, 200, 500, 1000, 2000].map((v) => (
+          <button type="button" class="pill simulateur-preset" data-value={v}>{v} m²</button>
+        ))}
+      </div>
+    </div>
+
+    <!-- ============ RESULT ============ -->
+    <div class="simulateur-result">
+      <div class="simulateur-result-headline">
+        <span class="simulateur-mini-label">Prix estimé HT</span>
+        <strong id="sim-ht">— €</strong>
+      </div>
+      <dl class="simulateur-detail">
+        <div>
+          <dt>au m²</dt>
+          <dd id="sim-per-m2">— €/m²</dd>
+        </div>
+      </dl>
+      <p class="simulateur-note" id="sim-note">
+        Prestation Nuage de points uniquement. Frais de déplacement, modélisation BIM,
+        plans DWG et visite virtuelle chiffrés séparément.
+      </p>
+      <a id="sim-cta" href="/contact?surface=100&service=nuage&estimation=698" class="btn-primary">
+        Demander un devis détaillé
+      </a>
+    </div>
+  </div>
+
+  <aside class="simulateur-mentions" aria-label="Mentions du simulateur">
+    <p>
+      <sup>*</sup>Visite virtuelle disponible pendant <strong>4 mois</strong>,
+      renouvelable à <strong>49 €</strong> pour 1 an.
+    </p>
+    <p>
+      <sup>**</sup>Les tarifs ne tiennent pas compte des éventuels frais de
+      déplacement.
+    </p>
+    <p class="simulateur-warning">
+      <strong>Attention</strong> — Le relevé est un relevé <strong>Architectural</strong>.
+      Ce n'est pas un relevé de géomètre.
+    </p>
+  </aside>
+</section>
+
+<script
+  is:inline
+  define:vars={{ MIN_M2, MAX_M2, A, K_DENOM, FLOOR_PER_M2, DEFAULT_S }}
+>
+  (function () {
+    const slider = document.getElementById('sim-surface');
+    const out = document.getElementById('sim-surface-out');
+    const ht = document.getElementById('sim-ht');
+    const perM2 = document.getElementById('sim-per-m2');
+    const note = document.getElementById('sim-note');
+    const cta = document.getElementById('sim-cta');
+    if (!slider) return;
+
+    const fmt0 = new Intl.NumberFormat('fr-FR', {
+      style: 'currency', currency: 'EUR', maximumFractionDigits: 0,
+    });
+    const fmt2 = new Intl.NumberFormat('fr-FR', {
+      style: 'currency', currency: 'EUR', maximumFractionDigits: 2,
+    });
+
+    function priceHT(s) {
+      return A * (1 - Math.exp(-s / K_DENOM)) + s * FLOOR_PER_M2;
+    }
+
+    const defaultNote = note.textContent;
+    const outOfRangeNote =
+      'Hors plage du simulateur. Les très petits ou très grands sites nécessitent un chiffrage manuel — un devis personnalisé reste gratuit et sans engagement.';
+
+    function update() {
+      const s = Number(slider.value);
+      out.textContent = `${s.toLocaleString('fr-FR')} m²`;
+
+      const outOfRange = s < MIN_M2 || s > MAX_M2;
+      if (outOfRange) {
+        ht.textContent = 'Devis personnalisé';
+        perM2.textContent = '—';
+        note.textContent = outOfRangeNote;
+      } else {
+        const p = priceHT(s);
+        ht.textContent = `${fmt0.format(p)} HT`;
+        perM2.textContent = `${fmt2.format(p / s)} / m²`;
+        note.textContent = defaultNote;
+      }
+
+      const params = new URLSearchParams({
+        service: 'nuage',
+        surface: String(s),
+      });
+      if (!outOfRange) params.set('estimation', String(Math.round(priceHT(s))));
+      cta.href = `/contact?${params.toString()}#contact`;
+    }
+
+    slider.addEventListener('input', update);
+    document.querySelectorAll('.simulateur-preset').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        slider.value = btn.getAttribute('data-value');
+        slider.dispatchEvent(new Event('input', { bubbles: true }));
+      });
+    });
+
+    update();
+  })();
+</script>
+
+<style>
+  .simulateur-card {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 40px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 56px;
+    align-items: stretch;
+  }
+  @media (max-width: 860px) {
+    .simulateur-card { grid-template-columns: 1fr; gap: 36px; padding: 28px; }
+  }
+
+  /* ===== input column ===== */
+  .simulateur-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 16px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+  }
+  .simulateur-label output {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--ink);
+    letter-spacing: -0.02em;
+    text-transform: none;
+  }
+  #sim-surface {
+    width: 100%;
+    accent-color: var(--accent);
+    cursor: pointer;
+  }
+  .simulateur-range-bounds {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    color: var(--ink-dim);
+    margin-top: 6px;
+  }
+  .simulateur-presets {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 24px;
+  }
+  .simulateur-preset {
+    cursor: pointer;
+    background: transparent;
+    border: 1px solid var(--line);
+    font-family: inherit;
+    transition: border-color 0.15s, color 0.15s;
+  }
+  .simulateur-preset:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  /* ===== result column ===== */
+  .simulateur-result {
+    border-left: 1px solid var(--line);
+    padding-left: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  @media (max-width: 860px) {
+    .simulateur-result {
+      border-left: none;
+      border-top: 1px solid var(--line);
+      padding-left: 0;
+      padding-top: 28px;
+    }
+  }
+
+  .simulateur-mini-label {
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+    margin-bottom: 4px;
+  }
+  .simulateur-result-headline strong {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 44px;
+    font-weight: 700;
+    color: var(--ink);
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+    display: block;
+  }
+
+  .simulateur-detail {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin: 0;
+    padding-top: 8px;
+    border-top: 1px solid var(--line-soft);
+  }
+  .simulateur-detail div { display: flex; flex-direction: column; gap: 2px; }
+  .simulateur-detail dt {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+  }
+  .simulateur-detail dd {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 16px;
+    color: var(--ink);
+    margin: 0;
+  }
+
+  .simulateur-note {
+    font-size: 13px;
+    line-height: 1.55;
+    color: var(--ink-dim);
+    margin-top: auto;
+    margin-bottom: 4px;
+  }
+
+  /* ===== mentions sous la card ===== */
+  .simulateur-mentions {
+    max-width: 980px;
+    margin: 24px auto 0;
+    padding: 20px 24px;
+    border-left: 2px solid var(--accent);
+    background: transparent;
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--ink-dim);
+  }
+  .simulateur-mentions p { margin: 0 0 6px; }
+  .simulateur-mentions p:last-child { margin-bottom: 0; }
+  .simulateur-mentions sup {
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--accent);
+    margin-right: 2px;
+  }
+  .simulateur-warning {
+    margin-top: 10px !important;
+    padding-top: 10px;
+    border-top: 1px solid var(--line-soft);
+    color: var(--ink-2);
+  }
+  .simulateur-warning strong:first-child { color: var(--accent); }
+</style>
