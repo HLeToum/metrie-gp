@@ -2823,10 +2823,18 @@ footer {
   flex-shrink: 0;
 }
 .devis-form .check-consent span:not([class]) {
+  font-family: 'Inter', sans-serif;
   font-size: 13px;
+  font-weight: 400;
+  text-transform: none;
   color: var(--ink-dim);
   line-height: 1.55;
   letter-spacing: -0.005em;
+}
+.devis-form .check-consent a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
 }
 .devis-form .check-consent em {
   color: var(--accent);
@@ -3078,8 +3086,8 @@ body.page-content .aside-steps .step-num {
   }
   .demo-sidebar-foot { display: none; }
   .demo-intro .tag { font-size: 9.5px; margin-bottom: 10px; }
-  .demo-intro h1 { font-size: 24px; margin-bottom: 10px; }
-  .demo-intro h1 br { display: none; }
+  .demo-intro h1 { font-size: 24px; margin-bottom: 10px; line-height: 1.1; }
+  /* keep <br> visible — collapsing it produced "Le scanneren action." */
   .demo-intro p {
     font-size: 13px;
     line-height: 1.5;
@@ -3497,11 +3505,16 @@ body.nav-open { overflow: hidden; }
 
 /* ----------------------------------------------------------------------------
    Scanner viewer (outils page) — make it taller on mobile so the 3D model
-   has breathing room
+   has breathing room, and avoid the static hint colliding with the caption.
    ---------------------------------------------------------------------------- */
 @media (max-width: 1080px) {
   .scanner-viewer { min-height: 340px; }
   .instrument-text h2 { font-size: clamp(28px, 6vw, 40px); }
+  /* The bottom-left hint and the bottom-right caption both anchor near
+     bottom:20px and overlap on a 375px viewport. The animated touch-hint
+     card already covers initial interaction guidance, so the persistent
+     small hint is redundant on phones. */
+  .scanner-viewer-hint { display: none; }
 }
 
 /* ----------------------------------------------------------------------------
@@ -3901,9 +3914,30 @@ body.nav-open { overflow: hidden; }
 .legal-block strong { color: var(--ink); }
 
 .legal-table-wrap {
+  position: relative;
   margin: 0 0 20px;
   overflow-x: auto;
   border: 1px solid var(--line);
+}
+/* Subtle right-edge fade on mobile to hint that the table scrolls horizontally */
+@media (max-width: 720px) {
+  .legal-table-wrap {
+    background:
+      linear-gradient(to right, rgba(2, 8, 7, 0) 0%, rgba(2, 8, 7, 0) 88%, rgba(2, 8, 7, 0.85) 100%)
+      right center / 100% 100% no-repeat;
+    background-attachment: local, scroll;
+  }
+  .legal-table-wrap::before {
+    content: '← faire défiler →';
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+    padding: 8px 12px 0;
+    opacity: 0.7;
+  }
 }
 .legal-table {
   width: 100%;
