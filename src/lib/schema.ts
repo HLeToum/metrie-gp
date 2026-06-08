@@ -113,6 +113,31 @@ export function faqSchema(qa: { q: string; a: string }[]) {
   };
 }
 
+export function blogPostingSchema(article: {
+  title: string;
+  description: string;
+  datePublished: string;
+  dateModified?: string;
+  author?: string;
+  image?: string;
+  path: string;
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: article.title,
+    description: article.description,
+    datePublished: article.datePublished,
+    dateModified: article.dateModified || article.datePublished,
+    author: { '@type': article.author && article.author !== site.name ? 'Person' : 'Organization', name: article.author || site.name },
+    publisher: { '@id': `${site.url}/#organization` },
+    image: new URL(article.image || site.ogImage, site.url).toString(),
+    url: new URL(article.path, site.url).toString(),
+    mainEntityOfPage: new URL(article.path, site.url).toString(),
+    inLanguage: 'fr-FR',
+  };
+}
+
 export function serviceSchema(s: { name: string; description: string; path: string }) {
   return {
     '@context': 'https://schema.org',

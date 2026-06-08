@@ -43,8 +43,8 @@ const faq = faqSchema([
 >
   <main class="page-main">
     
-    <section class="page-hero">
-      <div class="block">
+    <section class="grid grid-cols-2 p-24">
+      <div >
         <h1 class="page-title">
           Votre partenaire <br />en matière de <br /><span class="thin">relevé.</span>
         </h1>
@@ -56,9 +56,12 @@ const faq = faqSchema([
           
         </div>
       </div>
+      
+      <div class="flex w-full"> <iframe
+       frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/ea1ef9e7f82f418ea0776ceb6894ebd1/embed"> </iframe></div>
     </section>
 
-    <section class="block home-about">
+    <section class="p-24">
       <div class="flex flex-col gap-8">
         <div class="home-about-text">
           <h2>Mesurer le réel,<br /><em>sans approximation.</em></h2>
@@ -70,13 +73,13 @@ const faq = faqSchema([
         <div class="home-about-stats">
           <div class="stat-card">
             <div class="stat-k">Portée</div>
-            <div class="stat-v">120<sub>m</sub></div>
-            <div class="stat-d">Jusqu'à 200 m en conditions optimales</div>
+            <div class="stat-v">40 à 70 m<sub>m</sub></div>
+            <div class="stat-d">réflectivité > 10% ou > 80%</div>
           </div>
           <div class="stat-card">
             <div class="stat-k">Précision</div>
-            <div class="stat-v">±2<sub>cm</sub></div>
-            <div class="stat-d">Absolue, géoréférencée</div>
+            <div class="stat-v">Relative ± 1,2<sub>cm</sub></div>
+            <div class="stat-d">Absolue, 3 cm</div>
           </div>
         </div>
       </div>
@@ -100,8 +103,7 @@ const faq = faqSchema([
           <div class="why-num">02</div>
           <h4>Des données pensées pour être utilisées</h4>
           <p>
-            Un relevé n’a de valeur que s’il sert clairement le projet.
-Nous structurons les informations dès l’acquisition pour produire des supports lisibles, cohérents et directement exploitables dans vos méthodes de travail.
+            Un relevé n’a de valeur que s’il sert clairement le projet. Nous structurons les informations dès l’acquisition pour produire des supports lisibles, cohérents et directement exploitables dans vos méthodes de travail.
           </p>
         </div>
         <div class="why-item">
@@ -131,7 +133,7 @@ Nous structurons les informations dès l’acquisition pour produire des support
           Nous structurons les données pour livrer des supports directement intégrables dans votre flux de travail.
           Chaque projet est pensé pour son usage final :
         </p>
-        <ul class="page-lede">
+        <ul class="ml-8>
           <li>conception architecturale</li>
           <li>étude technique</li>
           <li>consultation ou appel d’offres</li>
@@ -139,118 +141,138 @@ Nous structurons les informations dès l’acquisition pour produire des support
         <p class="page-lede">Vous ne repartez pas d’un relevé brut. Vous démarrez avec une base fiable.</p>
       </div>
 
-      <div class="service-cards">
-        <article class="service-card">
-          <div class="service-card-num">01</div>
-          <div class="service-card-illus">
-            <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1">
-              <rect x="12" y="12" width="76" height="76" />
-              <path d="M12 30 H88 M12 50 H88 M12 70 H88 M30 12 V88 M50 12 V88 M70 12 V88" stroke-opacity="0.3" />
-              <circle cx="30" cy="30" r="2.5" fill="currentColor" />
-              <circle cx="50" cy="50" r="2.5" fill="currentColor" />
-              <circle cx="70" cy="70" r="2.5" fill="currentColor" />
-              <circle cx="70" cy="30" r="1.5" fill="currentColor" fill-opacity="0.5" />
-              <circle cx="30" cy="70" r="1.5" fill="currentColor" fill-opacity="0.5" />
-            </svg>
-          </div>
-          <h3>Nuage de points</h3>
-          <p>
-            Relevé exhaustif de l’existant, issu du scan 3D, constituant la base la plus fidèle du bâtiment.
-            Le nuage peut être livré brut ou préparé selon vos besoins : segmentation par zones, coupes, plans de niveau ou éléments spécifiques, colorisation par altimétrie
-            Possibilité de générer des orthophotos précises (plans, coupes, façades) 
-            Formats disponibles : E57, LAS, XYZ.
-          </p>
-        </article>
+      <div class="flex flex-col">
+        <div class="grid grid-cols-3">
+          <article class="service-card">
+            <div class="service-card-num">01</div>
+            <div class="service-card-illus">
+              <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1">
+                <rect x="12" y="12" width="76" height="76" />
+                <path d="M12 30 H88 M12 50 H88 M12 70 H88 M30 12 V88 M50 12 V88 M70 12 V88" stroke-opacity="0.3" />
+                <circle cx="30" cy="30" r="2.5" fill="currentColor" />
+                <circle cx="50" cy="50" r="2.5" fill="currentColor" />
+                <circle cx="70" cy="70" r="2.5" fill="currentColor" />
+                <circle cx="70" cy="30" r="1.5" fill="currentColor" fill-opacity="0.5" />
+                <circle cx="30" cy="70" r="1.5" fill="currentColor" fill-opacity="0.5" />
+              </svg>
+            </div>
+            <h3>Nuage de points</h3>
+            <p>
+              Relevé exhaustif de l’existant, issu du scan 3D, constituant la base la plus fidèle du bâtiment.
+            </p>
+            <p>Le nuage peut être livré brut ou préparé selon vos besoins : segmentation par zones, coupes, plans de niveau ou éléments spécifiques, colorisation par altimétrie</p>
+            <p> Possibilité de générer des orthophotos précises (plans, coupes, façades) </p>
+            <p>Formats disponibles : E57, LAS, XYZ.</p>
+          </article>
 
-        <article class="service-card">
-          <div class="service-card-num">02</div>
-          <div class="service-card-illus">
-            <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1">
-              <path d="M50 8 L88 28 L88 72 L50 92 L12 72 L12 28 Z" />
-              <path d="M50 8 L50 50 M50 50 L88 28 M50 50 L12 28 M50 50 L50 92" stroke-opacity="0.5" />
-              <path d="M12 72 L50 92 L88 72" stroke-opacity="0.25" />
-              <circle cx="50" cy="50" r="2" fill="currentColor" />
-              <circle cx="50" cy="8" r="1.5" fill="currentColor" />
-              <circle cx="88" cy="28" r="1.5" fill="currentColor" />
-              <circle cx="12" cy="28" r="1.5" fill="currentColor" />
-            </svg>
-          </div>
-          <h3>Maquette BIm<br /><em>Revit · ArchiCAD</em></h3>
-          <p>
-           Modélisation numérique fidèle à l’existant, produite à partir du nuage de points, pour une exploitation directe en phase de conception.
-            La maquette est structurée selon vos usages : niveau de détail adapté (LOD 200 à 400), organisation des éléments, et possibilité d’intégration dans les templates de votre agence.
-            Livrable en format natif (Archicad ou Revit) ou en IFC pour une interopérabilité complète.
-          </p>
-         
-        </article>
+          <article class="service-card">
+            <div class="service-card-num">02</div>
+            <div class="service-card-illus">
+              <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1">
+                <path d="M50 8 L88 28 L88 72 L50 92 L12 72 L12 28 Z" />
+                <path d="M50 8 L50 50 M50 50 L88 28 M50 50 L12 28 M50 50 L50 92" stroke-opacity="0.5" />
+                <path d="M12 72 L50 92 L88 72" stroke-opacity="0.25" />
+                <circle cx="50" cy="50" r="2" fill="currentColor" />
+                <circle cx="50" cy="8" r="1.5" fill="currentColor" />
+                <circle cx="88" cy="28" r="1.5" fill="currentColor" />
+                <circle cx="12" cy="28" r="1.5" fill="currentColor" />
+              </svg>
+            </div>
+            <h3>Maquette BIm<br /><em>ArchiCAD / Revit</em></h3>
+            <p>
+            Modélisation numérique fidèle à l’existant, produite à partir du nuage de points, pour une exploitation directe en phase de conception.
+            </p>
+            <p>La maquette est structurée selon vos usages : niveau de détail adapté (LOD 200 à 400), organisation des éléments, et possibilité d’intégration dans les templates de votre agence.</p>
+            <p>Livrable en format natif (Archicad ou Revit) ou en IFC pour une interopérabilité complète.</p>
+          
+          </article>
 
-        <article class="service-card">
-          <div class="service-card-num">03</div>
-          <div class="service-card-illus">
-            <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1">
-              <path d="M18 80 V40 L50 20 L82 40 V80 Z" />
-              <path d="M18 80 H82" stroke-opacity="0.5" />
-              <path d="M34 80 V55 H46 V80 M54 80 V55 H66 V80" stroke-opacity="0.6" />
-              <path d="M50 20 V10 M42 10 H58" stroke-opacity="0.4" />
-              <circle cx="50" cy="42" r="1.5" fill="currentColor" opacity="0.5" />
-              <circle cx="30" cy="48" r="1.5" fill="currentColor" opacity="0.5" />
-              <circle cx="70" cy="48" r="1.5" fill="currentColor" opacity="0.5" />
-            </svg>
-          </div>
-          <h3>DWG</h3>
-          <p>
-            Plans, coupes et/ou façades produits à partir du relevé ou de la maquette BIM, prêts à être utilisés en phase administrative ou en étude.
-          </p>
-         
-        </article>
-        <article class="service-card">
-          <div class="service-card-num">04</div>
-          <div class="service-card-illus">
-            <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1">
-              <path d="M18 80 V40 L50 20 L82 40 V80 Z" />
-              <path d="M18 80 H82" stroke-opacity="0.5" />
-              <path d="M34 80 V55 H46 V80 M54 80 V55 H66 V80" stroke-opacity="0.6" />
-              <path d="M50 20 V10 M42 10 H58" stroke-opacity="0.4" />
-              <circle cx="50" cy="42" r="1.5" fill="currentColor" opacity="0.5" />
-              <circle cx="30" cy="48" r="1.5" fill="currentColor" opacity="0.5" />
-              <circle cx="70" cy="48" r="1.5" fill="currentColor" opacity="0.5" />
-            </svg>
-          </div>
-          <h3>Modèle 3D</h3>
-          <p>
-            Plans, coupes et/ou façades produits à partir du relevé ou de la maquette BIM, prêts à être utilisés en phase administrative ou en étude.
-          </p>
-         
-        </article>
-        <article class="service-card">
-          <div class="service-card-num">05</div>
-          <div class="service-card-illus">
-            <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1">
-              <path d="M18 80 V40 L50 20 L82 40 V80 Z" />
-              <path d="M18 80 H82" stroke-opacity="0.5" />
-              <path d="M34 80 V55 H46 V80 M54 80 V55 H66 V80" stroke-opacity="0.6" />
-              <path d="M50 20 V10 M42 10 H58" stroke-opacity="0.4" />
-              <circle cx="50" cy="42" r="1.5" fill="currentColor" opacity="0.5" />
-              <circle cx="30" cy="48" r="1.5" fill="currentColor" opacity="0.5" />
-              <circle cx="70" cy="48" r="1.5" fill="currentColor" opacity="0.5" />
-            </svg>
-          </div>
-          <h3>Visite virtuelle</h3>
-          <p>
-            Accès immersif au bâtiment relevé, directement depuis un navigateur, sans logiciel spécifique.
-La visite permet de naviguer librement dans le projet, de prendre des mesures( à vérifier), et de consulter les espaces à distance comme si vous y étiez.
+          <article class="service-card">
+            <div class="service-card-num">03</div>
+            <div class="service-card-illus">
+              <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1">
+                <path d="M18 80 V40 L50 20 L82 40 V80 Z" />
+                <path d="M18 80 H82" stroke-opacity="0.5" />
+                <path d="M34 80 V55 H46 V80 M54 80 V55 H66 V80" stroke-opacity="0.6" />
+                <path d="M50 20 V10 M42 10 H58" stroke-opacity="0.4" />
+                <circle cx="50" cy="42" r="1.5" fill="currentColor" opacity="0.5" />
+                <circle cx="30" cy="48" r="1.5" fill="currentColor" opacity="0.5" />
+                <circle cx="70" cy="48" r="1.5" fill="currentColor" opacity="0.5" />
+              </svg>
+            </div>
+            <h3>DWG</h3>
+            <p>
+              Plans, coupes et/ou façades produits à partir du relevé ou de la maquette BIM, prêts à être utilisés en phase administrative ou en étude.
+            </p>
 
-Particulièrement utile pour :
-<ul>
-<li>échanges avec les clients</li>
-<li>validation à distance</li>
-<li>suivi de projet sans déplacement</li>
-<li>valorisation de biens existants</li>
+             <ul>
+              <li >Visite virtuelle web (WebGL)</li>
+              <li >Mesh photoréaliste temps réel</li>
+              <li >Archivage ahute densité</li>
+              <li >Digital twin industriel</li>
+            </ul>
+          
+          </article>
+        </div>
+       
+        <div class="grid grid-cols-2 border">
+          <article class="service-card ">
+            <div class="service-card-num">04</div>
+            <div class="service-card-illus">
+              <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1">
+                <path d="M18 80 V40 L50 20 L82 40 V80 Z" />
+                <path d="M18 80 H82" stroke-opacity="0.5" />
+                <path d="M34 80 V55 H46 V80 M54 80 V55 H66 V80" stroke-opacity="0.6" />
+                <path d="M50 20 V10 M42 10 H58" stroke-opacity="0.4" />
+                <circle cx="50" cy="42" r="1.5" fill="currentColor" opacity="0.5" />
+                <circle cx="30" cy="48" r="1.5" fill="currentColor" opacity="0.5" />
+                <circle cx="70" cy="48" r="1.5" fill="currentColor" opacity="0.5" />
+              </svg>
+            </div>
+            <h3>Modèle 3D</h3>
+            <p>
+              Plans, coupes et/ou façades produits à partir du relevé ou de la maquette BIM, prêts à être utilisés en phase administrative ou en étude.
+            </p>
+            <p class="underline">Adapté pour :</p>
+            <ul>
+              <li >rendu architectural</li>
+              <li >intégration dans des scènes 3D (Blender, Unreal, Unity…)</li>
+              <li >visualisation immersive</li>
+              <li >production audiovisuelle ou contenus interactifs</li>
+            </ul>
+          </article>
+          <article class="service-card">
+            <div class="service-card-num">05</div>
+            <div class="service-card-illus">
+              <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1">
+                <path d="M18 80 V40 L50 20 L82 40 V80 Z" />
+                <path d="M18 80 H82" stroke-opacity="0.5" />
+                <path d="M34 80 V55 H46 V80 M54 80 V55 H66 V80" stroke-opacity="0.6" />
+                <path d="M50 20 V10 M42 10 H58" stroke-opacity="0.4" />
+                <circle cx="50" cy="42" r="1.5" fill="currentColor" opacity="0.5" />
+                <circle cx="30" cy="48" r="1.5" fill="currentColor" opacity="0.5" />
+                <circle cx="70" cy="48" r="1.5" fill="currentColor" opacity="0.5" />
+              </svg>
+            </div>
+            <h3>Visite virtuelle</h3>
+            <p>
+              Accès immersif au bâtiment relevé, directement depuis un navigateur, sans logiciel spécifique.
+              La visite permet de naviguer librement dans le projet, de prendre des mesures( à vérifier), et de consulter les espaces à distance comme si vous y étiez.
 
-</ul>
-          </p>
-         
-        </article>
+            
+            </p>
+            
+            <p class="underline">Particulièrement utile pour :</p>
+            <ul>
+              <li>échanges avec les clients</li>
+              <li>validation à distance</li>
+              <li>suivi de projet sans déplacement</li>
+              <li>valorisation de biens existants</li>
+            </ul>
+          </article>
+        </div>
+      
+       
       </div>
     </section>
 

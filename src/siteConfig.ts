@@ -11,8 +11,8 @@ export const site = {
   locale: "fr-FR",
   founder: "Luidgi DRACON",
   email: "contact@metrie-gp.fr",
-  phone: "+33-6-00-00-00-00",
-  phoneDisplay: "+33 (0)6 00 00 00 00",
+  phone: ["+33766176126", "+33687471493", "+590690374142"],
+  phoneDisplay: ["+33 7 66 17 61 26", "+33 6 87 47 14 93", "+590 690 37 41 42"],
   address: {
     street: "2 Rue Gédéon",
     postalCode: "97190",
@@ -175,5 +175,6 @@ export const navLinks = [
   { href: "/", label: "Accueil" },
   // { href: '/demo', label: 'Démo 3D' },
   // { href: '/outils', label: 'Nos outils' },
-  { href: "/portfolio", label: "Portfolio" },
+  { href: "/projets", label: "Nos projets" },
+  { href: "/blog", label: "Blog" },
 ] as const;

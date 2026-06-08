@@ -40,7 +40,9 @@ const breadcrumbs = [
           Code APE/NAF : {site.ape} — {site.apeLabel}<br />
           Président : {site.founder}<br />
           Directeur de la publication : {site.founder}<br />
-          Contact : <a href={`mailto:${site.email}`}>{site.email}</a> · <a href={`tel:${site.phone}`}>{site.phoneDisplay}</a>
+          Contact : <a href={`mailto:${site.email}`}>{site.email}</a> · {site.phoneDisplay.map((display, i) => (
+            <Fragment><a href={`tel:${site.phone[i]}`}>{display}</a>{i < site.phoneDisplay.length - 1 ? ' · ' : ''}</Fragment>
+          ))}
         </p>
 
         <h2>2. Hébergeur</h2>

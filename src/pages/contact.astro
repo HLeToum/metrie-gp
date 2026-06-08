@@ -73,12 +73,41 @@ const contactPointSchema = {
             <div class="field-check-group">
               <span class="field-label">Type de projet <em>*</em></span>
               <div class="pills-wrap">
+                <label class="check-pill"><input type="radio" name="project_type" value="appartement" required />Appartement</label>
+                <label class="check-pill"><input type="radio" name="project_type" value="maison" />Maison</label>
+                <label class="check-pill"><input type="radio" name="project_type" value="hangar-entrepot" />Hangar / Entrepôt</label>
+                <label class="check-pill"><input type="radio" name="project_type" value="commerce" />Commerce</label>
+                <label class="check-pill"><input type="radio" name="project_type" value="bureau" />Bureau</label>
+                <label class="check-pill"><input type="radio" name="project_type" value="patrimoine" />Patrimoine</label>
+                <label class="check-pill"><input type="radio" name="project_type" value="autre" />Autre</label>
+              </div>
+              <input
+                type="text"
+                name="project_type_autre"
+                id="project-type-autre"
+                class="field-precision"
+                placeholder="Précisez le type de projet"
+                style="margin-top:12px;display:none;"
+              />
+            </div>
+
+            <div class="field-check-group">
+              <span class="field-label">Livrables attendus <em>*</em></span>
+              <div class="pills-wrap">
                 <label class="check-pill"><input type="checkbox" name="service" value="releve-topo" />Visite virtuelle</label>
                 <label class="check-pill"><input type="checkbox" name="service" value="scan-to-bim" />Nuage de point</label>
                 <label class="check-pill"><input type="checkbox" name="service" value="patrimoine" />Modélisation archicad</label>
                 <label class="check-pill"><input type="checkbox" name="service" value="industriel" />Plan, façades, coupes en DWG</label>
                 <label class="check-pill"><input type="checkbox" name="service" value="autre" /><span>Autre</span></label>
               </div>
+              <input
+                type="text"
+                name="service_autre"
+                id="service-autre"
+                class="field-precision"
+                placeholder="Précisez le livrable attendu"
+                style="margin-top:12px;display:none;"
+              />
             </div>
 
             <label class="field">
@@ -110,61 +139,50 @@ const contactPointSchema = {
                 <span class="aside-k">Email</span>
                 <span class="aside-v">{site.email}</span>
               </a>
-              <a href={`tel:${site.phone}`} class="aside-link">
-                <span class="aside-k">Téléphone</span>
-                <span class="aside-v">{site.phoneDisplay}</span>
-              </a>
+              <span class="aside-k">Téléphone</span>
+              {site.phoneDisplay.map((display, i) => (
+                <a href={`tel:${site.phone[i]}`} class="aside-link">
+                  <span class="aside-v">{display}</span>
+                </a>
+              ))}
             </div>
-
-            
-
-          
           </aside>
         </div>
       </div>
     </section>
   </main>
 
+  
+
   <script is:inline>
     (function () {
-      const params = new URLSearchParams(window.location.search);
-      if (!params.has('surface') && !params.has('service') && !params.has('estimation')) return;
-
-      const surface = params.get('surface');
-      const service = params.get('service');
-      const estimation = params.get('estimation');
-      const form = document.querySelector('form.contact-form');
-      if (!form) return;
-
-      if (service === 'nuage') {
-        const cb = form.querySelector('input[name="service"][value="releve-topo"]');
-        if (cb) cb.checked = true;
+      // Type de projet → champ "Autre" (radio)
+      const projectAutre = document.getElementById('project-type-autre');
+      if (projectAutre) {
+        const radios = document.querySelectorAll('input[name="project_type"]');
+        const syncProject = () => {
+          const selected = document.querySelector('input[name="project_type"]:checked');
+          const isAutre = selected && selected.value === 'autre';
+          projectAutre.style.display = isAutre ? 'block' : 'none';
+          projectAutre.required = !!isAutre;
+          if (!isAutre) projectAutre.value = '';
+        };
+        radios.forEach((r) => r.addEventListener('change', syncProject));
+        syncProject();
       }
 
-      const msg = form.querySelector('textarea[name="message"]');
-      if (msg && !msg.value) {
-        const parts = ['Demande pour la prestation Nuage de points 3D.'];
-        if (surface) parts.push(`Surface estimée : ${surface} m².`);
-        if (estimation) parts.push(`Estimation simulateur : ${estimation} € HT (hors frais de déplacement, options à chiffrer).`);
-        parts.push('\nMerci de me recontacter pour finaliser le devis.');
-        msg.value = parts.join('\n');
-      }
-
-      const loc = form.querySelector('input[name="location"]');
-      const details = form.querySelector('details.form-extras');
-      if (loc && details && !details.open) details.open = true;
-
-      const heroLede = document.querySelector('.devis-hero .page-lede');
-      if (heroLede && (surface || estimation)) {
-        const banner = document.createElement('p');
-        banner.className = 'page-lede';
-        banner.style.cssText = 'margin-top:16px;padding:12px 16px;border-left:2px solid var(--accent);background:var(--paper);font-size:14px;';
-        const bits = ['Votre estimation a été reprise dans le formulaire'];
-        if (surface) bits.push(`(${surface} m²`);
-        if (estimation) bits.push(`· ~${estimation} € HT)`);
-        else if (surface) bits[bits.length - 1] += ')';
-        banner.textContent = bits.join(' ') + '. Complétez les informations pour recevoir votre devis détaillé.';
-        heroLede.insertAdjacentElement('afterend', banner);
+      // Livrables attendus → champ "Autre" (checkbox)
+      const serviceAutre = document.getElementById('service-autre');
+      const autreCheckbox = document.querySelector('input[name="service"][value="autre"]');
+      if (serviceAutre && autreCheckbox) {
+        const syncService = () => {
+          const isAutre = autreCheckbox.checked;
+          serviceAutre.style.display = isAutre ? 'block' : 'none';
+          serviceAutre.required = isAutre;
+          if (!isAutre) serviceAutre.value = '';
+        };
+        autreCheckbox.addEventListener('change', syncService);
+        syncService();
       }
     })();
   </script>

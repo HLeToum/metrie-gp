@@ -1,0 +1,101 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import { formatDate, isoDate } from '../../lib/date';
+
+const title = 'Blog — Scan 3D, Scan-to-BIM & numérisation du bâti';
+const description =
+  "Le journal du studio Metrie GP : retours de chantier scan 3D LiDAR, méthodes Scan-to-BIM, repères techniques et actualités de la numérisation du bâti en Guadeloupe et aux Antilles.";
+const keywords = 'blog scan 3D, actualités LiDAR, Scan-to-BIM, numérisation bâti, Metrie GP, Guadeloupe';
+
+const breadcrumbs = [
+  { name: 'Accueil', path: '/' },
+  { name: 'Blog', path: '/blog' },
+];
+
+const posts = (await getCollection('blog', ({ data }) => import.meta.env.PROD ? !data.draft : true))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const [featured, ...rest] = posts;
+---
+
+<Layout
+  title={title}
+  description={description}
+  keywords={keywords}
+  path="/blog"
+  active="/blog"
+  breadcrumbs={breadcrumbs}
+>
+  <main class="page-main">
+    <section class="page-hero">
+      <div class="block">
+        <div class="tag">Journal</div>
+        <h1 class="page-title">Le blog<br /><em>du studio.</em></h1>
+        <p class="page-lede">
+          Retours de chantier, méthodes et repères techniques sur la captation
+          3D et le Scan-to-BIM aux Antilles. Rédigé par l'équipe Metrie GP.
+        </p>
+      </div>
+    </section>
+
+    <section class="block blog-list-section">
+      {posts.length === 0 ? (
+        <p class="blog-empty">Les premiers articles arrivent très bientôt.</p>
+      ) : (
+        <>
+          {featured && (
+            <a href={`/blog/${featured.slug}`} class="blog-featured">
+              {featured.data.cover && (
+                <div class="blog-featured-media">
+                  <img src={featured.data.cover} alt={featured.data.coverAlt ?? featured.data.title} loading="eager" />
+                </div>
+              )}
+              <div class="blog-featured-body">
+                <div class="blog-card-meta">
+                  <time datetime={isoDate(featured.data.pubDate)}>{formatDate(featured.data.pubDate)}</time>
+                  {featured.data.tags.length > 0 && <span class="blog-dot">·</span>}
+                  {featured.data.tags.slice(0, 2).map((t) => <span class="blog-tag">{t}</span>)}
+                </div>
+                <h2>{featured.data.title}</h2>
+                <p>{featured.data.description}</p>
+                <span class="blog-read">Lire l'article →</span>
+              </div>
+            </a>
+          )}
+
+          {rest.length > 0 && (
+            <div class="blog-grid">
+              {rest.map((post) => (
+                <a href={`/blog/${post.slug}`} class="blog-card">
+                  {post.data.cover && (
+                    <div class="blog-card-media">
+                      <img src={post.data.cover} alt={post.data.coverAlt ?? post.data.title} loading="lazy" />
+                    </div>
+                  )}
+                  <div class="blog-card-body">
+                    <div class="blog-card-meta">
+                      <time datetime={isoDate(post.data.pubDate)}>{formatDate(post.data.pubDate)}</time>
+                      {post.data.tags.length > 0 && <span class="blog-dot">·</span>}
+                      {post.data.tags.slice(0, 1).map((t) => <span class="blog-tag">{t}</span>)}
+                    </div>
+                    <h3>{post.data.title}</h3>
+                    <p>{post.data.description}</p>
+                  </div>
+                </a>
+              ))}
+            </div>
+          )}
+        </>
+      )}
+    </section>
+
+    <section class="block page-cta-block">
+      <div class="page-cta">
+        <h2>Un projet de relevé en tête ?</h2>
+        <p>Parlez-nous de votre site — nous vous répondons sous 24 h.</p>
+        <a href="/contact" class="btn-primary">Démarrer un projet</a>
+      </div>
+    </section>
+  </main>
+</Layout>

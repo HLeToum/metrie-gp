@@ -31,13 +31,21 @@ export default defineConfig({
         'https://metrie-gp.fr/',
         'https://metrie-gp.fr/demo',
         'https://metrie-gp.fr/outils',
-        'https://metrie-gp.fr/portfolio',
+        'https://metrie-gp.fr/projets',
+        'https://metrie-gp.fr/blog',
         'https://metrie-gp.fr/contact',
       ],
       serialize(item) {
         if (item.url.includes('/mentions-legales') || item.url.includes('/confidentialite')) {
           item.priority = 0.2;
           item.changefreq = 'yearly';
+        }
+        if (item.url === 'https://metrie-gp.fr/blog') {
+          item.priority = 0.7;
+          item.changefreq = 'weekly';
+        } else if (item.url.includes('/blog/')) {
+          item.priority = 0.6;
+          item.changefreq = 'monthly';
         }
         if (item.url === 'https://metrie-gp.fr/') item.priority = 1.0;
         return item;

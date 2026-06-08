@@ -18,19 +18,21 @@ const year = new Date().getFullYear();
       <a href="/">Accueil</a>
       <a href="/demo">Démo 3D</a>
       <a href="/outils">Nos outils</a>
-      <a href="/portfolio">Portfolio</a>
+      <a href="/projets">Nos projets</a>
     </div>
     <div>
       <h4>Services</h4>
       <a href="/#services">Nos livrables</a>
       <a href="/outils">Nos outils</a>
-      <a href="/portfolio">Portfolio</a>
+      <a href="/projets">Nos projets</a>
     </div>
     <div>
       <h4>Contact</h4>
       <a href="/contact">Formulaire de devis</a>
       <a href={`mailto:${site.email}`}>{site.email}</a>
-      <a href={`tel:${site.phone}`}>{site.phoneDisplay}</a>
+      {site.phoneDisplay.map((display, i) => (
+        <a href={`tel:${site.phone[i]}`}>{display}</a>
+      ))}
     </div>
   </div>
   <div class="footer-bottom">

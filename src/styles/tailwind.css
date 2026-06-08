@@ -1,3 +1,12 @@
 /* Tailwind utilities only — no base reset (existing styles.css owns the base). */
 @tailwind components;
 @tailwind utilities;
+
+
+ul {
+    @apply list-disc list-inside;
+}
+
+li {
+  @apply list-disc list-inside;
+}

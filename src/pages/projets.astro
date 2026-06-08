@@ -1,14 +1,14 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
-const title = 'Portfolio — Études de cas scan 3D';
+const title = 'Nos projets — Études de cas scan 3D';
 const description =
   "Trois études de cas détaillées de projets de scan 3D LiDAR et Scan-to-BIM menés par Metrie GP en Guadeloupe et aux Antilles — bâti, industriel, patrimoine.";
-const keywords = 'portfolio scan 3D, études de cas LiDAR, projets Scan-to-BIM, réalisations Metrie GP, Guadeloupe, Antilles';
+const keywords = 'projets scan 3D, études de cas LiDAR, réalisations Scan-to-BIM, nos projets Metrie GP, Guadeloupe, Antilles';
 
 const breadcrumbs = [
   { name: 'Accueil', path: '/' },
-  { name: 'Portfolio', path: '/portfolio' },
+  { name: 'Nos projets', path: '/projets' },
 ];
 
 const cases = [
@@ -69,19 +69,19 @@ const cases = [
   title={title}
   description={description}
   keywords={keywords}
-  path="/portfolio"
-  active="/portfolio"
+  path="/projets"
+  active="/projets"
   breadcrumbs={breadcrumbs}
 >
   <main class="page-main">
     <div class="page-banner">
-      <img src="/img/scanner.png" alt="Portfolio Metrie GP — études de cas scan 3D Guadeloupe et Antilles" loading="lazy" />
+      <img src="/img/scanner.png" alt="Nos projets Metrie GP — études de cas scan 3D Guadeloupe et Antilles" loading="lazy" />
       <div class="banner-brackets"></div>
     </div>
 
     <section class="page-hero">
       <div class="block">
-        <div class="tag">III — Portfolio</div>
+        <div class="tag">III — Nos projets</div>
         <h1 class="page-title">Trois projets,<br /><em>trois contextes,<br /></em><span class="thin">une même rigueur.</span></h1>
         <p class="page-lede">
           Sélection de réalisations récentes en Guadeloupe et dans les
@@ -92,7 +92,7 @@ const cases = [
       </div>
     </section>
 
-    <section id="portfolio" class="block portfolio-list">
+    <section id="projets" class="block portfolio-list">
       {cases.map((c) => (
         <article class={`case-study${c.reverse ? ' case-study-reverse' : ''}`}>
           <div class="case-media">

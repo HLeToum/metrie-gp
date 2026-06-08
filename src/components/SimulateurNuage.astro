@@ -1,9 +1,10 @@
 ---
 const MIN_M2 = 40;
 const MAX_M2 = 2500;
-const A = 740;
+const A = 518;
 const K_DENOM = 60.5;
-const FLOOR_PER_M2 = 1.0;
+const FLOOR_PER_M2 = 0.7;
+const TRAVEL_FEE = 50;
 const DEFAULT_S = 100;
 ---
 
@@ -13,8 +14,9 @@ const DEFAULT_S = 100;
     <p class="page-lede">
       Estimation immédiate du prix de captation et de livraison d'un
       <strong>nuage de points</strong>, sur la base de la surface au sol.
-      Les options complémentaires — modélisation BIM, plans DWG, visite virtuelle —
-      et les frais de déplacement sont chiffrés séparément dans votre devis.
+      <strong>Frais de déplacement compris.</strong> Les options complémentaires —
+      modélisation BIM, plans DWG, visite virtuelle — sont chiffrées séparément
+      dans votre devis.
     </p>
   </div>
 
@@ -60,10 +62,11 @@ const DEFAULT_S = 100;
         </div>
       </dl>
       <p class="simulateur-note" id="sim-note">
-        Prestation Nuage de points uniquement. Frais de déplacement, modélisation BIM,
-        plans DWG et visite virtuelle chiffrés séparément.
+        Prestation Nuage de points, frais de déplacement compris. 
+        
       </p>
-      <a id="sim-cta" href="/contact?surface=100&service=nuage&estimation=698" class="btn-primary">
+      <p class="simulateur-note" id="sim-note">Modélisation BIM, plans DWG et visite virtuelle chiffrés séparément.</p>
+      <a id="sim-cta" href="/contact?surface=100&service=nuage&estimation=539" class="btn-primary">
         Demander un devis détaillé
       </a>
     </div>
@@ -74,10 +77,7 @@ const DEFAULT_S = 100;
       <sup>*</sup>Visite virtuelle disponible pendant <strong>4 mois</strong>,
       renouvelable à <strong>49 €</strong> pour 1 an.
     </p>
-    <p>
-      <sup>**</sup>Les tarifs ne tiennent pas compte des éventuels frais de
-      déplacement.
-    </p>
+
     <p class="simulateur-warning">
       <strong>Attention</strong> — Le relevé est un relevé <strong>Architectural</strong>.
       Ce n'est pas un relevé de géomètre.
@@ -87,7 +87,7 @@ const DEFAULT_S = 100;
 
 <script
   is:inline
-  define:vars={{ MIN_M2, MAX_M2, A, K_DENOM, FLOOR_PER_M2, DEFAULT_S }}
+  define:vars={{ MIN_M2, MAX_M2, A, K_DENOM, FLOOR_PER_M2, TRAVEL_FEE, DEFAULT_S }}
 >
   (function () {
     const slider = document.getElementById('sim-surface');
@@ -106,7 +106,7 @@ const DEFAULT_S = 100;
     });
 
     function priceHT(s) {
-      return A * (1 - Math.exp(-s / K_DENOM)) + s * FLOOR_PER_M2;
+      return A * (1 - Math.exp(-s / K_DENOM)) + s * FLOOR_PER_M2 + TRAVEL_FEE;
     }
 
     const defaultNote = note.textContent;
