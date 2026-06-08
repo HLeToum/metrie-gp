@@ -2,6 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Preflight is disabled (applyBaseStyles: false), so Tailwind's default border
+   normalization is missing. Without it the `border*` utilities only set a width
+   while border-style stays `none` (CSS default) → invisible borders.
+   Replicate just that one bit of Preflight: */
+*,
+::before,
+::after {
+  border-style: solid;
+  border-color: var(--line, currentColor);
+}
 
 ul {
     @apply list-disc list-inside;
