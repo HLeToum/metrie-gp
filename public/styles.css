@@ -1827,6 +1827,8 @@ footer {
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
 }
+/* Rangée de deux cartes (livrables 04–05). */
+.service-cards-2 { grid-template-columns: repeat(2, 1fr); }
 .service-card {
   background: var(--paper);
   border: 1px solid var(--line);
@@ -2348,6 +2350,9 @@ footer {
   flex-direction: column;
   gap: 100px;
 }
+/* `.block` force display:block plus bas dans la cascade : le gap ci-dessus
+   ne s'applique donc pas. Espacement de secours entre études de cas. */
+.portfolio-list > .case-study + .case-study { margin-top: 100px; }
 .case-study {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -2381,6 +2386,7 @@ footer {
   padding: 6px 10px;
 }
 
+.case-body { min-width: 0; }
 .case-body h2 {
   font-size: clamp(28px, 3vw, 38px);
   line-height: 1.08;
@@ -2441,6 +2447,7 @@ footer {
   margin: 0;
 }
 .case-blocks li {
+  list-style: none;
   font-size: 13px;
   color: var(--ink-2);
   padding: 4px 0 4px 14px;
@@ -2452,7 +2459,91 @@ footer {
   left: 0;
   color: var(--ink-dim);
 }
-.case-pills { margin-top: 14px; }
+.case-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+.case-pills .pill {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 8px 14px;
+  border: 1px solid var(--line);
+  color: var(--ink-2);
+  background: var(--bg);
+}
+
+/* --- Sketchfab viewers inside a case study --- */
+.case-media-3d {
+  /* `min-width: 0` : un item de grille vaut `min-width: auto` par défaut et
+     refuse de descendre sous la largeur intrinsèque de son contenu. */
+  min-width: 0;
+  aspect-ratio: auto;
+  overflow: visible;
+  border: 0;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  /* Réserve la place du numéro d'étude de cas au-dessus du premier cadre. */
+  padding-top: 34px;
+}
+/* Sorti du cadre : Sketchfab occupe ses quatre coins (titre, partage,
+   fermeture, contrôles), le badge en surimpression les chevauchait. */
+.case-media-3d .case-media-tag {
+  top: 0;
+  left: 0;
+  right: auto;
+}
+
+.case-viewer { margin: 0; }
+
+/* Visionneuse du hero d'accueil — même cadre que les études de cas. */
+.hero-viewer {
+  margin: 0;
+  width: 100%;
+  min-width: 0;
+}
+
+.viewer-frame {
+  position: relative;
+  width: 100%;
+  /* PAS de `min-height` ici : combiné à `aspect-ratio`, il donne au cadre une
+     largeur minimale intrinsèque (min-height × 3/2) que la colonne ne peut plus
+     réduire — le cadre débordait alors sur mobile. Pour garder une visionneuse
+     manipulable sur petit écran, on allonge le ratio (voir media queries). */
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+  background: var(--paper);
+  border: 1px solid var(--line);
+}
+.viewer-frame iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.viewer-alt {
+  display: inline-block;
+  margin-left: 6px;
+  font-size: 11.5px;
+  color: var(--ink-dim);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  white-space: nowrap;
+}
+.viewer-alt:hover { color: var(--ink); }
+
+.viewer-caption {
+  margin-top: 10px;
+  font-size: 12px;
+  color: var(--ink-dim);
+  line-height: 1.5;
+}
 
 /* ================================================================
    DEVIS FORM — enriched contact form
@@ -3091,7 +3182,7 @@ html[data-theme="dark"] body.page-content .aside-steps .step-num {
 @media (max-width: 1080px) {
   .home-about-grid { grid-template-columns: 1fr; gap: 48px; }
   .home-about-stats { grid-template-columns: 1fr 1fr; }
-  .service-cards { grid-template-columns: 1fr; gap: 16px; }
+  .service-cards { grid-template-columns: repeat(2, 1fr); gap: 16px; }
   .home-why-grid { grid-template-columns: 1fr 1fr; gap: 24px; }
   .tools-grid { grid-template-columns: 1fr 1fr; }
   .case-study,
@@ -3137,6 +3228,7 @@ html[data-theme="dark"] body.page-content .aside-steps .step-num {
     margin-left: auto;
   }
   .portfolio-list { gap: 60px; }
+  .portfolio-list > .case-study + .case-study { margin-top: 60px; }
   .form-section { padding: 22px 20px 20px; }
   .check-pill { font-size: 12.5px; padding: 9px 14px; }
 }
@@ -3394,7 +3486,9 @@ body.nav-open { overflow: hidden; }
   .page-hero { padding: 22px 22px 20px; }
   .page-title { font-size: clamp(30px, 8vw, 42px) !important; }
   .hero-cta { flex-wrap: wrap; gap: 14px; }
-  .hero-cta .btn-primary { flex: 1; min-width: 180px; text-align: center; justify-content: center; }
+  /* `max-width` : le hero n'a plus qu'un seul bouton, `flex: 1` seul
+     l'étirait sur toute la largeur de la colonne. */
+  .hero-cta .btn-primary { flex: 1; min-width: 180px; max-width: 320px; text-align: center; justify-content: center; }
 
   /* Nav CTA in normal top bar: hide visually so burger handles it */
   .nav-actions > .nav-cta {
@@ -3479,6 +3573,7 @@ body.nav-open { overflow: hidden; }
   .case-body h2 { font-size: 26px; margin: 18px 0 12px; }
   .case-lede { font-size: 15px; margin-bottom: 20px; }
   .portfolio-list { gap: 48px; }
+  .portfolio-list > .case-study + .case-study { margin-top: 48px; }
   section.block .portfolio-list { padding: 0; }
 
   /* Footer */
@@ -3948,6 +4043,17 @@ body.nav-open { overflow: hidden; }
   overflow-x: auto;
   border: 1px solid var(--line);
 }
+@media (max-width: 720px) {
+  .service-cards,
+  .service-cards-2 { grid-template-columns: 1fr; }
+  /* Remplace l'ancien `min-height` : allonge le cadre au lieu de lui imposer
+     une largeur minimale, pour que la visionneuse reste utilisable. */
+  .viewer-frame { aspect-ratio: 4 / 3; }
+}
+@media (max-width: 480px) {
+  .viewer-frame { aspect-ratio: 1 / 1; }
+}
+
 /* Subtle right-edge fade on mobile to hint that the table scrolls horizontally */
 @media (max-width: 720px) {
   .legal-table-wrap {

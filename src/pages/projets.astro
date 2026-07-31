@@ -3,66 +3,96 @@ import Layout from '../layouts/Layout.astro';
 
 const title = 'Nos projets — Études de cas scan 3D';
 const description =
-  "Trois études de cas détaillées de projets de scan 3D LiDAR et Scan-to-BIM menés par Metrie GP en Guadeloupe et aux Antilles — bâti, industriel, patrimoine.";
-const keywords = 'projets scan 3D, études de cas LiDAR, réalisations Scan-to-BIM, nos projets Metrie GP, Guadeloupe, Antilles';
+  "Études de cas de projets de scan 3D LiDAR et Scan-to-BIM menés par Metrie GP — maison familiale à Sainte-Anne (Guadeloupe) et appartement à Paris, avec maquettes 3D consultables en ligne.";
+const keywords =
+  'projets scan 3D, études de cas LiDAR, réalisations Scan-to-BIM, maquette 3D Guadeloupe, relevé appartement Paris, nos projets Metrie GP';
 
 const breadcrumbs = [
   { name: 'Accueil', path: '/' },
   { name: 'Nos projets', path: '/projets' },
 ];
 
+/* ------------------------------------------------------------------
+   ⚠  CHAMPS À RENSEIGNER
+   Les valeurs égales à TODO ci-dessous sont des marqueurs volontaires :
+   remplace-les par les données réelles (surface, délai, précision,
+   commanditaire…). Un simple Rechercher « TODO » dans ce fichier les liste.
+   ------------------------------------------------------------------ */
+const TODO = 'à préciser';
+
 const cases = [
   {
     n: '01',
-    sector: 'À compléter',
-    location: 'Guadeloupe',
-    year: '2025',
-    surface: '— m²',
-    title: 'Titre du projet 01',
-    titleEm: 'à définir.',
-    lede: "Accroche courte décrivant la nature du projet, le commanditaire (architecte / BE / MOA) et l'objectif principal — en une ou deux phrases.",
-    context: "Description du site, du bâtiment ou de l'ouvrage. Contraintes particulières — site en exploitation, accessibilité, climat, calendrier serré.",
-    approach: 'Stratégie retenue : nombre de passes, modalité d\'intervention (diurne/nocturne), recalage, outils mobilisés (Trion P2 + Revit/ArchiCAD/...).',
+    sector: 'Résidentiel — maison individuelle',
+    location: 'Sainte-Anne, Guadeloupe',
+    date: 'Juillet 2026',
+    surface: TODO,
+    title: 'Maison familiale',
+    titleEm: 'à Sainte-Anne.',
+    lede: "Relevé 3D complet d'une maison familiale guadeloupéenne, restitué en maquette navigable et en coupe perspective — une base géométrique fidèle pour les études de transformation et d'extension.",
+    context:
+      "Maison individuelle occupée, implantée à Sainte-Anne. Le relevé devait couvrir l'intérieur comme l'enveloppe extérieure, en composant avec un site habité et les contraintes climatiques locales (ensoleillement, végétation en limite de parcelle).",
+    approach:
+      "Acquisition au scanner laser Trion P2 en plusieurs stations, recalées entre elles pour couvrir l'ensemble des niveaux et le pourtour du bâti. Le nuage consolidé a ensuite été nettoyé, segmenté par zones, puis modélisé — la coupe perspective étant générée directement depuis la maquette pour lire d'un coup d'œil les hauteurs sous plafond et la structure de toiture.",
     deliverables: [
-      'À compléter — ex : nuage LAS/LAZ géoréférencé',
-      'À compléter — ex : maquette Revit LOD 300',
-      'À compléter — ex : plans 2D DWG',
-      'À compléter — ex : rapport de conformité',
+      'Nuage de points géoréférencé (E57 / LAS)',
+      'Maquette 3D texturée, consultable en ligne',
+      'Coupe perspective 3D de l\'ensemble du bâti',
+      'Plans de niveau, coupes et façades 2D',
     ],
-    result: 'Chiffres clés : délai tenu, précision mesurée, économies réalisées par rapport à un relevé traditionnel. Retour client si disponible.',
+    result: `Livraison ${TODO} après l'intervention terrain, pour une précision de relevé ${TODO}. Le client dispose d'un support unique, partageable par simple lien, qui remplace les allers-retours de métrés sur site.`,
+    tags: ['Scan 3D LiDAR', 'Maquette 3D', 'Résidentiel'],
+    models: [
+      {
+        id: 'affbc303467f4bdab8d5e3664f759d40',
+        slug: 'maison-a-sainte-anne-guadeloupe',
+        title: 'Maison à Sainte-Anne, Guadeloupe',
+        caption: 'Maquette 3D complète — vue extérieure et intérieure.',
+      },
+      {
+        id: 'ec2c255d08a0422a8395570f100363f1',
+        slug: 'maison-a-saint-anne-en-guadeloupe-coupe',
+        title: 'Maison à Sainte-Anne en Guadeloupe — Coupe',
+        caption: 'Coupe perspective — hauteurs sous plafond et charpente.',
+      },
+    ],
     reverse: false,
   },
   {
     n: '02',
-    sector: 'À compléter',
-    location: 'Guadeloupe',
-    year: '2025',
-    surface: '— m²',
-    title: 'Titre du projet 02',
-    titleEm: 'à définir.',
-    lede: 'Accroche courte décrivant la nature du projet, le commanditaire et l\'objectif principal.',
-    context: 'Placeholder — à remplacer par le descriptif du second cas.',
-    approach: 'Placeholder — méthodologie retenue pour ce projet.',
-    deliverables: ['À compléter', 'À compléter', 'À compléter'],
-    result: 'Placeholder — chiffres clés et impact pour le client.',
+    sector: 'Résidentiel — appartement',
+    location: 'Paris',
+    date: 'Mai 2026',
+    surface: TODO,
+    title: 'Appartement',
+    titleEm: 'à Paris.',
+    lede: "Numérisation d'un appartement parisien et restitution en maquette 3D exploitable — l'existant relevé une fois, disponible ensuite pour tous les intervenants du projet.",
+    context:
+      "Appartement en immeuble parisien, aux volumes irréguliers et aux murs rarement d'équerre — configuration où le métré traditionnel accumule les écarts. L'intervention devait rester courte et sans nuisance pour l'occupation des lieux.",
+    approach:
+      "Relevé par scan laser 3D en stations successives, pièce par pièce, avec recalage sur les circulations pour garantir la continuité géométrique de l'ensemble. Le nuage a ensuite été redressé et modélisé afin d'obtenir des surfaces et des hauteurs directement mesurables dans la maquette.",
+    deliverables: [
+      'Nuage de points nettoyé (E57 / LAS)',
+      'Maquette 3D texturée, consultable en ligne',
+      'Plans de niveau cotés et coupes 2D',
+      'Surfaces par pièce',
+    ],
+    result: `Relevé réalisé en ${TODO} sur site, livrable transmis ${TODO}. Architecte, entreprise et maître d'ouvrage travaillent sur la même base dimensionnelle, sans nouvelle visite de contrôle.`,
+    tags: ['Scan 3D LiDAR', 'Relevé d\'existant', 'Aménagement intérieur'],
+    models: [
+      {
+        id: 'bebca1522eff486a944d40a2ee3f0b89',
+        slug: 'appartement-paris',
+        title: 'Appartement Paris',
+        caption: 'Maquette 3D de l\'appartement relevé.',
+      },
+    ],
     reverse: true,
   },
-  {
-    n: '03',
-    sector: 'À compléter',
-    location: 'Guadeloupe',
-    year: '2025',
-    surface: '— m²',
-    title: 'Titre du projet 03',
-    titleEm: 'à définir.',
-    lede: 'Accroche courte décrivant la nature du projet, le commanditaire et l\'objectif principal.',
-    context: 'Placeholder — à remplacer par le descriptif du troisième cas.',
-    approach: 'Placeholder — méthodologie retenue pour ce projet.',
-    deliverables: ['À compléter', 'À compléter', 'À compléter'],
-    result: 'Placeholder — chiffres clés et impact pour le client.',
-    reverse: false,
-  },
 ];
+
+const sketchfabUrl = (m: { slug: string; id: string }) =>
+  `https://sketchfab.com/3d-models/${m.slug}-${m.id}`;
 ---
 
 <Layout
@@ -82,28 +112,66 @@ const cases = [
     <section class="page-hero">
       <div class="block">
         <div class="tag">III — Nos projets</div>
-        <h1 class="page-title">Trois projets,<br /><em>trois contextes,<br /></em><span class="thin">une même rigueur.</span></h1>
+        <h1 class="page-title">Deux projets,<br /><em>deux contextes,<br /></em><span class="thin">une même rigueur.</span></h1>
         <p class="page-lede">
-          Sélection de réalisations récentes en Guadeloupe et dans les
-          Antilles françaises. Chaque étude de cas détaille le contexte,
-          les contraintes terrain, l'approche retenue et les livrables
-          remis au client.
+          Sélection de réalisations récentes, de la Guadeloupe à Paris.
+          Chaque étude de cas détaille le contexte, les contraintes terrain,
+          l'approche retenue et les livrables remis au client — maquettes 3D
+          à l'appui, consultables directement depuis cette page.
         </p>
       </div>
     </section>
 
     <section id="projets" class="block portfolio-list">
-      {cases.map((c) => (
+      {cases.map((c, ci) => (
         <article class={`case-study${c.reverse ? ' case-study-reverse' : ''}`}>
-          <div class="case-media">
-            <img src="/img/scanner.png" alt={`Étude de cas ${c.n} — ${c.title} — Metrie GP`} loading="lazy" />
+          <div class="case-media case-media-3d">
+            {c.models.map((m, mi) => {
+              /* Seule la première visionneuse démarre avec la page. Les autres
+                 sont différées par IntersectionObserver (voir script en bas) :
+                 `loading="lazy"` seul ne suffisait pas, Chrome les chargeait
+                 toutes les trois d'entrée. */
+              const eager = ci === 0 && mi === 0;
+              const embedUrl = `https://sketchfab.com/models/${m.id}/embed?camera=0&autostart=1`;
+              return (
+              <figure class="case-viewer">
+                <div class="viewer-frame">
+                  <iframe
+                    title={m.title}
+                    src={eager ? embedUrl : undefined}
+                    data-src={eager ? undefined : embedUrl}
+                    frameborder="0"
+                    loading="lazy"
+                    allowfullscreen
+                    mozallowfullscreen="true"
+                    webkitallowfullscreen="true"
+                    allow="autoplay; fullscreen; xr-spatial-tracking"
+                    xr-spatial-tracking
+                    execution-while-out-of-viewport
+                    execution-while-not-rendered
+                    web-share
+                  ></iframe>
+                </div>
+                <figcaption class="viewer-caption">
+                  {m.caption}
+                  <a
+                    class="viewer-alt"
+                    href={sketchfabUrl(m)}
+                    target="_blank"
+                    rel="noopener nofollow"
+                  >Ouvrir sur Sketchfab ↗</a>
+                </figcaption>
+              </figure>
+              );
+            })}
             <div class="case-media-tag">{c.n}</div>
           </div>
+
           <div class="case-body">
             <div class="case-meta">
               <span class="case-meta-k">Secteur</span><span class="case-meta-v">{c.sector}</span>
               <span class="case-meta-k">Localisation</span><span class="case-meta-v">{c.location}</span>
-              <span class="case-meta-k">Année</span><span class="case-meta-v">{c.year}</span>
+              <span class="case-meta-k">Date</span><span class="case-meta-v">{c.date}</span>
               <span class="case-meta-k">Surface</span><span class="case-meta-v">{c.surface}</span>
             </div>
             <h2>{c.title}<br /><em>{c.titleEm}</em></h2>
@@ -120,7 +188,7 @@ const cases = [
             </div>
 
             <div class="pill-row case-pills">
-              <span class="pill">Tag 1</span><span class="pill">Tag 2</span><span class="pill">Tag 3</span>
+              {c.tags.map((t) => <span class="pill">{t}</span>)}
             </div>
           </div>
         </article>
@@ -135,4 +203,41 @@ const cases = [
       </div>
     </section>
   </main>
+
+  <script is:inline>
+  /* Chargement différé des visionneuses Sketchfab.
+     Aucune interaction demandée : le modèle démarre seul dès qu'il approche
+     de l'écran. Sans JS, le lien « Ouvrir sur Sketchfab » de la légende
+     reste le chemin de secours. */
+  (function () {
+    var pending = document.querySelectorAll('iframe[data-src]');
+    if (!pending.length) return;
+
+    function load(iframe) {
+      if (!iframe.dataset.src) return;
+      iframe.src = iframe.dataset.src;
+      delete iframe.dataset.src;
+    }
+
+    if (!('IntersectionObserver' in window)) {
+      Array.prototype.forEach.call(pending, load);
+      return;
+    }
+
+    var io = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (e) {
+          if (!e.isIntersecting) return;
+          load(e.target);
+          io.unobserve(e.target);
+        });
+      },
+      /* Marge volontairement serrée : le modèle se charge juste avant
+         d'entrer dans le champ, pas dès l'ouverture de la page. */
+      { rootMargin: '200px 0px' }
+    );
+
+    Array.prototype.forEach.call(pending, function (f) { io.observe(f); });
+  })();
+  </script>
 </Layout>

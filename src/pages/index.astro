@@ -43,7 +43,7 @@ const faq = faqSchema([
 >
   <main class="page-main">
     
-    <section class="grid grid-cols-2 p-24">
+    <section class="grid grid-cols-1 gap-10 p-8 md:p-16 lg:grid-cols-2 lg:items-center lg:gap-16 lg:p-24">
       <div >
         <h1 class="page-title">
           Votre partenaire <br />en matière de <br /><span class="thin">relevé.</span>
@@ -57,11 +57,30 @@ const faq = faqSchema([
         </div>
       </div>
       
-      <div class="flex w-full"> <iframe
-       frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/ea1ef9e7f82f418ea0776ceb6894ebd1/embed"> </iframe></div>
+      <figure class="hero-viewer">
+        <div class="viewer-frame">
+          <iframe
+            title="Maquette 3D d'une maison familiale à Sainte-Anne, Guadeloupe — Metrie GP"
+            src="https://sketchfab.com/models/affbc303467f4bdab8d5e3664f759d40/embed?camera=0&autostart=1"
+            frameborder="0"
+            allowfullscreen
+            mozallowfullscreen="true"
+            webkitallowfullscreen="true"
+            allow="autoplay; fullscreen; xr-spatial-tracking"
+            xr-spatial-tracking
+            execution-while-out-of-viewport
+            execution-while-not-rendered
+            web-share
+          ></iframe>
+        </div>
+        <figcaption class="viewer-caption">
+          Maison familiale à Sainte-Anne, Guadeloupe — cliquez-glissez pour naviguer.
+          <a class="viewer-alt" href="/projets">Voir l'étude de cas →</a>
+        </figcaption>
+      </figure>
     </section>
 
-    <section class="p-24">
+    <section class="p-8 md:p-16 lg:p-24">
       <div class="flex flex-col gap-8">
         <div class="home-about-text">
           <h2>Mesurer le réel,<br /><em>sans approximation.</em></h2>
@@ -133,7 +152,7 @@ const faq = faqSchema([
           Nous structurons les données pour livrer des supports directement intégrables dans votre flux de travail.
           Chaque projet est pensé pour son usage final :
         </p>
-        <ul class="ml-8>
+        <ul class="ml-8">
           <li>conception architecturale</li>
           <li>étude technique</li>
           <li>consultation ou appel d’offres</li>
@@ -141,8 +160,8 @@ const faq = faqSchema([
         <p class="page-lede">Vous ne repartez pas d’un relevé brut. Vous démarrez avec une base fiable.</p>
       </div>
 
-      <div class="flex flex-col">
-        <div class="grid grid-cols-3">
+      <div class="flex flex-col gap-5">
+        <div class="service-cards">
           <article class="service-card">
             <div class="service-card-num">01</div>
             <div class="service-card-illus">
@@ -215,7 +234,7 @@ const faq = faqSchema([
           </article>
         </div>
        
-        <div class="grid grid-cols-2 ">
+        <div class="service-cards service-cards-2">
           <article class="service-card ">
             <div class="service-card-num">04</div>
             <div class="service-card-illus">
