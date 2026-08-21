@@ -1,10 +1,17 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "redirects": [
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "metrie-gp.vercel.app" }],
+      "destination": "https://metrie-gp.fr/:path*",
+      "permanent": true
+    },
     { "source": "/index.html", "destination": "/", "permanent": true },
     { "source": "/demo.html", "destination": "/demo", "permanent": true },
     { "source": "/outils.html", "destination": "/outils", "permanent": true },
-    { "source": "/portfolio.html", "destination": "/portfolio", "permanent": true },
+    { "source": "/portfolio.html", "destination": "/projets", "permanent": true },
+    { "source": "/portfolio", "destination": "/projets", "permanent": true },
     { "source": "/contact.html", "destination": "/contact", "permanent": true },
     { "source": "/mentions-legales.html", "destination": "/mentions-legales", "permanent": true },
     { "source": "/confidentialite.html", "destination": "/confidentialite", "permanent": true },

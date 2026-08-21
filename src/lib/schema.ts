@@ -12,7 +12,11 @@ export function organizationSchema() {
     email: site.email,
     telephone: site.phone,
     image: new URL(site.ogImage, site.url).toString(),
-    logo: new URL(site.ogImage, site.url).toString(),
+    logo: {
+      '@type': 'ImageObject',
+      url: new URL('/logo-mark.svg', site.url).toString(),
+      caption: site.name,
+    },
     founder: { '@type': 'Person', name: site.founder },
     foundingDate: site.creationDate,
     foundingLocation: {

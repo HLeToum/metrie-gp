@@ -15,3 +15,8 @@ dist/
 .env.local
 .env.*.local
 
+# local dev preview server (not shipped)
+server.js
+server.cjs
+public/logo-preview.html
+
