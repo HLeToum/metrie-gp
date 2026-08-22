@@ -1,0 +1,355 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { site, territories } from '../siteConfig';
+import { faqSchema, serviceSchema } from '../lib/schema';
+
+const title = 'Scan 3D Guadeloupe — Relevé LiDAR & Scan-to-BIM';
+const description =
+  "Scan 3D LiDAR en Guadeloupe : relevé d'existant, nuage de points géoréférencé et maquette BIM pour architectes, bureaux d'études et collectivités. Intervention sous 48 h sur toute l'île. Devis gratuit.";
+const keywords =
+  'scan 3D Guadeloupe, relevé 3D Guadeloupe, LiDAR Guadeloupe, scan-to-BIM Guadeloupe, nuage de points Guadeloupe, relevé bâtiment Guadeloupe, géomètre 3D Guadeloupe, numérisation 3D 971, scanner laser Le Gosier, Pointe-à-Pitre, Baie-Mahault';
+
+const breadcrumbs = [
+  { name: 'Accueil', path: '/' },
+  { name: 'Scan 3D Guadeloupe', path: '/scan-3d-guadeloupe' },
+];
+
+const guadeloupe = territories.find((t) => t.slug === 'guadeloupe')!;
+
+/* Communes regroupées par bassin pour un maillage géographique lisible
+   (et non un simple mur de noms de villes). */
+const zones = [
+  {
+    name: 'Grande-Terre',
+    blurb: 'Bassin économique et touristique : bâti hôtelier, résidentiel et tertiaire.',
+    cities: ['Pointe-à-Pitre', 'Les Abymes', 'Le Gosier', 'Sainte-Anne', 'Saint-François', 'Le Moule', 'Morne-à-l’Eau'],
+  },
+  {
+    name: 'Basse-Terre',
+    blurb: 'Bâti administratif, patrimoine colonial et ouvrages en terrain accidenté.',
+    cities: ['Basse-Terre', 'Saint-Claude', 'Petit-Bourg', 'Capesterre-Belle-Eau', 'Lamentin', 'Sainte-Rose'],
+  },
+  {
+    name: 'Zone industrielle de Jarry',
+    blurb: 'Premier pôle industriel des Antilles : usines, entrepôts, réseaux techniques.',
+    cities: ['Baie-Mahault', 'Jarry', 'Moudong'],
+  },
+  {
+    name: 'Îles du Sud',
+    blurb: 'Marie-Galante, Les Saintes, La Désirade — logistique maritime intégrée.',
+    cities: ['Grand-Bourg', 'Terre-de-Haut', 'Terre-de-Bas', 'Beauséjour'],
+  },
+];
+
+const useCases = [
+  {
+    n: '01',
+    title: 'Rénovation & extension',
+    body:
+      "Les plans d'origine sont perdus, approximatifs ou sur papier. Le scan 3D restitue l'existant réel — épaisseurs de murs, hauteurs sous plafond, niveaux, hors-d'équerre — pour monter un dossier de permis fiable du premier coup.",
+    who: 'Architectes · Maîtres d’œuvre · Particuliers',
+  },
+  {
+    n: '02',
+    title: 'Scan-to-BIM pour les bureaux d’études',
+    body:
+      "Nuage de points converti en maquette Revit, ArchiCAD ou IFC, du LOD 200 au LOD 400. Vos équipes travaillent sur une base dimensionnelle unique, sans nouvelle visite de contrôle.",
+    who: 'BE structure · BE fluides · BIM managers',
+  },
+  {
+    n: '03',
+    title: 'Patrimoine créole & bâti ancien',
+    body:
+      "Habitations, cases traditionnelles, édifices religieux, usines sucrières. Le scan fige l'état exact du bâti avant qu'un cyclone, l'humidité ou les termites ne l'altèrent — une archive numérique pérenne.",
+    who: 'Collectivités · DAC · Associations patrimoine',
+  },
+  {
+    n: '04',
+    title: 'Sites industriels en exploitation',
+    body:
+      "Le LiDAR mobile permet de scanner une installation sans interrompre la production. Tuyauterie, charpente métallique, réseaux : tout est capté en marchant, y compris en intervention nocturne.",
+    who: 'Industriels · Exploitants · Maintenance',
+  },
+  {
+    n: '05',
+    title: 'État des lieux post-cyclone',
+    body:
+      "Un relevé 3D daté constitue une preuve dimensionnelle opposable pour un dossier d'assurance. Réalisé en amont, il documente l'état initial ; réalisé après, il chiffre précisément les dommages.",
+    who: 'Assureurs · Experts d’assuré · Syndics',
+  },
+  {
+    n: '06',
+    title: 'Hôtellerie & villas de standing',
+    body:
+      "Relevé complet d'un établissement en activité pour projet de rénovation, plus restitution en visite virtuelle navigable — un même passage sur site, deux livrables.",
+    who: 'Hôteliers · Gestionnaires · Agences immobilières',
+  },
+];
+
+const faq = faqSchema([
+  {
+    q: 'Combien coûte un scan 3D en Guadeloupe ?',
+    a: "Le tarif dépend de la surface, de la complexité du site et des livrables attendus. À titre indicatif, un relevé avec nuage de points traité se situe entre 2 et 8 € / m², et une maquette BIM entre 8 et 50 € / m² selon le LOD. Nous établissons un devis gratuit sous 48 h à partir de la surface, du type de bâtiment et du livrable souhaité.",
+  },
+  {
+    q: 'Sous quel délai intervenez-vous en Guadeloupe ?',
+    a: "Nous sommes basés au Gosier, ce qui permet une mise en place sous 48 h partout sur l'archipel — Grande-Terre, Basse-Terre, Marie-Galante, Les Saintes et La Désirade. Un nuage de points livrable est ensuite généré sous 5 jours après la captation.",
+  },
+  {
+    q: 'Quelle est la précision de vos relevés en Guadeloupe ?',
+    a: "Notre scanner LiDAR mobile FJD Trion P2 atteint une précision relative de ±1,2 cm et une précision absolue de l'ordre de 3 cm avec géoréférencement. Chaque livraison inclut un rapport de conformité.",
+  },
+  {
+    q: 'Faut-il quitter les lieux pendant le scan ?',
+    a: "Non. Le LiDAR mobile est porté à la main et capte en marchant, sans trépied ni interruption d'activité. Nous scannons régulièrement des hôtels, des usines et des logements occupés sans gêner leurs occupants.",
+  },
+  {
+    q: 'Quels formats livrez-vous ?',
+    a: "Nuage de points en E57, LAS ou LAZ ; plans 2D en DWG et DXF ; maquettes BIM en RVT (Revit), PLN (ArchiCAD) et IFC 2×3 / IFC 4 ; visites virtuelles au format web. Nous nous adaptons à la charte BIM de votre projet.",
+  },
+  {
+    q: 'Intervenez-vous en dehors de la Guadeloupe ?',
+    a: "Oui. Depuis notre base au Gosier, nous intervenons en Martinique, à Saint-Martin, à Saint-Barthélemy et en Guyane. Les délais de mise en place sont adaptés au territoire concerné.",
+  },
+]);
+
+const serviceLd = serviceSchema({
+  name: 'Scan 3D LiDAR et Scan-to-BIM en Guadeloupe',
+  description:
+    "Relevé 3D par scanner LiDAR mobile en Guadeloupe : nuage de points géoréférencé, plans 2D, maquette BIM Revit / ArchiCAD / IFC et jumeau numérique. Bâtiment, industrie, patrimoine et ouvrages d'art.",
+  path: '/scan-3d-guadeloupe',
+});
+---
+
+<Layout
+  title={title}
+  description={description}
+  keywords={keywords}
+  path="/scan-3d-guadeloupe"
+  breadcrumbs={breadcrumbs}
+  extraSchema={[faq, serviceLd]}
+>
+  <main class="page-main">
+
+    <!-- ===================== HERO ===================== -->
+    <section class="p-8 md:p-16 lg:p-24">
+      <div class="tag">Guadeloupe · 971</div>
+      <h1 class="page-title">
+        Scan 3D en Guadeloupe,<br /><span class="thin">du terrain à la maquette.</span>
+      </h1>
+      <p class="page-lede">
+        Metrie GP est un studio de <strong>relevé 3D LiDAR</strong> basé au Gosier.
+        Nous numérisons bâtiments, ouvrages d'art et sites industriels de toute
+        la Guadeloupe pour en livrer des <strong>nuages de points géoréférencés</strong>,
+        des plans 2D et des <strong>maquettes BIM</strong> exploitables en quelques jours.
+      </p>
+      <div class="hero-cta" style="margin-top: 28px;">
+        <a href="/contact" class="btn-primary">Demander un devis gratuit</a>
+      </div>
+    </section>
+
+    <!-- ===================== CHIFFRES ===================== -->
+    <section class="p-8 md:p-16 lg:px-24 lg:py-8">
+      <div class="home-about-stats">
+        <div class="stat-card">
+          <div class="stat-k">Mise en place</div>
+          <div class="stat-v">48<sub>h</sub></div>
+          <div class="stat-d">Partout sur l'archipel guadeloupéen</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-k">Précision relative</div>
+          <div class="stat-v">±1,2<sub>cm</sub></div>
+          <div class="stat-d">Absolue de l'ordre de 3 cm, géoréférencée</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-k">Nuage livré</div>
+          <div class="stat-v">5<sub>j</sub></div>
+          <div class="stat-d">Après la captation terrain</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-k">Sans interruption</div>
+          <div class="stat-v">100<sub>%</sub></div>
+          <div class="stat-d">Sites en exploitation, LiDAR porté à la main</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== POURQUOI ICI ===================== -->
+    <section class="p-8 md:p-16 lg:p-24">
+      <div class="home-about-text">
+        <h2>Le bâti guadeloupéen<br /><em>a ses propres règles.</em></h2>
+        <p>
+          Relever un bâtiment en Guadeloupe n'a rien d'un relevé métropolitain
+          transposé. Le <strong>bâti colonial créole</strong> vieillit sous
+          l'humidité et les termites, rarement d'équerre et rarement documenté.
+          Les constructions récentes répondent aux <strong>normes parasismiques
+          et paracycloniques DOM-TOM</strong>, avec des contraintes structurelles
+          qu'un relevé approximatif ne sait pas restituer.
+        </p>
+        <p>
+          À cela s'ajoutent la végétation dense en limite de parcelle, les accès
+          difficiles en Basse-Terre et l'exposition cyclonique qui rend
+          l'archivage numérique de l'existant précieux. Nous travaillons ce
+          contexte au quotidien depuis notre base du Gosier — et nos livrables
+          en tiennent compte.
+        </p>
+      </div>
+    </section>
+
+    <!-- ===================== CAS D'USAGE ===================== -->
+    <section class="p-8 md:p-16 lg:p-24">
+      <div class="home-services-head">
+        <div class="tag">Cas d'usage</div>
+        <h2>Six situations où le scan 3D<br /><em>change la donne.</em></h2>
+      </div>
+
+      <div class="service-cards" style="margin-top: 40px;">
+        {useCases.map((c) => (
+          <article class="service-card">
+            <div class="service-card-num">{c.n}</div>
+            <h3>{c.title}</h3>
+            <p>{c.body}</p>
+            <p class="zone-cities"><strong>Pour :</strong> {c.who}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <!-- ===================== ZONES COUVERTES ===================== -->
+    <section class="p-8 md:p-16 lg:p-24">
+      <div class="home-services-head">
+        <div class="tag">Couverture</div>
+        <h2>Toute la Guadeloupe,<br /><em>îles du Sud comprises.</em></h2>
+        <p class="page-lede" style="margin-top: 18px;">
+          {guadeloupe.blurb}
+        </p>
+      </div>
+
+      <div class="service-cards" style="margin-top: 40px;">
+        {zones.map((z) => (
+          <article class="service-card">
+            <h3>{z.name}</h3>
+            <p>{z.blurb}</p>
+            <p class="zone-cities">{z.cities.join(' · ')}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <!-- ===================== MÉTHODE ===================== -->
+    <section class="p-8 md:p-16 lg:p-24">
+      <div class="home-services-head">
+        <div class="tag">Méthode</div>
+        <h2>Du site au livrable,<br /><em>en cinq étapes.</em></h2>
+      </div>
+
+      <div class="tools-pipeline" style="margin-top: 40px;">
+        <div class="pipe-step"><span class="pipe-num">01</span><span class="pipe-label">Cadrage du besoin</span></div>
+        <div class="pipe-step"><span class="pipe-num">02</span><span class="pipe-label">Captation LiDAR sur site</span></div>
+        <div class="pipe-step"><span class="pipe-num">03</span><span class="pipe-label">Recalage &amp; nettoyage</span></div>
+        <div class="pipe-step"><span class="pipe-num">04</span><span class="pipe-label">Modélisation BIM / 2D</span></div>
+        <div class="pipe-step"><span class="pipe-num">05</span><span class="pipe-label">Livraison &amp; rapport</span></div>
+      </div>
+
+      <div class="home-about-text" style="margin-top: 40px;">
+        <p>
+          Notre outil principal est le <strong>LiDAR mobile FJD Trion P2</strong> :
+          16 canaux, tête rotative 360°, quatre caméras HDR 12 MP pour la
+          colorisation et centrale inertielle de précision. Il capte
+          <strong>en marchant</strong>, sans trépied ni station fixe — ce qui
+          divise le temps de présence sur site et permet d'intervenir sur des
+          bâtiments occupés. Le traitement se fait ensuite sur
+          <strong>Autodesk Revit</strong>, <strong>ArchiCAD</strong>,
+          <strong>AutoCAD</strong>, <strong>CloudCompare</strong> et
+          <strong>Autodesk Recap</strong>.
+        </p>
+        <p>
+          <a href="/outils" class="btn-text">Voir la stack technique complète →</a>
+        </p>
+      </div>
+    </section>
+
+    <!-- ===================== FAQ ===================== -->
+    <section class="p-8 md:p-16 lg:p-24">
+      <div class="home-services-head">
+        <div class="tag">Questions fréquentes</div>
+        <h2>Scan 3D en Guadeloupe :<br /><em>ce qu'on nous demande.</em></h2>
+      </div>
+
+      <div class="legal-body" style="margin-top: 40px; max-width: 820px;">
+        <h3>Combien coûte un scan 3D en Guadeloupe ?</h3>
+        <p>
+          Le tarif dépend de la surface, de la complexité du site et des
+          livrables attendus. À titre indicatif, un relevé avec nuage de points
+          traité se situe entre <strong>2 et 8 € / m²</strong>, et une maquette
+          BIM entre <strong>8 et 50 € / m²</strong> selon le niveau de détail
+          (LOD 200 à LOD 400). Nous établissons un
+          <a href="/contact">devis gratuit sous 48 h</a> à partir de la surface,
+          du type de bâtiment et du livrable souhaité.
+        </p>
+
+        <h3>Sous quel délai intervenez-vous ?</h3>
+        <p>
+          Nous sommes basés au Gosier, ce qui permet une mise en place
+          <strong>sous 48 h</strong> partout sur l'archipel — Grande-Terre,
+          Basse-Terre, Marie-Galante, Les Saintes et La Désirade. Un nuage de
+          points livrable est généré sous 5 jours après la captation ; une
+          maquette BIM complète demande 2 à 4 semaines supplémentaires selon
+          le LOD demandé.
+        </p>
+
+        <h3>Quelle est la précision de vos relevés ?</h3>
+        <p>
+          Le FJD Trion P2 atteint une <strong>précision relative de ±1,2 cm</strong>
+          et une précision absolue de l'ordre de 3 cm avec géoréférencement.
+          Chaque livraison inclut un rapport de conformité qui documente la
+          méthode de recalage et les tolérances mesurées.
+        </p>
+
+        <h3>Faut-il quitter les lieux pendant le scan ?</h3>
+        <p>
+          Non. Le LiDAR mobile est porté à la main et capte en marchant, sans
+          trépied ni interruption d'activité. Nous scannons régulièrement des
+          hôtels en exploitation, des sites industriels de Jarry et des
+          logements occupés sans gêner leurs occupants. Une intervention
+          nocturne reste possible sur les zones sensibles.
+        </p>
+
+        <h3>Quels formats livrez-vous ?</h3>
+        <p>
+          Nuage de points en <strong>E57</strong>, <strong>LAS</strong> ou
+          <strong>LAZ</strong> ; plans 2D en <strong>DWG</strong> et
+          <strong>DXF</strong> ; maquettes BIM en <strong>RVT</strong> (Revit),
+          <strong>PLN</strong> (ArchiCAD) et <strong>IFC 2×3 / IFC 4</strong> ;
+          visites virtuelles au format web. Nous nous adaptons à la charte BIM
+          de votre projet.
+        </p>
+
+        <h3>Intervenez-vous en dehors de la Guadeloupe ?</h3>
+        <p>
+          Oui. Depuis notre base du Gosier, nous intervenons en
+          <strong>Martinique</strong>, à <strong>Saint-Martin</strong>, à
+          <strong>Saint-Barthélemy</strong> et en <strong>Guyane</strong>.
+          Les délais de mise en place sont adaptés au territoire concerné.
+        </p>
+      </div>
+    </section>
+
+    <!-- ===================== CTA ===================== -->
+    <section class="p-8 md:p-16 lg:p-24">
+      <div class="page-cta">
+        <h2>Un projet en Guadeloupe ?</h2>
+        <p>
+          Décrivez-nous le site — nous répondons sous 24 h ouvrées avec une
+          première estimation et un créneau de visite technique.
+        </p>
+        <a href="/contact" class="btn-primary">Demander un devis gratuit</a>
+        <p style="margin-top: 20px; font-size: 14px; opacity: 0.75;">
+          Ou directement : <a href={`mailto:${site.email}`}>{site.email}</a>
+          · <a href={`tel:${site.phone[0]}`}>{site.phoneDisplay[0]}</a>
+        </p>
+      </div>
+    </section>
+
+  </main>
+</Layout>

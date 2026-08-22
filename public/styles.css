@@ -1870,6 +1870,23 @@ footer {
   line-height: 1.6;
   margin-bottom: 20px;
 }
+/* Liste de communes / audience en pied de carte service (landing territoire) */
+.service-card .zone-cities {
+  margin-top: auto;
+  margin-bottom: 0;
+  padding-top: 18px;
+  border-top: 1px solid var(--line-soft);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11.5px;
+  line-height: 1.7;
+  letter-spacing: 0.04em;
+  color: var(--ink-dim);
+}
+.service-card .zone-cities strong {
+  color: var(--ink-2);
+  font-weight: 500;
+}
+
 .service-card-list {
   list-style: none;
   padding: 0;

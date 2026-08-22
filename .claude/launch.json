@@ -3,8 +3,8 @@
   "configurations": [
     {
       "name": "metrie-gp",
-      "runtimeExecutable": "node",
-      "runtimeArgs": ["server.js"],
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev", "--", "--port", "5180"],
       "port": 5180
     }
   ]

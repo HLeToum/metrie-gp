@@ -7,7 +7,7 @@ export default defineConfig({
   site: 'https://metrie-gp.fr',
   output: 'static',
   adapter: vercel({
-    webAnalytics: { enabled: false },
+    webAnalytics: { enabled: true },
     imageService: false,
   }),
   trailingSlash: 'never',
@@ -29,6 +29,7 @@ export default defineConfig({
       lastmod: new Date(),
       customPages: [
         'https://metrie-gp.fr/',
+        'https://metrie-gp.fr/scan-3d-guadeloupe',
         'https://metrie-gp.fr/demo',
         'https://metrie-gp.fr/outils',
         'https://metrie-gp.fr/projets',
@@ -39,6 +40,11 @@ export default defineConfig({
         if (item.url.includes('/mentions-legales') || item.url.includes('/confidentialite')) {
           item.priority = 0.2;
           item.changefreq = 'yearly';
+        }
+        // Landing territoriale : cible principale du SEO local, juste sous la home.
+        if (item.url.includes('/scan-3d-')) {
+          item.priority = 0.9;
+          item.changefreq = 'monthly';
         }
         if (item.url === 'https://metrie-gp.fr/blog') {
           item.priority = 0.7;
