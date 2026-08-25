@@ -1,0 +1,16 @@
+{
+  "name": "Metrie GP — Scan 3D LiDAR & Scan-to-BIM",
+  "short_name": "Metrie GP",
+  "description": "Studio de scan 3D LiDAR et Scan-to-BIM basé en Guadeloupe. Relevés haute précision pour le bâtiment, l'industrie, l'ingénierie et le patrimoine.",
+  "lang": "fr-FR",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#02140a",
+  "theme_color": "#02140a",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
