@@ -1,0 +1,354 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { site } from '../siteConfig';
+import { faqSchema, serviceSchema } from '../lib/schema';
+
+const title = 'Plans pour permis de construire en Guadeloupe';
+const description =
+  "Plan de masse coté dans les 3 dimensions, plan de coupe, plans de façades et toitures pour votre permis de construire ou déclaration préalable en Guadeloupe. Relevé 3D en une visite, dossier conforme.";
+const keywords =
+  'plan de masse coté dans les 3 dimensions, plan de masse coté Guadeloupe, plan de coupe permis de construire, plan façade et toiture, plan façade pour DP, déclaration préalable travaux Guadeloupe, permis de construire Guadeloupe, prix permis de construire Guadeloupe, PCMI2, PCMI3, PCMI5, DP2, dessinateur plan maison Guadeloupe, plan existant Guadeloupe, relevé pour permis de construire, plan cadastral Guadeloupe, Sainte-Anne, Saint-François, Le Gosier, Lamentin, Baie-Mahault';
+
+const breadcrumbs = [
+  { name: 'Accueil', path: '/' },
+  { name: 'Plans pour permis de construire', path: '/plans-permis-de-construire-guadeloupe' },
+];
+
+/* Pièces graphiques du dossier, avec leur code officiel. Un demandeur cherche
+   souvent la pièce par son nom exact (« plan de masse coté dans les 3
+   dimensions ») plutôt que par le mot « scan ». */
+const pieces = [
+  {
+    code: 'PCMI1 / DP1',
+    name: 'Plan de situation du terrain',
+    body:
+      "Situe la parcelle dans la commune. Établi à partir du plan cadastral, il ne demande pas de relevé sur site mais fait partie des pièces que nous préparons avec le reste du dossier.",
+  },
+  {
+    code: 'PCMI2 / DP2',
+    name: 'Plan de masse coté dans les 3 dimensions',
+    body:
+      "La pièce la plus souvent refusée. Elle doit montrer le bâti, les limites de parcelle, les accès, les réseaux et les altimétries. Le relevé 3D fournit directement les cotes en X, Y et Z, avec rattachement NGF si la commune l'exige.",
+  },
+  {
+    code: 'PCMI3 / DP3',
+    name: 'Plan de coupe du terrain et de la construction',
+    body:
+      "Montre le profil du terrain avant et après travaux, et l'implantation du bâtiment dessus. Sur un terrain en pente, fréquent en Basse-Terre, un relevé approximatif fait rejeter le dossier.",
+  },
+  {
+    code: 'PCMI5 / DP4',
+    name: 'Plans des façades et des toitures',
+    body:
+      "Toutes les façades, avec hauteurs, ouvertures, matériaux et pentes de toiture. Extraits directement du nuage de points, donc fidèles à l'existant et non redessinés de mémoire.",
+  },
+  {
+    code: 'PCMI6 / DP6',
+    name: 'Insertion dans l\'environnement proche',
+    body:
+      "Photomontage du projet dans son contexte. La maquette 3D issue du scan permet une insertion réaliste, calée sur les volumes réels du voisinage.",
+  },
+];
+
+const cas = [
+  {
+    n: '01',
+    title: 'Vous n\'avez plus les plans',
+    body:
+      "Maison des années 60 ou 70, plans perdus, mairie qui n'a rien archivé. Le relevé 3D reconstitue l'existant tel qu'il est aujourd'hui, y compris les modifications faites au fil des ans et jamais déclarées.",
+  },
+  {
+    n: '02',
+    title: 'Extension ou surélévation',
+    body:
+      "Le projet doit se raccorder au millimètre sur l'existant. Hauteurs sous plafond, niveaux de dalle, épaisseurs de murs, position exacte des porteurs : tout est mesuré en une visite.",
+  },
+  {
+    n: '03',
+    title: 'Régularisation de travaux',
+    body:
+      "Véranda, garage ou étage construits sans autorisation. Le relevé documente précisément ce qui existe pour monter un dossier de régularisation défendable.",
+  },
+  {
+    n: '04',
+    title: 'Division en plusieurs logements',
+    body:
+      "Transformer une maison en deux ou trois appartements demande des plans d'état des lieux fiables, des surfaces exactes et le respect des règles d'urbanisme communales.",
+  },
+  {
+    n: '05',
+    title: 'Terrain en pente',
+    body:
+      "Très courant en Basse-Terre et sur les hauteurs. Le plan de coupe exige des altimétries réelles, impossibles à estimer à vue depuis une photo aérienne.",
+  },
+  {
+    n: '06',
+    title: 'Dossier déjà refusé',
+    body:
+      "Le service urbanisme a demandé des pièces complémentaires ou jugé le plan de masse insuffisant. Nous reprenons le dossier sur une base mesurée.",
+  },
+];
+
+const faq = faqSchema([
+  {
+    q: 'Qu\'est-ce qu\'un plan de masse coté dans les 3 dimensions ?',
+    a: "C'est la pièce PCMI2 du permis de construire (DP2 en déclaration préalable). Elle représente la parcelle vue du dessus avec les cotes dans les trois dimensions : longueurs, largeurs et altitudes. Elle doit faire apparaître le bâti existant et projeté, les limites séparatives, les accès, les réseaux et les niveaux du terrain. C'est la pièce la plus souvent jugée insuffisante par les services d'urbanisme.",
+  },
+  {
+    q: 'Combien coûte un relevé pour un dossier de permis de construire en Guadeloupe ?',
+    a: "Pour une maison individuelle, comptez généralement entre 800 et 2 500 € HT selon la surface, la complexité du terrain et le nombre de pièces graphiques demandées. Nous établissons un devis gratuit sous 48 h à partir de l'adresse, de la surface et de la nature du projet.",
+  },
+  {
+    q: 'Combien de temps faut-il pour obtenir les plans ?',
+    a: "Le relevé sur site prend une demi-journée pour une maison individuelle. Les plans 2D cotés sont livrés sous 5 jours ouvrés après l'intervention. En cas d'urgence de dépôt, nous pouvons réduire ce délai.",
+  },
+  {
+    q: 'Faut-il un géomètre-expert pour un permis de construire ?',
+    a: "Non, sauf si le projet implique une division parcellaire ou un bornage, actes réservés aux géomètres-experts. Pour les pièces graphiques d'un dossier de permis ou de déclaration préalable, un relevé 3D précis et des plans conformes suffisent. Nous travaillons en partenariat avec des géomètres-experts guadeloupéens lorsque le foncier entre en jeu.",
+  },
+  {
+    q: 'Intervenez-vous dans toutes les communes de Guadeloupe ?',
+    a: "Oui. Depuis notre base au Gosier, nous intervenons dans les 32 communes de l'archipel, y compris Marie-Galante, Les Saintes et La Désirade. Chaque commune ayant son propre PLU, nous adaptons les pièces aux exigences du service urbanisme concerné.",
+  },
+  {
+    q: 'Que faire si les plans d\'origine ont été perdus ?',
+    a: "Commencez par interroger le service urbanisme de votre mairie, qui archive les permis délivrés, puis les archives départementales et le cadastre. Si aucune de ces pistes n'aboutit, ou si le bâtiment a été modifié depuis, un relevé 3D reconstitue l'état réel actuel, ce qui est de toute façon ce que demande l'administration pour un dossier de travaux.",
+  },
+]);
+
+const serviceLd = serviceSchema({
+  name: 'Plans pour permis de construire et déclaration préalable en Guadeloupe',
+  description:
+    "Production des pièces graphiques d'un dossier d'urbanisme à partir d'un relevé 3D LiDAR : plan de masse coté dans les 3 dimensions, plan de coupe, plans de façades et toitures, insertion paysagère.",
+  path: '/plans-permis-de-construire-guadeloupe',
+});
+---
+
+<Layout
+  title={title}
+  description={description}
+  keywords={keywords}
+  path="/plans-permis-de-construire-guadeloupe"
+  breadcrumbs={breadcrumbs}
+  extraSchema={[faq, serviceLd]}
+>
+  <main class="page-main">
+
+    <section class="p-8 md:p-16 lg:p-24">
+      <div class="tag">Urbanisme · Guadeloupe</div>
+      <h1 class="page-title">
+        Vos plans de permis<br /><span class="thin">mesurés, pas estimés.</span>
+      </h1>
+      <p class="page-lede">
+        <strong>Plan de masse coté dans les 3 dimensions</strong>, plan de coupe,
+        plans de façades et toitures : nous produisons les pièces graphiques de
+        votre permis de construire ou de votre déclaration préalable à partir
+        d'un <strong>relevé 3D de l'existant</strong>. Une visite sur site,
+        des cotes réelles, un dossier qui passe.
+      </p>
+      <div class="hero-cta" style="margin-top: 28px;">
+        <a href="/contact" class="btn-primary">Demander un devis gratuit</a>
+      </div>
+    </section>
+
+    <section class="p-8 md:p-16 lg:px-24 lg:py-8">
+      <div class="home-about-stats">
+        <div class="stat-card">
+          <div class="stat-k">Relevé sur site</div>
+          <div class="stat-v">½<sub>journée</sub></div>
+          <div class="stat-d">Pour une maison individuelle</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-k">Plans livrés</div>
+          <div class="stat-v">5<sub>jours</sub></div>
+          <div class="stat-d">Ouvrés après l'intervention</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-k">Précision</div>
+          <div class="stat-v">±1,2<sub>cm</sub></div>
+          <div class="stat-d">Relative, absolue de l'ordre de 3 cm</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-k">Communes couvertes</div>
+          <div class="stat-v">32<sub>/32</sub></div>
+          <div class="stat-d">Îles du Sud comprises</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ LES PIECES ============ -->
+    <section class="p-8 md:p-16 lg:p-24">
+      <div class="home-services-head">
+        <div class="tag">Pièces graphiques</div>
+        <h2>Ce que contient<br /><em>votre dossier.</em></h2>
+        <p class="page-lede" style="margin-top: 18px;">
+          Un dossier de permis de construire comporte des pièces numérotées
+          PCMI, PCMI2 pour le plan de masse par exemple. En déclaration
+          préalable, elles portent le préfixe DP. Voici celles que nous
+          produisons.
+        </p>
+      </div>
+
+      <div class="service-cards" style="margin-top: 40px;">
+        {pieces.map((p) => (
+          <article class="service-card">
+            <div class="service-card-num">{p.code}</div>
+            <h3>{p.name}</h3>
+            <p>{p.body}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <!-- ============ CAS ============ -->
+    <section class="p-8 md:p-16 lg:p-24">
+      <div class="home-services-head">
+        <div class="tag">Quand nous appeler</div>
+        <h2>Six situations<br /><em>qui reviennent tout le temps.</em></h2>
+      </div>
+
+      <div class="service-cards" style="margin-top: 40px;">
+        {cas.map((c) => (
+          <article class="service-card">
+            <div class="service-card-num">{c.n}</div>
+            <h3>{c.title}</h3>
+            <p>{c.body}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <!-- ============ METHODE ============ -->
+    <section class="p-8 md:p-16 lg:p-24">
+      <div class="home-services-head">
+        <div class="tag">Déroulé</div>
+        <h2>Du rendez-vous<br /><em>au dépôt en mairie.</em></h2>
+      </div>
+
+      <div class="tools-pipeline" style="margin-top: 40px;">
+        <div class="pipe-step"><span class="pipe-num">01</span><span class="pipe-label">Devis sous 48 h</span></div>
+        <div class="pipe-step"><span class="pipe-num">02</span><span class="pipe-label">Relevé 3D sur site</span></div>
+        <div class="pipe-step"><span class="pipe-num">03</span><span class="pipe-label">Traitement du nuage</span></div>
+        <div class="pipe-step"><span class="pipe-num">04</span><span class="pipe-label">Plans cotés DWG / PDF</span></div>
+        <div class="pipe-step"><span class="pipe-num">05</span><span class="pipe-label">Dossier prêt à déposer</span></div>
+      </div>
+
+      <div class="home-about-text" style="margin-top: 40px;">
+        <p>
+          Le relevé se fait au <strong>LiDAR mobile FJD Trion P2</strong>, porté
+          à la main. Pas de trépied, pas de va-et-vient : nous parcourons le
+          bâtiment et ses abords en marchant, intérieur comme extérieur. Vous
+          n'avez pas à quitter les lieux.
+        </p>
+        <p>
+          Le nuage de points obtenu contient tout le visible. Si le service
+          urbanisme demande plus tard une cote qui ne figure pas au plan, nous
+          la ressortons du relevé <strong>sans revenir sur site</strong>.
+        </p>
+        <p>
+          <a href="/scan-3d-guadeloupe" class="btn-text">Voir notre offre de scan 3D en Guadeloupe →</a>
+        </p>
+      </div>
+    </section>
+
+    <!-- ============ FAQ ============ -->
+    <section class="p-8 md:p-16 lg:p-24">
+      <div class="home-services-head">
+        <div class="tag">Questions fréquentes</div>
+        <h2>Permis de construire<br /><em>en Guadeloupe.</em></h2>
+      </div>
+
+      <div class="legal-body" style="margin-top: 40px; max-width: 820px;">
+        <h3>Qu'est-ce qu'un plan de masse coté dans les 3 dimensions ?</h3>
+        <p>
+          C'est la pièce <strong>PCMI2</strong> du permis de construire, ou
+          <strong>DP2</strong> en déclaration préalable. Elle représente la
+          parcelle vue du dessus, avec les cotes dans les trois dimensions :
+          longueurs, largeurs et <strong>altitudes</strong>. Elle doit faire
+          apparaître le bâti existant et projeté, les limites séparatives, les
+          accès, les réseaux et les niveaux du terrain.
+        </p>
+        <p>
+          C'est la pièce la plus souvent jugée insuffisante par les services
+          d'urbanisme, parce qu'elle est fréquemment produite à partir d'une
+          photo aérienne plutôt que d'un relevé réel.
+        </p>
+
+        <h3>Combien coûtent les plans pour un permis de construire en Guadeloupe ?</h3>
+        <p>
+          Pour une maison individuelle, comptez généralement entre
+          <strong>800 et 2 500 € HT</strong> selon la surface, la complexité du
+          terrain et le nombre de pièces graphiques demandées. Un terrain plat
+          avec une construction simple se situe en bas de fourchette, un terrain
+          en pente avec extension en haut.
+        </p>
+        <p>
+          Nous établissons un <a href="/contact">devis gratuit sous 48 h</a> à
+          partir de l'adresse, de la surface et de la nature du projet.
+        </p>
+
+        <h3>Combien de temps faut-il pour obtenir les plans ?</h3>
+        <p>
+          Le relevé sur site prend une <strong>demi-journée</strong> pour une
+          maison individuelle. Les plans 2D cotés sont livrés sous
+          <strong>5 jours ouvrés</strong> après l'intervention. En cas
+          d'urgence de dépôt, nous pouvons réduire ce délai.
+        </p>
+
+        <h3>Faut-il obligatoirement un géomètre-expert ?</h3>
+        <p>
+          Non, sauf si votre projet implique une <strong>division parcellaire
+          ou un bornage</strong>, actes réservés par la loi aux
+          géomètres-experts. Pour les pièces graphiques d'un dossier de permis
+          ou de déclaration préalable, un relevé précis et des plans conformes
+          suffisent.
+        </p>
+        <p>
+          Lorsque le foncier entre en jeu, nous travaillons en partenariat avec
+          des géomètres-experts guadeloupéens et intervenons sur la partie
+          relevé et modélisation.
+        </p>
+
+        <h3>Intervenez-vous dans toutes les communes ?</h3>
+        <p>
+          Oui, dans les <strong>32 communes</strong> de l'archipel, Marie-Galante,
+          Les Saintes et La Désirade comprises. Chaque commune ayant son propre
+          PLU, nous adaptons les pièces aux exigences du service urbanisme
+          concerné, que ce soit à Sainte-Anne, Saint-François, Le Gosier,
+          Baie-Mahault, Le Lamentin ou Basse-Terre.
+        </p>
+
+        <h3>Et si les plans d'origine ont été perdus ?</h3>
+        <p>
+          Commencez par le <strong>service urbanisme de votre mairie</strong>,
+          qui archive les permis délivrés, puis les <strong>archives
+          départementales</strong> et le <strong>cadastre</strong>. Ces pistes
+          sont gratuites et méritent d'être tentées.
+        </p>
+        <p>
+          Si aucune n'aboutit, ou si le bâtiment a été modifié depuis sa
+          construction, un relevé 3D reconstitue l'état réel actuel. C'est de
+          toute façon ce que demande l'administration pour un dossier de
+          travaux : l'existant tel qu'il est aujourd'hui, pas tel qu'il était
+          prévu il y a quarante ans.
+        </p>
+      </div>
+    </section>
+
+    <section class="p-8 md:p-16 lg:p-24">
+      <div class="page-cta">
+        <h2>Un dossier à déposer ?</h2>
+        <p>
+          Envoyez-nous l'adresse et la nature du projet. Nous revenons sous
+          24 h ouvrées avec une estimation et un créneau de visite.
+        </p>
+        <a href="/contact" class="btn-primary">Demander un devis gratuit</a>
+        <p style="margin-top: 20px; font-size: 14px; opacity: 0.75;">
+          Ou directement : <a href={`mailto:${site.email}`}>{site.email}</a>
+          · <a href={`tel:${site.phone[0]}`}>{site.phoneDisplay[0]}</a>
+        </p>
+      </div>
+    </section>
+
+  </main>
+</Layout>

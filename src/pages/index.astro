@@ -3,11 +3,14 @@ import Layout from '../layouts/Layout.astro';
 import { faqSchema } from '../lib/schema';
 import SimulateurNuage from '../components/SimulateurNuage.astro';
 
-const title = 'Votre partenaire en matière de relevé';
+/* Le titre porte le métier et le territoire : sans eux, Google classait le
+   site sur des requêtes nationales génériques (« relevé 3d », « nuage de
+   points ») face à des acteurs métropolitains établis, en position ~47. */
+const title = 'Scan 3D & Relevé de bâtiment en Guadeloupe';
 const description =
-  "Metrie GP est un studio de relevé 3D LiDAR basé en Guadeloupe et dans la caraïbe. Nous transformons bâtiments, ouvrages d'arts et site industriels en nuages de points, maquette BIM exploitable en quelques jours.";
+  "Relevé 3D LiDAR de bâtiment en Guadeloupe : plans 2D, plan de masse coté, maquette BIM et nuage de points. Studio basé au Gosier, intervention sous 48 h dans toute la Guadeloupe. Devis gratuit.";
 const keywords =
-  'scan 3D LiDAR Guadeloupe, Scan-to-BIM Antilles, relevé topographique Guadeloupe, nuage de points, maquette BIM Revit, modélisation ArchiCAD, jumeau numérique, FJD Trion P2, patrimoine créole, DOM-TOM, relevé architectural';
+  'scan 3D Guadeloupe, relevé 3D bâtiment Guadeloupe, relevé bâtiment existant, géomètre 3D Guadeloupe, topographe Guadeloupe, plan de masse coté 3 dimensions, plan de coupe permis de construire, plan façade et toiture, déclaration préalable travaux, permis de construire Guadeloupe, dessinateur plan maison Guadeloupe, relevé architectural, relevé de cotes bâtiment, métré bâtiment, loi Carrez mesurage, surface habitable, division maison en appartement, Scan-to-BIM Guadeloupe, maquette BIM Revit ArchiCAD, nuage de points, numérisation bâtiment, habitation créole, case créole, patrimoine créole, Le Gosier, Pointe-à-Pitre, Baie-Mahault, Sainte-Anne, Basse-Terre, Antilles';
 
 const faq = faqSchema([
   {
@@ -86,6 +89,9 @@ const faq = faqSchema([
           <h2>Mesurer le réel,<br /><em>sans approximation.</em></h2>
           <p style="margin-bottom: 8px;">
             <a href="/scan-3d-guadeloupe" class="btn-text">Notre offre de scan 3D en Guadeloupe →</a>
+          </p>
+          <p style="margin-bottom: 8px;">
+            <a href="/plans-permis-de-construire-guadeloupe" class="btn-text">Plans pour permis de construire →</a>
           </p>
           <p>
            Metrie GP accompagne architectes, bureaux d'études, maîtres d'œuvre et collectivités dans la captation et la restitution numérique de l'existant. Nous intervenons partout dans les Antilles françaises — Guadeloupe, Martinique, Guyane, Saint-Martin, Saint-Barthélemy — avec un savoir-faire dans le domaine du bâtiment .

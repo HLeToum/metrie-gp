@@ -30,6 +30,7 @@ export default defineConfig({
       customPages: [
         'https://metrie-gp.fr/',
         'https://metrie-gp.fr/scan-3d-guadeloupe',
+        'https://metrie-gp.fr/plans-permis-de-construire-guadeloupe',
         'https://metrie-gp.fr/demo',
         'https://metrie-gp.fr/outils',
         'https://metrie-gp.fr/projets',
@@ -41,8 +42,9 @@ export default defineConfig({
           item.priority = 0.2;
           item.changefreq = 'yearly';
         }
-        // Landing territoriale : cible principale du SEO local, juste sous la home.
-        if (item.url.includes('/scan-3d-')) {
+        // Landings d'acquisition : cibles principales du SEO local,
+        // juste sous la home.
+        if (item.url.includes('/scan-3d-') || item.url.includes('/plans-permis-')) {
           item.priority = 0.9;
           item.changefreq = 'monthly';
         }
